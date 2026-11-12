@@ -94,7 +94,8 @@ test('at 375 px tabs and theme names keep one line and the hero shows the articl
       };
     });
     expect(home, lang).toMatchObject({ tabRows: 1, tabsCut: 0, themesCut: 0, sidebar: 0 });
-    expect(home.tallestTheme, lang).toBeLessThanOrEqual(48);
+    // One line of text: 48 px, give or take sub-pixel rounding (48.0002 seen on CI).
+    expect(home.tallestTheme, lang).toBeLessThanOrEqual(48.5);
     expect(home.list, lang).toBeGreaterThan(300);
   }
   await page.goto('/fr/installation/');

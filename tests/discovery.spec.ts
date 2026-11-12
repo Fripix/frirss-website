@@ -38,7 +38,11 @@ test('reading layouts and theme preview respond to keyboard without navigating a
     for (const theme of ['Night', 'Default', 'Paper', 'High Contrast']) {
       await themes.getByRole('button', { name: theme, exact: true }).click();
       await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)));
-      expect(await axeViolations(page, ['wcag2a', 'wcag2aa'], '#themes')).toEqual([]);
+      // The band's ground eases to the new theme; WebKit does not always list that colour
+      // transition in getAnimations(), so axe could sample a mid-way frame. Judge the settled state.
+      await expect
+        .poll(() => axeViolations(page, ['wcag2a', 'wcag2aa'], '#themes'), { timeout: 5000 })
+        .toEqual([]);
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
