@@ -1,0 +1,427 @@
+/*
+  Motion that shows FriRSS at work. Everything here only applies under `.has-motion`, which the motion
+  script sets when the visitor has not asked for reduced motion. Text never fades: it moves or is revealed.
+  Nothing moves without end and there is no pause button: the hero receives two articles and
+  rests, the demonstrations are finite (see "Finite loops" below), layouts and themes change only
+  when the visitor chooses.
+*/
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Entrances, once: the title rises, the visual follows and is uncovered from the top. */
+.has-motion [data-reveal] {
+  transition:
+    transform 800ms var(--ease-out),
+    clip-path 1000ms var(--ease-out);
+}
+.has-motion [data-reveal='text']:not(.is-revealed) {
+  transform: translateY(28px);
+}
+.has-motion [data-reveal='visual'],
+.has-motion [data-reveal='lift'] {
+  transition-delay: 140ms;
+}
+/* Objects that cast a shadow (windows, phones) only slide in: a mask would clip their shadow. */
+.has-motion [data-reveal='lift']:not(.is-revealed) {
+  transform: translateY(56px);
+}
+.has-motion [data-reveal='visual']:not(.is-revealed) {
+  transform: translateY(48px);
+  clip-path: inset(0 0 30% 0);
+}
+.has-motion [data-reveal='visual'].is-revealed {
+  clip-path: inset(0 0 0 0);
+}
+.has-motion .feature:nth-child(2) {
+  transition-delay: 70ms;
+}
+.has-motion .feature:nth-child(3) {
+  transition-delay: 40ms;
+}
+.has-motion .feature:nth-child(4) {
+  transition-delay: 110ms;
+}
+
+/* Hero: an article arrives at the top of the list (twice, then the list rests). */
+.has-motion .fr-row.is-arriving {
+  overflow: hidden;
+  animation:
+    row-open 700ms var(--ease-out) both,
+    row-flash 1600ms ease-out both;
+}
+@keyframes row-open {
+  from {
+    max-height: 0;
+    padding-block: 0;
+    border-bottom-width: 0;
+  }
+  to {
+    max-height: 120px;
+  }
+}
+@keyframes row-flash {
+  from {
+    background-color: #b9efd6;
+  }
+}
+
+/* A new layout, on a click, is shown at once, with no animation at all: the owner found both the
+   sliding panes and the settling view unpleasant (11 November 2026). */
+
+/* Themes, on a click. Where View Transitions exist, the band and its window are swapped as two
+   pictures in 300 ms: only this band takes part, the rest of the page stays live. The colour
+   transitions below are the fallback, and are switched off while the pictures cross. */
+.has-motion #themes,
+.has-motion #themes .fr *,
+.has-motion #themes .fr {
+  transition-duration: 420ms;
+}
+:root {
+  view-transition-name: none;
+}
+/* The band only carries its name while it is being swapped, so it stays out of other transitions. */
+#themes.is-swapping {
+  view-transition-name: theme-band;
+}
+#themes.is-swapping,
+#themes.is-swapping * {
+  transition: none !important;
+}
+::view-transition-group(theme-band),
+::view-transition-old(theme-band),
+::view-transition-new(theme-band) {
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Finite loops. A block marked `data-loop` (a feature tile, the star tile)
+   gets `.is-playing` from the motion script when it comes on screen, is hovered, or when the keyboard
+   focus enters its section. It then plays two cycles, under five seconds in all, and rests.
+   The resting state IS the final state of the demonstration: it is what the tile shows without
+   JavaScript and with reduced motion. Each cycle rewinds from it, plays, and holds it again, so
+   nothing jumps when the class is removed. No pause button is needed (WCAG 2.2.2). */
+:root {
+  --loop: 2.35s;
+}
+.feature:nth-child(2) {
+  --loop-delay: 60ms;
+}
+.feature:nth-child(3) {
+  --loop-delay: 120ms;
+}
+.feature:nth-child(4) {
+  --loop-delay: 180ms;
+}
+
+/* ⌘K, at rest: the whole palette, as it opens (views, feeds, actions). Playing: "ciel" is typed,
+   the list keeps only the matching feed, then the query is cleared and the palette is whole again.
+   The demonstration ends where it began, so the tile is never half empty. */
+.frag-query {
+  display: none;
+}
+.has-motion .is-playing .feature-panel--palette .frag-query {
+  display: inline-block;
+  overflow: hidden;
+  width: 0;
+  color: var(--list-title);
+  font-weight: 600;
+  white-space: nowrap;
+  border-right: 2px solid var(--accent);
+  animation: palette-type var(--loop) steps(1, end) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--palette .frag-placeholder {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 40ch;
+  white-space: nowrap;
+  animation: palette-placeholder var(--loop) steps(1, end) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--palette .frag-filtered {
+  overflow: hidden;
+  animation: palette-filter var(--loop) var(--ease-out) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--palette .frag-match {
+  animation: palette-select var(--loop) steps(1, end) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--palette .frag-filtered.frag-first {
+  animation:
+    palette-filter var(--loop) var(--ease-out) var(--loop-delay, 0s) 2 both,
+    palette-unselect var(--loop) steps(1, end) var(--loop-delay, 0s) 2 both;
+}
+@keyframes palette-placeholder {
+  0%,
+  8%,
+  89%,
+  100% {
+    max-width: 40ch;
+  }
+  9%,
+  88% {
+    max-width: 0;
+  }
+}
+@keyframes palette-type {
+  0%,
+  9% {
+    width: 0;
+  }
+  13% {
+    width: 1ch;
+  }
+  17% {
+    width: 2ch;
+  }
+  21% {
+    width: 3ch;
+  }
+  25%,
+  88% {
+    width: 4.2ch;
+  }
+  89%,
+  100% {
+    width: 0;
+  }
+}
+@keyframes palette-filter {
+  0%,
+  28% {
+    max-height: 40px;
+  }
+  38%,
+  88% {
+    max-height: 0;
+    min-height: 0;
+    padding-block: 0;
+  }
+  100% {
+    max-height: 40px;
+  }
+}
+@keyframes palette-select {
+  0%,
+  37%,
+  89%,
+  100% {
+    background: transparent;
+    font-weight: 400;
+  }
+  38%,
+  88% {
+    background: var(--list-selected);
+    font-weight: 600;
+  }
+}
+@keyframes palette-unselect {
+  0%,
+  8%,
+  89%,
+  100% {
+    background: var(--list-selected);
+  }
+  9%,
+  88% {
+    background: transparent;
+  }
+}
+
+/* AI, at rest: the summary is written. Playing: it is written line by line, the spark turns. */
+.has-motion .is-playing .feature-panel--ai .fr-ai > p:last-child {
+  animation: ai-write var(--loop) steps(1, end) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--ai .fr-ai-head > svg {
+  animation: ai-spark var(--loop) var(--ease-out) var(--loop-delay, 0s) 2 both;
+}
+@keyframes ai-write {
+  7%,
+  22% {
+    clip-path: inset(0 0 100% 0);
+  }
+  30% {
+    clip-path: inset(0 0 75% 0);
+  }
+  38% {
+    clip-path: inset(0 0 50% 0);
+  }
+  46% {
+    clip-path: inset(0 0 25% 0);
+  }
+  54%,
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes ai-spark {
+  0%,
+  16% {
+    transform: rotate(0) scale(1);
+  }
+  36% {
+    transform: rotate(180deg) scale(1.25);
+  }
+  54%,
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Long press, at rest: the menu is open. Playing: it closes, a ripple presses the row, it opens. */
+.has-motion .is-playing .feature-panel--picker .fr-row.is-pressed {
+  position: relative;
+  overflow: hidden;
+}
+.has-motion .is-playing .feature-panel--picker .fr-row.is-pressed::after {
+  content: '';
+  position: absolute;
+  left: 30%;
+  top: 50%;
+  width: 240px;
+  height: 240px;
+  margin: -120px 0 0 -120px;
+  border-radius: 50%;
+  background: transparent;
+  animation: picker-press var(--loop) var(--ease-out) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--picker .frag-menu {
+  animation: picker-menu var(--loop) var(--ease-out) var(--loop-delay, 0s) 2 both;
+  transform-origin: 20% 0;
+}
+@keyframes picker-press {
+  0%,
+  14% {
+    transform: scale(0);
+    background: rgb(76 212 161 / 0.25);
+  }
+  38% {
+    transform: scale(1);
+    background: rgb(76 212 161 / 0.25);
+  }
+  50%,
+  100% {
+    transform: scale(1);
+    background: transparent;
+  }
+}
+@keyframes picker-menu {
+  0% {
+    clip-path: inset(0 0 0 0 round 12px);
+    transform: scale(1);
+  }
+  7%,
+  34% {
+    clip-path: inset(0 0 100% 0 round 12px);
+    transform: scale(0.96);
+  }
+  50%,
+  100% {
+    clip-path: inset(0 0 0 0 round 12px);
+    transform: scale(1);
+  }
+}
+
+/* Full article, at rest: the whole text is shown. Playing: back to the RSS excerpt, a press on
+   "Full article", "Extracting…", then the whole text again. */
+.has-motion .is-playing .feature-panel--full .frag-rss {
+  animation: full-rss var(--loop) steps(1, end) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--full .frag-full-btn {
+  animation: full-btn var(--loop) var(--ease-out) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--full .frag-label-full,
+.has-motion .is-playing .feature-panel--full .frag-label-extracting {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.has-motion .is-playing .feature-panel--full .frag-label-full {
+  animation: full-label var(--loop) steps(1, end) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--full .frag-label-extracting {
+  max-width: 0;
+  animation: full-extracting var(--loop) steps(1, end) var(--loop-delay, 0s) 2 both;
+}
+.has-motion .is-playing .feature-panel--full .frag-fullbody {
+  overflow: hidden;
+  animation: full-body var(--loop) var(--ease-out) var(--loop-delay, 0s) 2 both;
+}
+@keyframes full-rss {
+  7% {
+    border-color: var(--accent);
+    background: var(--list-selected);
+    color: var(--list-source);
+  }
+  50% {
+    border-color: var(--accent);
+    background: var(--list-selected);
+    color: var(--list-source);
+    animation-timing-function: steps(1, start);
+  }
+}
+@keyframes full-btn {
+  7%,
+  30% {
+    transform: scale(1);
+    border-color: var(--panel-border);
+    background: transparent;
+    color: var(--reading-meta);
+  }
+  33% {
+    transform: scale(0.94);
+  }
+  36%,
+  100% {
+    transform: scale(1);
+    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+  }
+}
+@keyframes full-label {
+  36% {
+    max-width: 0;
+  }
+  50% {
+    max-width: 0;
+    animation-timing-function: steps(1, start);
+  }
+}
+@keyframes full-extracting {
+  36% {
+    max-width: 14ch;
+  }
+  50% {
+    max-width: 14ch;
+    animation-timing-function: steps(1, start);
+  }
+}
+@keyframes full-body {
+  0% {
+    max-height: 30em;
+  }
+  7%,
+  50% {
+    max-height: 0;
+  }
+  74%,
+  100% {
+    max-height: 30em;
+  }
+}
+
+/* Hover: things that lead somewhere lift a little. */
+@media (hover: hover) and (pointer: fine) {
+  .has-motion .feature,
+  .has-motion .phones .phone {
+    transition: transform 300ms var(--ease-out);
+  }
+  .has-motion .feature:hover .feature-panel {
+    transform: translateY(-3px);
+  }
+  .has-motion .feature-panel {
+    transition: transform 300ms var(--ease-out);
+  }
+  .has-motion .phones .phone:hover {
+    transform: translateY(-6px);
+  }
+}

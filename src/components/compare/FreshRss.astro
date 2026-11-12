@@ -1,0 +1,289 @@
+---
+// The original FreshRSS interface (default theme, Origine, light), rebuilt in HTML with the same
+// sample feeds and articles as the FriRSS rendering. Sizes and colours were measured on a live
+// FreshRSS instance on 11 November 2026 (normal view at 1440 px, an opened article, and the
+// phone layout at 390 px). Three views: the list, an opened article, the phone.
+// Its labels are FreshRSS's own, from its public translation files (docs/SOURCES.md).
+import type { Dictionary } from '../../i18n';
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import UiIcon from '../reader/UiIcon.astro';
+import { articlePhotos } from '../reader/photos';
+import '../../styles/freshrss.css';
+interface Props {
+  t: Dictionary;
+  label: string;
+  view?: 'list' | 'article' | 'phone';
+}
+const { t, label, view = 'list' } = Astro.props;
+const feeds = t.reader.categories.flatMap((category) => category.feeds.map((feed) => feed.name));
+const tone = (source: string) => feeds.indexOf(source) % 6;
+// FreshRSS shows a full date on every row; the sample articles only carry a relative time.
+const clock = ['21:30', '20:42', '19:55', '19:10', '18:24', '17:48', '16:05', '15:31'];
+const f = t.reader.freshrss;
+const day = f.day;
+const rows = [...t.reader.articles, ...t.reader.articles.slice(0, 6)].map((article, i) => ({
+  ...article,
+  date: `${day} ${f.at} ${clock[i % clock.length]}`,
+  unread: i < 6,
+}));
+const lead = rows[0];
+const total = '48';
+---
+
+{view === 'phone' ? (
+  <div class="phone phone--fresh" data-fr-theme="default" role="img" aria-label={label}>
+    <div class="phone-screen" inert>
+      <div class="phone-ui frss frss--phone">
+        <div class="phone-status">
+          <span>9:41</span>
+          <span class="phone-island" />
+          <span class="phone-signal">
+            <i />
+            <i />
+            <i />
+            <b>82</b>
+          </span>
+        </div>
+        <div class="frss-header">
+          <span class="frss-logo">
+            <Icon name="rss" size={24} />
+            FreshRSS
+          </span>
+          <span class="frss-btn frss-gear">
+            <UiIcon name="cog" size={16} />
+          </span>
+        </div>
+        <div class="frss-menu">
+          <span class="frss-btn">
+            <UiIcon name="folder" size={15} />
+          </span>
+          <span class="frss-stick">
+            <span class="frss-btn">
+              <UiIcon name="inbox" size={15} />
+            </span>
+            <span class="frss-btn is-on frss-unread">
+              <UiIcon name="mail" size={15} />
+            </span>
+            <span class="frss-btn frss-gold">
+              <UiIcon name="star" size={15} />
+            </span>
+            <span class="frss-btn">
+              <UiIcon name="star" size={15} />
+            </span>
+            <span class="frss-btn">
+              <UiIcon name="search" size={15} />
+            </span>
+            <span class="frss-btn">
+              <UiIcon name="tag" size={15} />
+            </span>
+          </span>
+          <span class="frss-btn">
+            <UiIcon name="check" size={15} />
+          </span>
+          <span class="frss-stick">
+            <span class="frss-btn is-on">
+              <UiIcon name="lines" size={15} />
+            </span>
+            <span class="frss-btn">
+              <UiIcon name="grid" size={15} />
+            </span>
+            <span class="frss-btn">
+              <UiIcon name="book" size={15} />
+            </span>
+          </span>
+          <span class="frss-btn">
+            <UiIcon name="chevronSolid" size={13} />
+          </span>
+          <span class="frss-btn">
+            <UiIcon name="refresh" size={15} />
+          </span>
+        </div>
+        <p class="frss-day">
+          {f.today} — {day}
+        </p>
+        <ul class="frss-rows">
+          {rows.map((article) => (
+            <li class:list={{ 'is-unread': article.unread }}>
+              <span class="frss-cell frss-state">
+                <UiIcon name={article.unread ? 'mail' : 'inbox'} size={16} />
+              </span>
+              <span class="frss-cell">
+                <UiIcon name="star" size={16} />
+              </span>
+              <span class="frss-site">
+                <i class={`frss-fav frss-fav-${tone(article.source)}`}>
+                  {article.source.charAt(0)}
+                </i>
+              </span>
+              <span class="frss-title">{article.title}</span>
+              <span class="frss-cell">
+                <UiIcon name="external" size={15} />
+              </span>
+            </li>
+          ))}
+        </ul>
+        <div class="frss-bottom">
+          <UiIcon name="back" size={16} />
+          <UiIcon name="chevron" size={16} />
+          <UiIcon name="chevronRight" size={16} />
+        </div>
+      </div>
+    </div>
+  </div>
+) : (
+  <div class={`frss frss--${view}`} role="img" aria-label={label}>
+    <div class="frss-header" inert>
+      <span class="frss-logo">
+        <Icon name="rss" size={28} />
+        FreshRSS
+      </span>
+      <span class="frss-search">
+        <span>{f.search}</span>
+        <b>
+          <UiIcon name="search" size={15} />
+        </b>
+      </span>
+      <span class="frss-btn frss-gear">
+        <UiIcon name="cog" size={16} />
+      </span>
+    </div>
+    <div class="frss-aside" inert>
+      <span class="frss-manage">
+        <b>{f.manage}</b>
+        <b>+</b>
+      </span>
+      <span class="frss-tree is-active">
+        <UiIcon name="lines" size={14} />
+        {f.main}
+        <b>{total}</b>
+      </span>
+      <span class="frss-tree">
+        <UiIcon name="tag" size={14} />
+        {f.important}
+      </span>
+      <span class="frss-tree">
+        <span class="frss-gold">
+          <UiIcon name="star" size={14} />
+        </span>
+        {f.favorites}
+      </span>
+      {t.reader.categories.map((category) => (
+        <span class="frss-tree">
+          <UiIcon name="chevron" size={14} />
+          {category.name}
+          <b>{category.feeds.length * 4 + 2}</b>
+        </span>
+      ))}
+    </div>
+    <div class="frss-main" inert>
+      <div class="frss-menu">
+        <span class="frss-btn frss-first">
+          <UiIcon name="folder" size={15} />
+        </span>
+        <span class="frss-stick">
+          <span class="frss-btn">
+            <UiIcon name="inbox" size={15} />
+          </span>
+          <span class="frss-btn is-on frss-unread">
+            <UiIcon name="mail" size={15} />
+          </span>
+          <span class="frss-btn frss-gold">
+            <UiIcon name="star" size={15} />
+          </span>
+          <span class="frss-btn">
+            <UiIcon name="star" size={15} />
+          </span>
+          <span class="frss-btn">
+            <UiIcon name="tag" size={15} />
+          </span>
+        </span>
+        <span class="frss-stick">
+          <span class="frss-btn frss-btn--text">{f.markRead}</span>
+          <span class="frss-btn">
+            <UiIcon name="chevron" size={13} />
+          </span>
+        </span>
+        <span class="frss-stick">
+          <span class="frss-btn is-on">
+            <UiIcon name="lines" size={15} />
+          </span>
+          <span class="frss-btn">
+            <UiIcon name="grid" size={15} />
+          </span>
+          <span class="frss-btn">
+            <UiIcon name="book" size={15} />
+          </span>
+        </span>
+        <span class="frss-btn">
+          <UiIcon name="chevronSolid" size={13} />
+        </span>
+        <span class="frss-btn">
+          <UiIcon name="refresh" size={15} />
+        </span>
+      </div>
+      <p class="frss-day">
+        {f.today} — {day}
+      </p>
+      <ul class="frss-rows">
+        {(view === 'article' ? rows.slice(1, 2) : rows).map((article) => (
+          <li class:list={{ 'is-unread': article.unread }}>
+            <span class="frss-cell frss-state">
+              <UiIcon name={article.unread ? 'mail' : 'inbox'} size={16} />
+            </span>
+            <span class="frss-cell">
+              <UiIcon name="star" size={16} />
+            </span>
+            <span class="frss-site">
+              <i class={`frss-fav frss-fav-${tone(article.source)}`}>{article.source.charAt(0)}</i>
+              <span>{article.source}</span>
+            </span>
+            <span class="frss-title">{article.title}</span>
+            <span class="frss-date">{article.date}</span>
+            <span class="frss-cell">
+              <UiIcon name="external" size={15} />
+            </span>
+          </li>
+        ))}
+      </ul>
+      {view === 'article' && (
+        <div class="frss-open">
+          <div class="frss-open-head">
+            <span class="frss-cell">
+              <UiIcon name="inbox" size={16} />
+            </span>
+            <span class="frss-cell">
+              <UiIcon name="star" size={16} />
+            </span>
+            <span class="frss-site">
+              <i class={`frss-fav frss-fav-${tone(lead.source)}`}>{lead.source.charAt(0)}</i>
+              <span>{lead.source}</span>
+            </span>
+            <span class="frss-title">{lead.title}</span>
+            <span class="frss-date">{lead.date}</span>
+            <span class="frss-cell">
+              <UiIcon name="external" size={15} />
+            </span>
+          </div>
+          <div class="frss-content">
+            <p class="frss-h1">{lead.title}</p>
+            <p class="frss-meta">
+              <i class={`frss-fav frss-fav-${tone(lead.source)}`}>{lead.source.charAt(0)}</i>
+              <span>{lead.source}</span> · {f.by}{' '}
+              <span>{t.reader.article.meta.split('·')[0].trim()}</span> · {lead.date}
+            </p>
+            <Image
+              src={articlePhotos[0]}
+              widths={[480, 640]}
+              sizes="(max-width: 639px) 80vw, 554px"
+              alt=""
+            />
+            {t.reader.article.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+)}

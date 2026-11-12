@@ -1,0 +1,47 @@
+{
+  "name": "frirss-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "node scripts/release.mjs && node scripts/validate-i18n.mjs && astro build && node scripts/validate-build.mjs",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check && npm run lint && npm run i18n:check && npm run format:check",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "i18n:check": "node scripts/validate-i18n.mjs",
+    "test": "playwright test",
+    "test:unit": "node --test tests/*.test.mjs",
+    "test:performance": "node scripts/lighthouse.mjs",
+    "release:update": "node scripts/release.mjs --refresh",
+    "publication:check": "node scripts/publication.mjs",
+    "sync:check": "node scripts/sync-check.mjs",
+    "social:images": "node scripts/social-images.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/hanken-grotesk": "5.3.0",
+    "@fontsource-variable/mona-sans": "5.3.0",
+    "@fontsource-variable/open-sans": "5.3.0",
+    "astro": "7.4.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "eslint": "10.13.0",
+    "eslint-plugin-astro": "1.7.0",
+    "globals": "17.13.0",
+    "lighthouse": "13.6.0",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.2",
+    "sharp": "0.35.5",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1"
+  }
+}

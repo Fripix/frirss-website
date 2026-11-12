@@ -1,0 +1,159 @@
+---
+// "Tune the interface": a small panel of FriRSS settings in three tabs (list, reading pane, bars)
+// beside a FriRSS window that follows them. The density radios reshape the rows; each switch hides
+// what carries its id in the rendering (`data-tb`, see reader/ArticleList.astro and
+// ReadingPane.astro), the way FriRSS's Preferences do. The settings work in CSS alone (`:has`);
+// the tabs come from tabs.ts and, without JavaScript, the three panes simply stack. The reset
+// button is the form's own. Labels are FriRSS's (reader.json, `toolbars`).
+// FriRSS applies the reading pane and shortcut bar settings on computers only: under 1024 px they
+// are not offered, and the window shows only its list.
+import type { Dictionary } from '../i18n';
+import Window from './reader/Window.astro';
+import '../styles/reader.css';
+import '../styles/custom.css';
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const c = t.home.custom;
+const tb = t.reader.toolbars;
+const densities = [
+  ['preview', tb.densities.preview],
+  ['standard', tb.densities.standard],
+  ['compact', tb.densities.compact],
+];
+type Group = { title: string; items: string[][]; desktop?: boolean };
+const panes: { id: string; tab: string; desktop?: boolean; groups: Group[] }[] = [
+  {
+    id: 'cz-list',
+    tab: c.tabs.list,
+    groups: [
+      {
+        title: tb.options,
+        items: [
+          ['optSource', tb.items.optSource],
+          ['optFavicons', tb.items.optFavicons],
+          ['optDates', tb.items.optDateSeparators],
+        ],
+      },
+      {
+        title: tb.rowIcons,
+        items: [
+          ['rowStar', tb.row.star],
+          ['rowLater', tb.row.readLater],
+          ['rowSource', tb.row.openSource],
+          ['rowDone', tb.row.markRead],
+        ],
+      },
+    ],
+  },
+  {
+    id: 'cz-read',
+    tab: c.tabs.read,
+    desktop: true,
+    groups: [
+      {
+        title: tb.readingBar,
+        items: [
+          ['read', tb.items.read],
+          ['star', tb.items.star],
+          ['later', tb.items.readLater],
+          ['labels', tb.items.labels],
+          ['full', tb.items.fullContent],
+        ],
+      },
+    ],
+  },
+  {
+    id: 'cz-bars',
+    tab: c.tabs.bars,
+    groups: [
+      {
+        title: tb.listBar,
+        items: [
+          ['search', tb.items.search],
+          ['unread', tb.items.unreadFilter],
+          ['random', tb.items.random],
+          ['starred', tb.items.starredFilter],
+          ['allRead', tb.items.markAllRead],
+        ],
+      },
+      { desktop: true, title: tb.shortcutBar, items: [['shortcutBar', tb.shortcutBarWhole]] },
+    ],
+  },
+];
+---
+
+<section class="section band-dark custom" id="custom">
+  <div class="wrap custom-grid">
+    <div class="custom-head" data-reveal="text">
+      <h2 class="h2">
+        {c.title.split('\n').map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </h2>
+    </div>
+    <p class="lead custom-text" data-reveal="text">
+      {c.text}
+    </p>
+    <form class="custom-panel" aria-label={c.label} data-tabs data-tabs-keep>
+      <div class="segmented custom-tabs" data-tablist aria-label={c.tabsLabel} hidden>
+        {panes.map((pane) => (
+          <button
+            type="button"
+            id={`tab-${pane.id}`}
+            data-panel={pane.id}
+            class:list={[{ 'is-desktop': pane.desktop }]}
+          >
+            {pane.tab}
+          </button>
+        ))}
+      </div>
+      {panes.map((pane, p) => (
+        <div class:list={['custom-pane', { 'is-desktop': pane.desktop }]} id={pane.id}>
+          {p === 0 && (
+            <fieldset class="custom-density">
+              <legend>{tb.density}</legend>
+              <div class="custom-seg">
+                {densities.map(([value, label], i) => (
+                  <label>
+                    <input type="radio" name="density" value={value} checked={i === 0} />
+                    <span>{label}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          )}
+          {pane.groups.map((group) => (
+            <fieldset class:list={[{ 'is-desktop': group.desktop }]}>
+              <legend>{group.title}</legend>
+              {group.items.map(([key, label]) => (
+                <label class="switch">
+                  <input type="checkbox" checked data-cz={key} />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </fieldset>
+          ))}
+        </div>
+      ))}
+      <button class="custom-reset" type="reset">
+        {tb.showAll}
+      </button>
+    </form>
+    <div class="custom-visual" data-reveal="lift">
+      <Window t={t} layout="columns" shortcuts label={c.alt} class="custom-window" />
+    </div>
+    <div class="custom-more">
+      <h3 class="custom-more-title">{c.moreTitle}</h3>
+      <ul>
+        {c.more.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

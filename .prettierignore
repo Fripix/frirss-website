@@ -1,0 +1,12 @@
+node_modules
+.research
+.cache
+dist
+.astro
+package-lock.json
+reports
+playwright-report
+test-results
+public/licenses
+LICENSE
+.impeccable

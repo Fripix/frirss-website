@@ -1,0 +1,277 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { site } from '../config/site';
+import type { PageId } from '../config/routes';
+import { dictionary, languages, route, asset } from '../i18n';
+import Icon from '../components/Icon.astro';
+import StarButton from '../components/StarButton.astro';
+import Analytics from '../components/Analytics.astro';
+import { analyticsConfig } from '../config/analytics';
+import '../styles/system.css';
+import displayFont from '@fontsource-variable/mona-sans/files/mona-sans-latin-wght-normal.woff2?url';
+import textFont from '@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2?url';
+interface Props {
+  lang: string;
+  page: PageId;
+  notFound?: boolean;
+}
+const { lang, page, notFound = false } = Astro.props;
+const t = dictionary(lang);
+const language = languages.find((l) => l.code === lang)!;
+const meta = t.seo[page];
+const canonical = new URL(route(lang, page), Astro.site);
+const publicReady = import.meta.env.PUBLIC_SITE_READY === 'true';
+// The footer says visits are counted only when the Matomo tracker is built in.
+const analytics = analyticsConfig(import.meta.env) !== null;
+if (
+  publicReady &&
+  (!Astro.site || Astro.site.protocol !== 'https:' || Astro.site.hostname === 'localhost')
+)
+  throw new Error('Public build blocked: set a public HTTPS SITE_URL first.');
+const navPages = ['features', 'getStarted', 'docs'] as const;
+const structured = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'FriRSS',
+  applicationCategory: 'NewsApplication',
+  operatingSystem: 'Web',
+  description: t.seo.home.description,
+  license: site.links.license,
+  codeRepository: site.links.github,
+  softwareRequirements: 'FreshRSS with Google Reader API',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CHF' },
+};
+---
+
+<!doctype html>
+<html lang={lang} dir={language.dir}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{notFound ? `${t.common.notFound} | FriRSS` : meta.title}</title>
+    <meta name="description" content={meta.description} />
+    <meta name="theme-color" content="#141411" />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={textFont} as="font" type="font/woff2" crossorigin />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      name="robots"
+      content={publicReady && !notFound ? 'index, follow' : 'noindex, nofollow'}
+    />
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
+    {!notFound && (
+      <>
+        <link rel="canonical" href={canonical} />
+        {languages.map((l) => (
+          <link rel="alternate" hreflang={l.code} href={new URL(route(l.code, page), Astro.site)} />
+        ))}
+        <link rel="alternate" hreflang="x-default" href={new URL(route('en', page), Astro.site)} />
+      </>
+    )}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="FriRSS" />
+    <meta property="og:locale" content={language.ogLocale} />
+    {languages
+      .filter((l) => l.code !== lang)
+      .map((l) => (
+        <meta property="og:locale:alternate" content={l.ogLocale} />
+      ))}
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(asset(`assets/og-${lang}.png`), Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.seo.home.title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={new URL(asset(`assets/og-${lang}.png`), Astro.site)} />
+    {page === 'home' && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(structured).replace(/</g, '\\u003c')}
+      />
+    )}
+  </head>
+  <body data-page={page}>
+    <header class="nav">
+      <div class="wrap">
+        <a class="skip-link" href="#main">
+          {t.common.skip}
+        </a>
+        <a class="brand" href={route(lang)} aria-label={`FriRSS — ${t.common.nav.home}`}>
+          <Image src={logo} width={72} height={72} alt="" format="webp" />
+          <span>FriRSS</span>
+        </a>
+        <nav class="nav-links" aria-label={t.common.menu}>
+          {navPages.map((id) => (
+            <a href={route(lang, id)} aria-current={page === id ? 'page' : undefined}>
+              {t.common.nav[id]}
+            </a>
+          ))}
+        </nav>
+        <div class="nav-actions">
+          <StarButton t={t} />
+          <a
+            class="icon-link"
+            href={site.links.coffee}
+            aria-label="Buy Me a Coffee"
+            title="Buy Me a Coffee"
+          >
+            <Icon name="coffee" size={20} />
+          </a>
+          <details class="lang">
+            <summary aria-label={`${t.common.language} — ${lang.toUpperCase()}`}>
+              <Icon name="globe" size={17} />
+              <span>{lang.toUpperCase()}</span>
+            </summary>
+            <div class="lang-list">
+              {languages.map((l) => (
+                <a
+                  href={route(l.code, page)}
+                  lang={l.code}
+                  hreflang={l.code}
+                  aria-current={lang === l.code ? 'true' : undefined}
+                >
+                  {l.nativeName}
+                  {lang === l.code && <Icon name="check" size={15} />}
+                </a>
+              ))}
+            </div>
+          </details>
+          <a
+            class="btn btn--primary btn--demo"
+            href={site.links.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.common.nav.demo}
+            <Icon name="arrow" size={14} />
+            <span class="sr-only">{t.common.newTab}</span>
+          </a>
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-sheet"
+            aria-label={t.common.menu}
+            data-open-label={t.common.menu}
+            data-close-label={t.common.closeMenu}
+          >
+            <span class="icon-open">
+              <Icon name="menu" size={20} />
+            </span>
+            <span class="icon-close">
+              <Icon name="close" size={20} />
+            </span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <nav id="nav-sheet" class="nav-sheet" aria-label={t.common.menu} hidden>
+      {navPages.map((id) => (
+        <a href={route(lang, id)} aria-current={page === id ? 'page' : undefined}>
+          {t.common.nav[id]}
+          <Icon name="arrow" size={20} />
+        </a>
+      ))}
+      <a class="btn btn--primary" href={site.links.demo} target="_blank" rel="noopener noreferrer">
+        {t.common.nav.demo}
+        <Icon name="external" size={18} />
+        <span class="sr-only">{t.common.newTab}</span>
+      </a>
+      <div class="sheet-meta">
+        {languages.map((l) => (
+          <a
+            href={route(l.code, page)}
+            lang={l.code}
+            hreflang={l.code}
+            aria-current={lang === l.code ? 'true' : undefined}
+          >
+            {l.nativeName}
+          </a>
+        ))}
+        <a href={site.links.github}>
+          <Icon name="github" size={18} />
+          GitHub
+        </a>
+        <a href={site.links.coffee}>
+          <Icon name="coffee" size={18} />
+          Buy Me a Coffee
+        </a>
+      </div>
+    </nav>
+    <main id="main" tabindex="-1">
+      <slot />
+      <slot name="close" />
+    </main>
+    <footer class="closing is-dark">
+      <div class="wrap">
+        <div class="directory">
+          <div class="directory-brand">
+            <a class="brand" href={route(lang)}>
+              <Image src={logo} width={72} height={72} alt="" format="webp" />
+              <span>FriRSS</span>
+            </a>
+            <p>{t.common.footerNote}</p>
+            <ul class="vitals">
+              <li>
+                <a href={site.links.github}>
+                  <Icon name="github" size={15} />
+                  {t.common.sourceCode}
+                </a>
+              </li>
+            </ul>
+          </div>
+          <nav aria-labelledby="footer-explore">
+            <p class="directory-title" id="footer-explore">
+              {t.common.explore}
+            </p>
+            <a href={route(lang, 'features')}>{t.common.nav.features}</a>
+            <a href={site.links.demo} target="_blank" rel="noopener noreferrer">
+              {t.common.nav.demo}
+              <span class="sr-only">{t.common.newTab}</span>
+            </a>
+            <a href={route(lang, 'getStarted')}>{t.common.nav.getStarted}</a>
+            <a href={route(lang, 'docs')}>{t.common.nav.docs}</a>
+          </nav>
+          <nav aria-labelledby="footer-support">
+            <p class="directory-title" id="footer-support">
+              {t.common.support}
+            </p>
+            <a href={site.links.github}>
+              <Icon name="star" size={16} />
+              {t.common.starGithub}
+            </a>
+            <a href={site.links.sponsors}>
+              <Icon name="heart" size={16} />
+              GitHub Sponsors
+            </a>
+            <a href={site.links.coffee}>
+              <Icon name="coffee" size={16} />
+              Buy Me a Coffee
+            </a>
+            <a href={site.links.discussions}>{t.common.community}</a>
+          </nav>
+        </div>
+        <div class="legal">
+          <p>
+            <Icon name="shield" size={15} />
+            {t.common.free} · {t.common.noTracking}
+          </p>
+          <p>
+            <a href={site.links.license}>{t.common.footerClosing}</a>
+          </p>
+          <p>{t.common.photoCredit}</p>
+          {analytics && <p class="stats-note">{t.common.analyticsNote}</p>}
+        </div>
+      </div>
+    </footer>
+    <Analytics />
+    <script>
+      import '../scripts/experience';
+    </script>
+  </body>
+</html>

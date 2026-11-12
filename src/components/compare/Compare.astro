@@ -1,0 +1,107 @@
+---
+// FreshRSS and FriRSS side by side, on the same sample articles, by situation: browsing the list,
+// reading an article, and on a phone. Both interfaces are HTML renderings (see FreshRss.astro and
+// the reader components). It lives inside a section that carries `data-tabs`.
+// From 640 px a divider is dragged across the two; under 640 px one interface is shown at full
+// width and a two-button switch (FreshRSS / FriRSS) swaps it.
+import type { Dictionary } from '../../i18n';
+import Window from '../reader/Window.astro';
+import Phone from '../reader/Phone.astro';
+import FreshRss from './FreshRss.astro';
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const c = t.home.compare;
+---
+
+<div class="cmp-bar">
+  <div class="segmented" data-tablist aria-label={c.label} hidden>
+    <button type="button" id="tab-cmp-browse" data-panel="cmp-browse">
+      {c.browse}
+    </button>
+    <button type="button" id="tab-cmp-read" data-panel="cmp-read">
+      {c.read}
+    </button>
+    <button type="button" id="tab-cmp-phone" data-panel="cmp-phone" data-compare-phone>
+      {c.phone}
+    </button>
+  </div>
+  <div class="segmented cmp-switch" role="group" aria-label={c.show} data-compare-switch hidden>
+    <button type="button" data-compare-side="fresh" aria-pressed="false">
+      FreshRSS
+    </button>
+    <button type="button" data-compare-side="fri" aria-pressed="true">
+      FriRSS
+    </button>
+  </div>
+</div>
+
+<div class="cmp-panel" id="cmp-browse">
+  <p class="cmp-labels" aria-hidden="true">
+    <span>{c.before}</span>
+    <span>{c.after}</span>
+  </p>
+  <div class="cmp cmp--split" data-compare>
+    <div class="cmp-layer cmp-after">
+      <Window t={t} layout="list" label={t.home.layouts.alt.list} class="cmp-window" />
+    </div>
+    <div class="cmp-layer cmp-before">
+      <FreshRss t={t} view="list" label={c.alt.browse} />
+    </div>
+    <input
+      class="cmp-range"
+      type="range"
+      min="0"
+      max="100"
+      step="1"
+      value="50"
+      aria-label={c.slider}
+    />
+    <span class="cmp-handle" aria-hidden="true">
+      <i></i>
+    </span>
+  </div>
+</div>
+
+<div class="cmp-panel" id="cmp-read" hidden>
+  <p class="cmp-labels" aria-hidden="true">
+    <span>{c.before}</span>
+    <span>{c.after}</span>
+  </p>
+  <div class="cmp" data-compare>
+    <div class="cmp-layer cmp-after">
+      <Window t={t} layout="columns" label={t.home.layouts.alt.columns} class="cmp-window" />
+    </div>
+    <div class="cmp-layer cmp-before">
+      <FreshRss t={t} view="article" label={c.alt.read} />
+    </div>
+    <input
+      class="cmp-range"
+      type="range"
+      min="0"
+      max="100"
+      step="1"
+      value="50"
+      aria-label={c.slider}
+    />
+    <span class="cmp-handle" aria-hidden="true">
+      <i></i>
+    </span>
+  </div>
+</div>
+
+<div class="cmp-panel" id="cmp-phone" hidden>
+  <div class="cmp-phones">
+    <figure>
+      <FreshRss t={t} view="phone" label={c.alt.phone} />
+      <figcaption>{c.before}</figcaption>
+    </figure>
+    <figure>
+      <Phone t={t} variant="list" label={t.home.mobile.listAlt} />
+      <figcaption class="is-fri">{c.after}</figcaption>
+    </figure>
+  </div>
+</div>
+
+<p class="cmp-note">{c.note}</p>

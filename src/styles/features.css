@@ -1,0 +1,316 @@
+/* Features: an index, then five chapters of one shape, each with FriRSS showing those features. */
+
+/* Intro and index */
+.feat-film {
+  margin-top: 72px;
+}
+.film {
+  display: grid;
+  gap: 16px;
+}
+.film img,
+.film video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  background: #1f1e1b;
+  box-shadow: var(--shot-shadow);
+}
+.film figcaption {
+  color: var(--muted);
+  font-size: var(--t-small);
+}
+@media (max-width: 639px) {
+  .feat-film {
+    margin-top: 48px;
+  }
+}
+
+.feat-intro {
+  min-height: auto;
+  padding-top: calc(var(--nav) + 72px);
+  padding-bottom: 96px;
+}
+.feat-intro > .wrap {
+  align-items: start;
+}
+.feat-intro-text {
+  grid-column: 1 / span 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.feat-intro-text .btn-row {
+  margin-top: 8px;
+}
+.feat-index {
+  grid-column: 7 / -1;
+}
+.feat-index ol {
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.feat-index a {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  min-height: 76px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  line-height: 1.45;
+  text-decoration: none;
+}
+.feat-index-num {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.feat-index-text strong {
+  display: block;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.feat-index a > svg {
+  color: var(--muted);
+  transition: transform 200ms var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .feat-index a:hover > svg {
+    color: var(--ink);
+    transform: translateX(3px);
+  }
+}
+
+/* Chapters */
+.chapter {
+  min-height: auto;
+  padding-bottom: 120px;
+}
+.chapter-head {
+  align-items: end;
+}
+.chapter-title {
+  grid-column: 1 / span 6;
+}
+.chapter-intro {
+  grid-column: 8 / -1;
+}
+.chapter-visual {
+  position: relative;
+  height: clamp(460px, calc(100svh - 300px), 600px);
+  margin-top: 48px;
+  overflow: hidden;
+}
+.cv-window,
+.cv-panel > * {
+  box-shadow: var(--shot-shadow);
+}
+.cv-window {
+  position: absolute;
+  inset: 48px 48px -40px;
+  height: auto;
+}
+.cv-over {
+  position: absolute;
+  right: 72px;
+  bottom: 40px;
+  z-index: 1;
+  width: 380px;
+}
+.cv-over .frag {
+  height: auto;
+}
+.cv-over .frag-palette {
+  box-shadow: var(--shot-shadow);
+}
+.cv-panel {
+  position: absolute;
+  left: 48px;
+  right: 48px;
+  top: 48px;
+  bottom: -40px;
+}
+.cv-panel > * {
+  height: 100%;
+}
+/* Panels that end within the frame are shown whole, with the frame's padding under them. Nothing
+   is cut, so their shadow fades out on its own: clipped, it drew a hard line across the band. */
+.chapter-visual--3,
+.chapter-visual--4,
+.chapter-visual--5 {
+  height: auto;
+  padding: 48px;
+  overflow: visible;
+}
+.chapter-visual--3 .cv-panel,
+.chapter-visual--4 .cv-panel,
+.chapter-visual--5 .cv-panel {
+  position: relative;
+  inset: auto;
+}
+.chapter-visual--4 .cv-panel {
+  height: 440px;
+}
+
+/* The mobile chapter sits on the dark band: no frame, the phones stand on the ground. */
+.chapter-visual--2 {
+  height: auto;
+  overflow: visible;
+}
+.chapter-visual--2 .phones {
+  margin-inline: auto;
+  justify-self: center;
+  max-width: 620px;
+}
+.chapter-visual--2 .phone {
+  max-height: 640px;
+}
+
+/* Each feature is a tile of its own, on the band's surface colour: under a FriRSS panel the
+   texts no longer sit loose on the same ground. */
+.chapter-items {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  margin-top: 48px;
+}
+.chapter-items article {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 28px 28px 32px;
+  border-radius: var(--r-xl);
+  background: var(--surface);
+}
+/* On the anthracite band the surface is too close to the ground: one step lighter. */
+.band-dark .chapter-items article {
+  background: var(--sage-1);
+}
+.chapter-items .h3 {
+  font-size: 19px;
+}
+.chapter-items p {
+  font-size: 16px;
+}
+.chapter-items .link {
+  margin-top: 4px;
+}
+.verified {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: var(--t-small);
+}
+.verified a {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 1023px) {
+  .feat-intro-text,
+  .feat-index,
+  .chapter-title,
+  .chapter-intro {
+    grid-column: 1 / -1;
+  }
+  .feat-index {
+    margin-top: 40px;
+  }
+  .chapter-head {
+    row-gap: 16px;
+  }
+  .chapter-visual {
+    height: 520px;
+  }
+  /* The phones stand on the ground at their own height, never over the tiles below. */
+  .chapter-visual--2 {
+    height: auto;
+  }
+  .chapter-items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cv-over {
+    right: 32px;
+    width: 340px;
+  }
+}
+
+@media (max-width: 639px) {
+  .feat-intro {
+    padding-top: calc(var(--nav) + 40px);
+    padding-bottom: 64px;
+  }
+  .feat-intro-text .btn-row,
+  .feat-intro-text .btn {
+    width: 100%;
+  }
+  .chapter {
+    padding-bottom: 72px;
+  }
+  .chapter-visual {
+    height: 440px;
+    margin-top: 32px;
+  }
+  .chapter-visual--2 {
+    height: auto;
+  }
+  .cv-window,
+  .cv-panel {
+    inset: 20px 20px -40px;
+    width: auto;
+  }
+  .chapter-visual--3,
+  .chapter-visual--4,
+  .chapter-visual--5 {
+    height: auto;
+    padding: 20px;
+  }
+  .chapter-visual--4 .cv-panel {
+    height: 420px;
+  }
+  .cv-over {
+    display: none;
+  }
+  .chapter-items {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .chapter-items article {
+    padding: 24px;
+  }
+}
+
+/* Chapters share the continuous ground; a soft glow marks every other one, without edges. */
+.chapter {
+  position: relative;
+  isolation: isolate;
+}
+.chapter--2 .chapter-visual--2 .phones {
+  margin-top: 0;
+}
+.intro-dark .feat-index ol,
+.intro-dark .feat-index a {
+  border-color: var(--line-dark);
+}
+.intro-dark .feat-index a {
+  color: var(--on-dark-2);
+}
+.intro-dark .feat-index-text strong {
+  color: var(--on-dark);
+}
+.intro-dark .feat-index-num,
+.intro-dark .feat-index a > svg {
+  color: var(--mint);
+}

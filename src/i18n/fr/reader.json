@@ -1,0 +1,266 @@
+{
+  "server": "serveur maison",
+  "nav": {
+    "all": "Tous les flux",
+    "unread": "Non lus",
+    "starred": "Favoris",
+    "later": "À lire plus tard"
+  },
+  "folders": {
+    "starred": ["Inspiration", "Référence"],
+    "later": ["Week-end", "Recettes"]
+  },
+  "tagsTitle": "Étiquettes",
+  "newCategory": "Nouvelle catégorie",
+  "disconnect": "Déconnexion",
+  "tags": ["À relire", "Idées", "Jardin"],
+  "categories": [
+    {
+      "name": "Nature",
+      "feeds": [
+        {
+          "name": "Ciel profond",
+          "count": "4"
+        },
+        {
+          "name": "Carnet vert",
+          "count": "12"
+        },
+        {
+          "name": "Notes de terrain",
+          "count": "2"
+        }
+      ]
+    },
+    {
+      "name": "Quotidien",
+      "feeds": [
+        {
+          "name": "Cuisine lente",
+          "count": "3"
+        },
+        {
+          "name": "Rail & vélo",
+          "count": "7"
+        },
+        {
+          "name": "Petit atelier photo",
+          "count": "5"
+        }
+      ]
+    }
+  ],
+  "toolbar": {
+    "unread": "Non lus",
+    "starred": "Favoris",
+    "allRead": "Tout lu"
+  },
+  "today": "Aujourd’hui · 6 novembre",
+  "articles": [
+    {
+      "source": "Ciel profond",
+      "time": "12 min",
+      "title": "Les Léonides, depuis un balcon en ville",
+      "summary": "Même sous l’éclairage urbain, les plus brillantes restent visibles. Trois habitudes simples aident."
+    },
+    {
+      "source": "Carnet vert",
+      "time": "1 h",
+      "title": "Semer des fèves en novembre",
+      "summary": "Un automne doux est le bon moment. Quelles variétés choisir et à quelle profondeur semer."
+    },
+    {
+      "source": "Petit atelier photo",
+      "time": "2 h",
+      "title": "Photographier la brume du matin sans trépied",
+      "summary": "Appuyez-vous sur une barrière, ralentissez votre respiration et laissez faire la lumière."
+    },
+    {
+      "source": "Rail & vélo",
+      "time": "3 h",
+      "title": "Traverser le Jura en train de nuit et à vélo",
+      "summary": "Deux jours, 140 kilomètres et une voiture-lit. L’itinéraire, la réservation du vélo et les côtes."
+    },
+    {
+      "source": "Cuisine lente",
+      "time": "5 h",
+      "title": "Un bouillon de légumes qui se garde toute la semaine",
+      "summary": "Des épluchures, une feuille de laurier et deux heures à feu doux. Puis des bocaux au frais."
+    },
+    {
+      "source": "Notes de terrain",
+      "time": "6 h",
+      "title": "Compter les oiseaux du jardin en quinze minutes",
+      "summary": "Une tasse de thé, une fenêtre et un carnet. Le principe du comptage d’hiver."
+    },
+    {
+      "source": "Ciel profond",
+      "time": "1 j",
+      "title": "Lune, Saturne et Jupiter alignées ce week-end",
+      "summary": "Regardez au sud-est après le dîner. Des jumelles suffisent pour voir les lunes de Jupiter."
+    },
+    {
+      "source": "Carnet vert",
+      "time": "1 j",
+      "title": "Pailler ses massifs avec les feuilles mortes",
+      "summary": "Gratuit, rapide et bon pour le sol. Broyez-les d’abord pour qu’elles ne se tassent pas."
+    }
+  ],
+  "article": {
+    "meta": "Léa Martin · 6 novembre 2026 à 21:30",
+    "read": "4 min",
+    "tags": ["astronomie", "ville", "nuit"],
+    "paragraphs": [
+      "Les Léonides culminent vers la mi-novembre. En ville, la plupart des étoiles filantes faibles disparaissent dans la lueur de l’éclairage, mais les plus brillantes traversent encore le ciel.",
+      "Éteignez les lumières de la pièce derrière vous, puis laissez vingt minutes à vos yeux pour s’habituer. Évitez l’écran du téléphone pendant ce temps.",
+      "Après minuit, regardez vers l’est, un peu au-dessus des toits. Une chaise longue et une couverture chaude font plus qu’un télescope."
+    ]
+  },
+  "actions": {
+    "unread": "Non lu",
+    "star": "Favori",
+    "later": "Plus tard",
+    "full": "Article complet",
+    "original": "Original",
+    "rss": "Contenu RSS",
+    "extracting": "Extraction…"
+  },
+  "ai": {
+    "by": "Résumé par Ollama",
+    "text": "Les Léonides culminent à la mi-novembre. Depuis un balcon, éteignez les lumières, laissez vos yeux s’habituer vingt minutes et regardez vers l’est après minuit.",
+    "translate": "Traduire",
+    "showSource": "Texte source"
+  },
+  "palette": {
+    "placeholder": "Aller à un flux, une étiquette, une action…",
+    "views": "Vues",
+    "feeds": "Flux",
+    "actions": "Actions",
+    "items": [
+      "Non lus",
+      "À lire plus tard",
+      "Ciel profond",
+      "Carnet vert",
+      "Tout marquer comme lu",
+      "Afficher/masquer la barre latérale"
+    ],
+    "hint": "↑ ↓ pour naviguer · ↵ pour ouvrir · Échap pour fermer",
+    "name": "Palette de commandes",
+    "query": "ciel"
+  },
+  "picker": {
+    "title": "Ranger dans…"
+  },
+  "shortcuts": ["Article précédent", "Article suivant", "Marquer lu", "Favori", "À lire plus tard"],
+  "offline": {
+    "banner": "Hors ligne — lecture hors connexion",
+    "pending": "3 actions en attente"
+  },
+  "prefs": {
+    "title": "Préférences",
+    "sections": [
+      "Général",
+      "Apparence",
+      "Mise en page",
+      "Étiquettes",
+      "Flux",
+      "Hors-ligne",
+      "IA",
+      "Administration"
+    ],
+    "tabs": ["Thème", "Couleurs", "Tailles", "Identité"],
+    "presets": "Préréglages",
+    "presetsHint": "Un thème complet en un clic. Le charger remplace les 38 couleurs ; tout reste modifiable ensuite.",
+    "followSystem": "Suivre le thème du système",
+    "followHint": "Bascule entre les deux thèmes ci-dessous quand l’appareil passe en clair ou en sombre.",
+    "light": "Thème clair",
+    "dark": "Thème sombre",
+    "save": "Enregistrer le thème actuel",
+    "export": "Exporter",
+    "import": "Importer"
+  },
+  "translate": {
+    "title": "Traduction",
+    "language": "Langue cible",
+    "filter": "Filtrer les langues",
+    "languages": ["English", "Deutsch", "Español", "Italiano", "Nederlands", "Português", "日本語"]
+  },
+  "servers": {
+    "label": "Serveurs",
+    "items": ["Maison", "Bureau"],
+    "active": "Actif",
+    "default": "Par défaut",
+    "addresses": ["rss.maison.lan", "rss.bureau.lan"],
+    "manage": "Gérer les serveurs"
+  },
+  "users": {
+    "title": "Utilisateurs",
+    "admin": "Admin",
+    "user": "Utilisateur",
+    "active": "Actif",
+    "names": ["maison", "famille", "bureau"]
+  },
+  "connect": {
+    "title": "Ajouter un serveur FreshRSS",
+    "hint": "Connectez votre instance FreshRSS pour commencer.",
+    "url": "URL du serveur",
+    "placeholder": "https://rss.example.com",
+    "user": "Utilisateur FreshRSS",
+    "password": "Mot de passe API",
+    "passwordHint": "Configuré dans FreshRSS → Configuration → Profil",
+    "name": "Nom (optionnel)",
+    "submit": "Connecter"
+  },
+  "focus": {
+    "focus": "Mode Focus",
+    "exit": "Quitter le mode Focus"
+  },
+  "freshrss": {
+    "manage": "Gestion des abonnements",
+    "main": "Flux principaux",
+    "important": "Flux importants",
+    "favorites": "Articles favoris (6)",
+    "markRead": "Marquer comme lu",
+    "search": "Rechercher des mots ou des #tags",
+    "today": "Reçu aujourd’hui",
+    "by": "Par :",
+    "day": "6 novembre 2026",
+    "at": "à"
+  },
+  "toolbars": {
+    "listBar": "Barre de la liste",
+    "readingBar": "Volet de lecture",
+    "shortcutBar": "Barre des raccourcis",
+    "shortcutBarWhole": "Afficher la barre des raccourcis",
+    "options": "Options",
+    "showAll": "Tout réafficher",
+    "density": "Densité",
+    "densities": {
+      "preview": "Aperçu",
+      "standard": "Standard",
+      "compact": "Compact"
+    },
+    "rowIcons": "Icônes d’action des articles",
+    "row": {
+      "star": "Favori",
+      "readLater": "À lire plus tard",
+      "openSource": "Ouvrir à la source",
+      "markRead": "Marquer comme lu"
+    },
+    "items": {
+      "search": "Rechercher",
+      "unreadFilter": "Non lus",
+      "random": "Aléatoire",
+      "starredFilter": "Favoris",
+      "markAllRead": "Tout lu",
+      "read": "Lu / Non lu",
+      "star": "Favori",
+      "readLater": "À lire plus tard",
+      "labels": "Étiquettes",
+      "fullContent": "Article complet",
+      "optSource": "Nom du flux",
+      "optFavicons": "Icônes des flux",
+      "optDateSeparators": "Séparateurs de date"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "home": {
+    "slug": "",
+    "title": "FriRSS — une interface moderne pour FreshRSS",
+    "description": "Une interface FreshRSS moderne et auto-hébergée. Lecture sur ordinateur et mobile, thèmes personnalisés et résumés IA facultatifs. Votre FriRSS, vos règles."
+  },
+  "features": {
+    "slug": "fonctionnalites",
+    "title": "Fonctionnalités | FriRSS",
+    "description": "Découvrez FriRSS : grille et trois colonnes, PWA RSS hors ligne, thèmes, traduction IA facultative, OIDC et connexion à plusieurs serveurs FreshRSS."
+  },
+  "getStarted": {
+    "slug": "installation",
+    "title": "Installation avec Docker | FriRSS",
+    "description": "Installez FriRSS avec Docker, Docker Compose ou Unraid. Commandes vérifiées, prérequis de l’API FreshRSS et conseils de configuration."
+  },
+  "docs": {
+    "slug": "ressources",
+    "title": "Ressources — Guides et communauté | FriRSS",
+    "description": "Documentation officielle de FriRSS, configuration, authentification, versions, entraide et liens pour contribuer au projet."
+  }
+}

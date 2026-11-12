@@ -1,0 +1,58 @@
+---
+// "Star on GitHub": a raised button. The small ones (top bar) are still. The large one in the
+// closing band has stars falling behind its label: a finite loop, under five seconds, each time
+// its tile comes on screen (see motion.ts and system.css). It opens GitHub in a new tab.
+import type { Dictionary } from '../i18n';
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+interface Props {
+  t: Dictionary;
+  size?: 'small' | 'large' | 'hero';
+}
+const { t, size = 'small' } = Astro.props;
+const stars = Array.from({ length: 14 }, (_, i) => i);
+---
+
+<a
+  class={`star-btn star-btn--${size}`}
+  href={site.links.github}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`${t.common.starGithub} — ${t.common.newTab}`}
+>
+  {size === 'hero' && (
+    <span class="star-rain" aria-hidden="true">
+      {stars.map((i) => (
+        <svg class={`rain rain-${i}`} viewBox="0 0 24 24" focusable="false">
+          <path
+            fill="currentColor"
+            d={
+              i % 3 === 0
+                ? 'm12 1 2.8 8.2L23 12l-8.2 2.8L12 23l-2.8-8.2L1 12l8.2-2.8Z'
+                : 'm12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2L5.8 21 7 14.2 2 9.3l6.9-1Z'
+            }
+          />
+        </svg>
+      ))}
+    </span>
+  )}
+  {size === 'hero' ? (
+    <>
+      <span class="star-btn-emblem">
+        <Icon name="star" size={56} />
+      </span>
+      <span class="star-btn-line">
+        <Icon name="github" size={20} />
+        <span class="star-btn-label">{t.common.starGithub}</span>
+      </span>
+    </>
+  ) : (
+    <>
+      <Icon name="github" size={size === 'large' ? 20 : 17} />
+      <span class="star-btn-label">{t.common.star}</span>
+      <span class="star-btn-icon">
+        <Icon name="star" size={size === 'large' ? 18 : 15} />
+      </span>
+    </>
+  )}
+</a>

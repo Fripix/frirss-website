@@ -1,0 +1,133 @@
+---
+import { route, type Dictionary } from '../i18n';
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import '../styles/resources.css';
+import '../styles/motion.css';
+interface Props {
+  t: Dictionary;
+  lang: string;
+}
+const { t, lang } = Astro.props;
+const groups = [
+  [0, 1, 2],
+  [3, 4, 8],
+  [5, 6, 7],
+];
+// Where each link really goes, so the visitor knows before clicking.
+const destinations: Record<string, string> = {
+  docs: 'README',
+  configuration: 'README',
+  authentication: 'README',
+  features: 'FEATURES.md',
+  releases: 'Releases',
+  issues: 'Issues',
+  discussions: 'Discussions',
+  contributing: 'README',
+  security: 'SECURITY.md',
+};
+---
+
+<section class="section res-intro is-dark intro-dark" id="top">
+  <div class="wrap" data-reveal="text">
+    <h1 class="h1">
+      {t.docs.title.split('\n').map((line, i) => (
+        <>
+          {i > 0 && <br />}
+          {line}
+        </>
+      ))}
+    </h1>
+    <p class="lead">{t.docs.intro}</p>
+  </div>
+</section>
+
+<section class="res-directory band-light">
+  <div class="wrap res-groups">
+    {groups.map((items, g) => (
+      <div class="res-group" data-reveal="text">
+        <h2 class="res-group-title">{t.docs.groups[g].title}</h2>
+        <p class="res-group-text">{t.docs.groups[g].text}</p>
+        <ul>
+          {items.map((index) => {
+            const item = t.docs.resources[index];
+            return (
+              <li>
+                <a class="resource-card" href={site.links[item.link as keyof typeof site.links]}>
+                  <span class="res-title">
+                    {item.title}
+                    <Icon name="external" size={15} />
+                  </span>
+                  <span class="res-text">{item.text}</span>
+                  <span class="res-dest">
+                    <Icon name="github" size={14} />
+                    GitHub · {destinations[item.link]}
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<section class="res-band band-dark">
+  <div class="wrap res-band-grid">
+    <div>
+      <h2 class="h3">{t.docs.hostingTitle}</h2>
+    </div>
+    <div class="res-band-text">
+      <p>{t.docs.hostingText}</p>
+      <a class="link" href={`${route(lang, 'getStarted')}#hosting`}>
+        <span>{t.docs.hostingLink}</span>
+        <Icon name="arrow" size={18} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="res-band band-light" id="about">
+  <div class="wrap res-band-grid">
+    <div>
+      <h2 class="h3">{t.docs.about.title}</h2>
+    </div>
+    <div class="res-band-text">
+      <p>{t.docs.about.text}</p>
+      <a class="link" href={site.links.developer}>
+        <Icon name="github" size={18} />
+        <span>{t.docs.about.link}</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="res-band res-support band-mint">
+  <div class="wrap res-band-grid">
+    <div>
+      <h2 class="h3">{t.docs.supportTitle}</h2>
+    </div>
+    <div class="res-band-text">
+      <p>{t.docs.supportText}</p>
+      <div class="btn-row">
+        <a class="btn btn--secondary" href={site.links.github}>
+          <Icon name="star" size={18} />
+          {t.common.starGithub}
+        </a>
+        <a class="link" href={site.links.sponsors}>
+          <span>GitHub Sponsors</span>
+          <Icon name="external" size={15} />
+        </a>
+        <a class="link" href={site.links.coffee}>
+          <span>Buy Me a Coffee</span>
+          <Icon name="external" size={15} />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/motion';
+</script>

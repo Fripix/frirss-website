@@ -1,0 +1,29 @@
+---
+import type { Dictionary } from '../i18n';
+import Icon from './Icon.astro';
+import '../styles/code.css';
+interface Props {
+  code: string;
+  label: string;
+  t: Dictionary;
+}
+const { code, label, t } = Astro.props;
+---
+
+<div class="code-block">
+  <div class="code-heading">
+    <span>{label}</span>
+    <button
+      class="copy-button"
+      data-copy
+      data-success={t.common.copied}
+      data-error={t.common.copyError}
+      aria-label={`${t.common.copy} — ${label}`}
+    >
+      <Icon name="copy" size={15} />
+      <span>{t.common.copy}</span>
+    </button>
+  </div>
+  <pre tabindex="0" aria-label={label}><code>{code}</code></pre>
+  <span class="sr-only copy-status" role="status"></span>
+</div>

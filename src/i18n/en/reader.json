@@ -1,0 +1,272 @@
+{
+  "server": "home server",
+  "nav": {
+    "all": "All feeds",
+    "unread": "Unread",
+    "starred": "Favorites",
+    "later": "Read later"
+  },
+  "folders": {
+    "starred": ["Inspiration", "Reference"],
+    "later": ["Weekend", "Recipes"]
+  },
+  "tagsTitle": "Tags",
+  "newCategory": "New category",
+  "disconnect": "Log out",
+  "tags": ["To reread", "Ideas", "Garden"],
+  "categories": [
+    {
+      "name": "Nature",
+      "feeds": [
+        {
+          "name": "Deep Sky",
+          "count": "4"
+        },
+        {
+          "name": "Green Notebook",
+          "count": "12"
+        },
+        {
+          "name": "Field Notes",
+          "count": "2"
+        }
+      ]
+    },
+    {
+      "name": "Everyday",
+      "feeds": [
+        {
+          "name": "Slow Kitchen",
+          "count": "3"
+        },
+        {
+          "name": "Rail & Bike",
+          "count": "7"
+        },
+        {
+          "name": "Small Photo Workshop",
+          "count": "5"
+        }
+      ]
+    }
+  ],
+  "toolbar": {
+    "unread": "Unread",
+    "starred": "Favorites",
+    "allRead": "All read"
+  },
+  "today": "Today · November 6",
+  "articles": [
+    {
+      "source": "Deep Sky",
+      "time": "12 min",
+      "title": "The Leonids, from a city balcony",
+      "summary": "Even under street lights, the brightest meteors stay visible. Three simple habits help."
+    },
+    {
+      "source": "Green Notebook",
+      "time": "1 h",
+      "title": "Sowing broad beans in November",
+      "summary": "A mild autumn is the right moment. Which varieties to choose and how deep to sow."
+    },
+    {
+      "source": "Small Photo Workshop",
+      "time": "2 h",
+      "title": "Photographing morning mist without a tripod",
+      "summary": "Lean on a fence, slow down your breathing and let the light do the rest."
+    },
+    {
+      "source": "Rail & Bike",
+      "time": "3 h",
+      "title": "Crossing the Jura by night train and bike",
+      "summary": "Two days, 140 kilometres and a sleeper car. The route, the bike booking and the climbs."
+    },
+    {
+      "source": "Slow Kitchen",
+      "time": "5 h",
+      "title": "A vegetable stock that keeps all week",
+      "summary": "Peelings, a bay leaf and two hours on low heat. Then jars in the fridge."
+    },
+    {
+      "source": "Field Notes",
+      "time": "6 h",
+      "title": "Counting garden birds in fifteen minutes",
+      "summary": "One cup of tea, one window and a notebook. How the winter count works."
+    },
+    {
+      "source": "Deep Sky",
+      "time": "1 d",
+      "title": "Moon, Saturn and Jupiter in a row this weekend",
+      "summary": "Look south-east after dinner. Binoculars are enough to see Jupiter’s moons."
+    },
+    {
+      "source": "Green Notebook",
+      "time": "1 d",
+      "title": "Mulching flower beds with fallen leaves",
+      "summary": "Free, quick and good for the soil. Shred them first so they do not mat."
+    }
+  ],
+  "article": {
+    "meta": "Lea Martin · November 6, 2026 at 9:30 PM",
+    "read": "4 min",
+    "tags": ["astronomy", "city", "night"],
+    "paragraphs": [
+      "The Leonids peak around mid-November. In a city, most faint meteors disappear in the glow of street lights, but the brightest ones still cross the sky.",
+      "Switch off the lights in the room behind you, then give your eyes twenty minutes to adapt. Avoid your phone screen during that time.",
+      "After midnight, look east, slightly above the rooftops. A deckchair and a warm blanket do more than any telescope."
+    ]
+  },
+  "actions": {
+    "unread": "Unread",
+    "star": "Favorite",
+    "later": "Later",
+    "full": "Full article",
+    "original": "Original",
+    "rss": "RSS content",
+    "extracting": "Extracting…"
+  },
+  "ai": {
+    "by": "Summary by Ollama",
+    "text": "The Leonids peak in mid-November. From a balcony, switch off the lights, let your eyes adapt for twenty minutes and look east after midnight.",
+    "translate": "Translate",
+    "showSource": "Source text"
+  },
+  "palette": {
+    "placeholder": "Go to a feed, a label, an action…",
+    "views": "Views",
+    "feeds": "Feeds",
+    "actions": "Actions",
+    "items": [
+      "Unread",
+      "Read later",
+      "Deep Sky",
+      "Green Notebook",
+      "Mark all as read",
+      "Show/hide sidebar"
+    ],
+    "hint": "↑ ↓ to move · ↵ to open · Esc to close",
+    "name": "Command palette",
+    "query": "deep"
+  },
+  "picker": {
+    "title": "File in…"
+  },
+  "shortcuts": [
+    "Previous article",
+    "Next article",
+    "Mark as read",
+    "Toggle favorite",
+    "Read later"
+  ],
+  "offline": {
+    "banner": "Offline — reading offline",
+    "pending": "3 pending actions"
+  },
+  "prefs": {
+    "title": "Preferences",
+    "sections": [
+      "General",
+      "Appearance",
+      "Layout",
+      "Labels",
+      "Feeds",
+      "Offline",
+      "AI",
+      "Administration"
+    ],
+    "tabs": ["Theme", "Colours", "Sizes", "Identity"],
+    "presets": "Presets",
+    "presetsHint": "A complete theme in one click. Loading one replaces all 38 colours; everything stays editable afterwards.",
+    "followSystem": "Follow the system theme",
+    "followHint": "Switches between the two themes below when the device turns light or dark.",
+    "light": "Light theme",
+    "dark": "Dark theme",
+    "save": "Save current theme",
+    "export": "Export",
+    "import": "Import"
+  },
+  "translate": {
+    "title": "Translation",
+    "language": "Target language",
+    "filter": "Filter languages",
+    "languages": ["Français", "Deutsch", "Español", "Italiano", "Nederlands", "Português", "日本語"]
+  },
+  "servers": {
+    "label": "Servers",
+    "items": ["Home", "Office"],
+    "active": "Active",
+    "default": "Default",
+    "addresses": ["rss.maison.lan", "rss.bureau.lan"],
+    "manage": "Manage servers"
+  },
+  "users": {
+    "title": "Users",
+    "admin": "Admin",
+    "user": "User",
+    "active": "Active",
+    "names": ["home", "family", "office"]
+  },
+  "connect": {
+    "title": "Add a FreshRSS server",
+    "hint": "Connect your FreshRSS instance to get started.",
+    "url": "Server URL",
+    "placeholder": "https://rss.example.com",
+    "user": "FreshRSS user",
+    "password": "API password",
+    "passwordHint": "Set in FreshRSS → Configuration → Profile",
+    "name": "Name (optional)",
+    "submit": "Connect"
+  },
+  "focus": {
+    "focus": "Focus mode",
+    "exit": "Exit focus mode"
+  },
+  "freshrss": {
+    "manage": "Subscription management",
+    "main": "Main stream",
+    "important": "Important feeds",
+    "favorites": "Favourites (6)",
+    "markRead": "Mark as read",
+    "search": "Search words or #tags",
+    "today": "Received today",
+    "by": "By:",
+    "day": "6 November 2026",
+    "at": "at"
+  },
+  "toolbars": {
+    "listBar": "List bar",
+    "readingBar": "Reading pane",
+    "shortcutBar": "Shortcut bar",
+    "shortcutBarWhole": "Show the shortcut bar",
+    "options": "Options",
+    "showAll": "Show all again",
+    "density": "Density",
+    "densities": {
+      "preview": "Preview",
+      "standard": "Standard",
+      "compact": "Compact"
+    },
+    "rowIcons": "Article action icons",
+    "row": {
+      "star": "Favorite",
+      "readLater": "Read later",
+      "openSource": "Open at source",
+      "markRead": "Mark as read"
+    },
+    "items": {
+      "search": "Search",
+      "unreadFilter": "Unread",
+      "random": "Random",
+      "starredFilter": "Favorites",
+      "markAllRead": "All read",
+      "read": "Read / Unread",
+      "star": "Favorite",
+      "readLater": "Read later",
+      "labels": "Tags",
+      "fullContent": "Full article",
+      "optSource": "Feed name",
+      "optFavicons": "Feed icons",
+      "optDateSeparators": "Date separators"
+    }
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "title": "The essential\nfeatures",
+  "intro": "Organize your reading, shape your interface and take your feeds to every screen. FriRSS gives your FreshRSS installation a fresh perspective.",
+  "groups": [
+    {
+      "title": "Settle into your reading",
+      "intro": "Give every kind of feed the room it needs.",
+      "items": [
+        {
+          "title": "A layout for every feed",
+          "text": "Three panes, two panes or a visual grid. Choose preview, standard or compact density, resize columns and adjust spacing."
+        },
+        {
+          "title": "The whole story",
+          "text": "Retrieve full articles with Readability when a feed only includes a summary, images and videos included. Set the default globally or per feed. Extraction depends on the source website."
+        },
+        {
+          "title": "Keep the good ones",
+          "text": "Favorites, read-later, categories and colored, nested labels keep your reading organized. Their counters show the total, the unread count or both; unread counts on labels need FreshRSS 1.26 or later. Search within the current view, including articles already read."
+        },
+        {
+          "title": "Stay on the keyboard",
+          "text": "Open the command palette with ⌘K or Ctrl+K. Navigate feeds and actions with reassignable shortcuts and visible keyboard focus."
+        },
+        {
+          "title": "Video, when you press play",
+          "text": "Supported YouTube embeds open from a thumbnail, on demand. Video requires an internet connection and loads from a third party."
+        },
+        {
+          "title": "Move at your own pace",
+          "text": "Newest first, oldest first, or at random: rediscover articles in your current view. Choose how many articles to draw and how old they can be, then draw again whenever you like."
+        }
+      ],
+      "label": "Reading"
+    },
+    {
+      "title": "Take your reader everywhere",
+      "intro": "From a wide screen to a train with no signal.",
+      "items": [
+        {
+          "title": "A mobile PWA",
+          "text": "Install the app from a supported browser. Swipe between articles, use touch actions and pull to refresh. PWA installation requires HTTPS outside localhost."
+        },
+        {
+          "title": "Read offline",
+          "text": "Prepare the last 30 days of articles to read without a connection, images included. While it prepares, FriRSS estimates the time left, and you can cancel it. Pending actions and offline settings stay saved until you reconnect. Device storage limits still apply."
+        },
+        {
+          "title": "Pick up the thread",
+          "text": "Resume your last feed and filters. On a shared device, each account and server keeps its own data; preferences sync across your devices."
+        }
+      ],
+      "label": "On the go"
+    },
+    {
+      "title": "Make it feel like you",
+      "intro": "Personalization goes beyond a light/dark switch.",
+      "items": [
+        {
+          "title": "Six starting points",
+          "text": "Default, Riso, Paper and High Contrast in light; Night and Desk in dark. Follow your system appearance with your preferred pair."
+        },
+        {
+          "title": "Your own theme",
+          "text": "Tune 38 colors and seven font sizes. Save, import, export and share themes. Set a custom app name and logo on your instance."
+        },
+        {
+          "title": "A grid sized your way",
+          "text": "Set card width from 160 to 480 px, fill each row or keep a fixed width. Choose 16:9, 4:3, 3:4 or square images. On phones, the grid always fills the available width."
+        },
+        {
+          "title": "Toolbars your way",
+          "text": "On computers, hide the buttons of the list bar and the reading pane one by one, or a whole bar. A hidden button stays in the command palette."
+        },
+        {
+          "title": "A list your way",
+          "text": "Show or hide feed names, their icons and the date separators. Choose the action icons on each row: favorite, read later, open at source, mark as read."
+        },
+        {
+          "title": "Open on the right view",
+          "text": "At launch, FriRSS goes back to the last view, or always opens All feeds or Unread. The server bar can be hidden too."
+        },
+        {
+          "title": "Ten languages",
+          "text": "FriRSS speaks English, French, German, Spanish, Italian, Dutch, Polish, Portuguese, Ukrainian and Chinese. On first run it follows the browser’s language; change it in Preferences › General."
+        }
+      ],
+      "label": "Personalization"
+    },
+    {
+      "title": "AI, on your terms",
+      "intro": "Optional, off by default, and configured by an administrator.",
+      "items": [
+        {
+          "title": "Summaries and translations",
+          "text": "Get a summary above an article, adjust its length, or translate the title and body into one of 28 languages. Switch back to the original at any time."
+        },
+        {
+          "title": "Choose the provider",
+          "text": "Use Anthropic or an OpenAI-compatible endpoint, including OpenAI, OpenRouter, Ollama and LM Studio. Choose models and per-feed or per-category behavior."
+        },
+        {
+          "title": "Know what leaves your server",
+          "text": "Article text is sent to the selected provider. API keys are encrypted at rest and kept out of the browser. Admins control sharing and daily caps. Provider charges may apply."
+        }
+      ],
+      "label": "Optional AI"
+    },
+    {
+      "title": "Your servers. Your users.",
+      "intro": "One FriRSS installation can host multiple accounts and connect to multiple FreshRSS instances.",
+      "items": [
+        {
+          "title": "Accounts and single sign-on",
+          "text": "Separate admin and user roles. Change your local password in preferences to sign out other sessions. Optional OIDC single sign-on links an existing account only after its owner confirms their password."
+        },
+        {
+          "title": "More than one FreshRSS",
+          "text": "Switch FreshRSS instances from the top bar or command palette. Each server keeps its reading settings. Change its API password without removing it: FreshRSS checks the password before it is saved."
+        },
+        {
+          "title": "Docker, with room to grow",
+          "text": "Official amd64 and arm64 images, persistent SQLite storage and encrypted backups. Redis is optional and strongly recommended for shared caching and prefetching."
+        }
+      ],
+      "label": "Hosting"
+    }
+  ],
+  "verified": "This page covers the essentials of FriRSS. Every feature is described in detail in the full reference on GitHub, written in French.",
+  "reference": "Full reference",
+  "views": {
+    "reading": "FriRSS in three columns with the keyboard shortcut bar and the command palette open.",
+    "mobileList": "FriRSS on a phone while offline: the list of articles with the offline banner and pending actions.",
+    "mobileArticle": "FriRSS on a phone: an open article with its reading toolbar.",
+    "custom": "FriRSS preferences, Appearance tab: the six theme presets and the follow-system option.",
+    "ai": "An article in FriRSS with its AI summary and the translation menu open on the list of languages.",
+    "hosting": "FriRSS server bar with two FreshRSS servers, and the list of accounts with their roles."
+  },
+  "film": {
+    "caption": "FriRSS on a computer, in three columns: the feeds, the article list and the open article.",
+    "alt": "FriRSS on a computer in three columns: the feeds sidebar, the article list and an open article with its photo."
+  }
+}

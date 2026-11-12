@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { dictionary, route } from '../i18n';
+const t = dictionary('en');
+---
+
+<Layout lang="en" page="home" notFound>
+  <section class="section not-found">
+    <div class="wrap">
+      <p class="label">404</p>
+      <h1 class="h1">{t.common.notFound}</h1>
+      <p class="lead">{t.common.notFoundText}</p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href={route('en')}>
+          {t.common.back}
+        </a>
+        <a class="link" lang="fr" href={route('fr')}>
+          <span>{dictionary('fr').common.back}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .not-found .wrap {
+    display: grid;
+    gap: 24px;
+    max-width: 44rem;
+    margin-left: max(var(--gut), (100% - 1280px) / 2);
+  }
+</style>

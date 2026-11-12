@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "q": "FriRSS remplace-t-il FreshRSS ?",
+      "a": "Il remplace l’interface de lecture, pas le moteur de flux. FreshRSS continue de récupérer et de stocker vos abonnements et vos articles. FriRSS s’y connecte par l’API Google Reader."
+    },
+    {
+      "q": "Faut-il une instance FreshRSS ?",
+      "a": "Oui. Vous devez disposer d’une instance FreshRSS fonctionnelle, activer l’accès à son API et définir un mot de passe API pour votre compte FreshRSS."
+    },
+    {
+      "q": "FriRSS est-il gratuit ?",
+      "a": "FriRSS est un logiciel libre et gratuit sous licence MIT. Vous fournissez l’hébergement. Les fournisseurs d’IA facultatifs peuvent facturer leurs services."
+    },
+    {
+      "q": "Puis-je l’auto-héberger ?",
+      "a": "Oui. Les images Docker officielles prennent en charge amd64 et arm64. Docker Compose et Unraid Community Applications sont également disponibles."
+    },
+    {
+      "q": "Fonctionne-t-il sur mon téléphone ?",
+      "a": "Oui. L’interface s’adapte aux navigateurs mobiles et sa PWA s’installe sur l’écran d’accueil. Préparez vos articles avec une connexion pour les lire hors ligne. Hors localhost, les fonctions PWA nécessitent HTTPS."
+    },
+    {
+      "q": "L’IA est-elle obligatoire ?",
+      "a": "Non. Elle est facultative et désactivée tant qu’un administrateur ne l’active pas. La lecture, l’organisation et la personnalisation de vos flux fonctionnent sans elle."
+    },
+    {
+      "q": "Puis-je choisir mon fournisseur d’IA ?",
+      "a": "Oui. FriRSS prend en charge Anthropic et les fournisseurs compatibles avec l’API OpenAI, dont OpenAI, OpenRouter, Ollama et LM Studio. Les fournisseurs et modèles disponibles dépendent de votre configuration."
+    },
+    {
+      "q": "Où obtenir de l’aide ?",
+      "a": "Commencez par le README officiel. Utilisez GitHub Discussions pour vos questions et GitHub Issues pour un bug reproductible ou une idée de fonctionnalité. La page Ressources regroupe les liens utiles."
+    }
+  ]
+}

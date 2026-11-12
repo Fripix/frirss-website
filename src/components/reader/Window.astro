@@ -1,0 +1,66 @@
+---
+// A faithful HTML rendering of the FriRSS reader, built from the app's own theme colours and labels.
+// It is a picture: the root carries role="img" and its description, and every part inside is
+// `inert` (not focusable, not selectable, not read out), like the content of a screenshot.
+import type { Dictionary } from '../../i18n';
+import Sidebar from './Sidebar.astro';
+import ArticleList from './ArticleList.astro';
+import ReadingPane, { type Translation } from './ReadingPane.astro';
+interface Props {
+  t: Dictionary;
+  layout?: 'columns' | 'list' | 'grid' | 'focus' | 'side-list' | 'side-read' | 'read';
+  label: string;
+  theme?: string;
+  ai?: boolean;
+  shortcuts?: boolean;
+  live?: boolean;
+  translation?: Translation;
+  /** Rows in the article list; a short frame needs only the ones it shows. */
+  rows?: number;
+  class?: string;
+}
+const {
+  t,
+  layout = 'columns',
+  label,
+  theme = 'default',
+  ai = false,
+  shortcuts = false,
+  live = false,
+  translation,
+  rows,
+  class: className,
+} = Astro.props;
+const mode = layout === 'grid' ? 'grid' : layout === 'list' ? 'list' : 'columns';
+const keys = ['↑', '↓', 'R', 'D', 'L'];
+---
+
+<div
+  class:list={['fr', `fr--${layout}`, className]}
+  data-fr-theme={theme}
+  role="img"
+  data-live-window={live ? '' : undefined}
+  aria-label={label}
+>
+  {layout !== 'focus' && layout !== 'read' && <Sidebar t={t} />}
+  {layout !== 'side-read' && layout !== 'focus' && layout !== 'read' && (
+    <ArticleList t={t} mode={mode} count={rows} />
+  )}
+  {(layout === 'columns' || layout === 'side-read' || layout === 'focus' || layout === 'read') && (
+    <ReadingPane t={t} ai={ai} focus={layout === 'focus'} translation={translation} />
+  )}
+  {shortcuts && (
+    <div class="fr-keys" data-tb="shortcutBar" inert>
+      {t.reader.shortcuts.map((label, i) => (
+        <span>
+          <kbd>{keys[i]}</kbd>
+          {label}
+        </span>
+      ))}
+      <span class="fr-keys-end">
+        <kbd>⌘K</kbd>
+        {t.reader.palette.name}
+      </span>
+    </div>
+  )}
+</div>

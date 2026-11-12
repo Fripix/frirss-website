@@ -1,0 +1,972 @@
+/* Home page: one idea per screen, the FriRSS interface in every section. */
+
+/* Splits: text on five columns from the left line, the picture on six from column 7 */
+.split-text,
+.hero-text {
+  grid-column: 1 / span 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.hero-visual,
+.phones,
+.theme-visual {
+  grid-column: 7 / -1;
+}
+
+/* Hero: flat anthracite, the headline and the product. The window stands on the bottom edge of the
+   band and runs off the right of the screen: a clean cut, no fade, no glow. */
+.hero {
+  overflow: clip;
+  min-height: 0;
+  padding-top: calc(var(--nav) + 64px);
+  padding-bottom: 0;
+}
+.hero > .wrap {
+  align-items: end;
+}
+.hero-text {
+  grid-column: 1 / span 6;
+  align-self: center;
+  gap: 20px;
+  padding-block: 0 48px;
+  container-type: inline-size;
+}
+/* Two lines, each whole: the green line never breaks, and the headline shrinks with its column
+   rather than wrap ("Une interface moderne", the longer line, is 10.3 em wide). */
+.hero .h1 {
+  font-size: min(var(--t-h1), 9.5cqi);
+  white-space: nowrap;
+}
+.hero .lead {
+  max-width: 34em;
+}
+.hero .lead {
+  color: var(--ink-2);
+}
+.accent {
+  color: var(--mint);
+}
+.hero-text .btn-row {
+  margin-top: 8px;
+}
+.hero-visual,
+.theme-visual {
+  /* From the split line to the edge of the screen, whatever the width. */
+  --bleed: max(var(--gut), (100vw - 1280px) / 2);
+}
+/* The window is as tall as the text beside it, and never shorter than one screen allows: on a low
+   screen the text (with the command) sets the height, and the window still starts at its top. */
+.hero-visual {
+  position: relative;
+  align-self: stretch;
+  min-height: clamp(520px, calc(100svh - var(--nav) - 64px), 720px);
+  margin-right: calc(-1 * var(--bleed));
+  overflow: hidden;
+}
+/* Entrance, once, on load: the headline is uncovered as it rises, the text and the buttons follow
+   closely, and the FriRSS window comes up from under the edge of the band. Nothing fades, nothing
+   replays, and the page is usable from the first frame. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero .h1,
+  .hero .lead,
+  .hero-text .btn-row {
+    animation: hero-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+  .hero .lead {
+    animation-delay: 90ms;
+  }
+  .hero-text .btn-row {
+    animation-delay: 170ms;
+  }
+  .hero-window {
+    animation: hero-window 1100ms cubic-bezier(0.16, 1, 0.3, 1) 120ms backwards;
+  }
+}
+@keyframes hero-rise {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(32px);
+  }
+  to {
+    clip-path: inset(-20% -20% -20% -20%);
+    transform: none;
+  }
+}
+@keyframes hero-window {
+  from {
+    transform: translateY(120px);
+  }
+  to {
+    transform: none;
+  }
+}
+.hero-window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: max(760px, 100%);
+  height: 860px;
+  border-radius: 10px 0 0 0;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+
+/* Denser rhythm: sections take the height of their content. */
+.section:not(.hero) {
+  min-height: 0;
+  padding-block: 112px;
+}
+@media (max-width: 639px) {
+  .section:not(.hero) {
+    padding-block: 72px;
+  }
+}
+
+/* Themes: the whole band takes the chosen theme's colour, flat, and its text follows. */
+#themes {
+  overflow: clip;
+  padding-bottom: 0;
+  background: var(--paper);
+  color: var(--ink-2);
+  transition:
+    background-color 420ms var(--ease),
+    color 420ms var(--ease);
+}
+#themes,
+#themes[data-ground='default'],
+#themes[data-ground='riso'],
+#themes[data-ground='desk'],
+#themes[data-ground='paper'] {
+  --ink: #06231a;
+  --ink-2: #0c3225;
+  --muted: #124231;
+  --line: rgb(6 35 26 / 0.26);
+  --mint-ink: #06231a;
+  --shot-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.5);
+  --paper: #4cd4a1;
+  color-scheme: light;
+}
+#themes[data-ground='riso'] {
+  --paper: #ff48b0;
+  --ink: #25101d;
+  --ink-2: #33152a;
+  --muted: #3d1a32;
+  --line: rgb(37 16 29 / 0.3);
+  --mint-ink: #25101d;
+}
+#themes[data-ground='desk'] {
+  --paper: #a6e22e;
+  --ink: #0e1608;
+  --ink-2: #18230d;
+  --muted: #223212;
+  --line: rgb(14 22 8 / 0.3);
+  --mint-ink: #0e1608;
+}
+#themes[data-ground='paper'] {
+  --paper: #f6f1e4;
+  --ink: #2e2a20;
+  --ink-2: #4a4437;
+  --muted: #5d5646;
+  --line: rgb(46 42 32 / 0.2);
+  --mint-ink: #2e2a20;
+}
+#themes[data-ground='contrast'] {
+  --paper: #04593c;
+  --ink: #ffffff;
+  --ink-2: #eafaf3;
+  --muted: #d5f2e6;
+  --line: rgb(255 255 255 / 0.35);
+  --mint-ink: #ffffff;
+  --shot-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+#themes[data-ground='night'] {
+  --paper: #201f1b;
+  --ink: #f3f2ec;
+  --ink-2: #cfcdc3;
+  --muted: #a19f95;
+  --line: rgb(255 255 255 / 0.14);
+  --mint-ink: #4cd4a1;
+  --shot-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.85);
+  color-scheme: dark;
+}
+#themes :is(h2, p, a) {
+  transition: color 420ms var(--ease);
+}
+
+/* Section head: h2 on the left line, its text and control on the split line */
+.section-head {
+  align-items: start;
+}
+.section-head .h2 {
+  grid-column: 1 / span 5;
+}
+.section-aside {
+  grid-column: 7 / -1;
+  display: grid;
+  gap: 24px;
+  justify-items: start;
+  padding-top: 6px;
+}
+.section-aside p {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+}
+/* App stage: the window keeps one height whatever the layout */
+.app-stage {
+  position: relative;
+  height: clamp(460px, calc(100svh - 390px), 600px);
+  margin-top: 48px;
+}
+.app-view {
+  height: 100%;
+}
+.app-view:focus-visible {
+  outline-offset: 6px;
+}
+
+/* Mobile, on the dark band. The phones set the height of the band: a little smaller, with less
+   ground above and below, so the text beside them is not left in an empty field. */
+#mobile > .wrap {
+  align-items: center;
+}
+#mobile .phones {
+  max-width: 560px;
+}
+@media (min-width: 1024px) {
+  #mobile {
+    padding-block: 80px;
+  }
+}
+
+/* A short list of facts: one line each, separated by a rule. No tick, no bullet. */
+.facts {
+  display: grid;
+  width: 100%;
+  max-width: 28em;
+  list-style: none;
+  color: var(--ink);
+}
+.facts li {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.facts li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+/* Themes */
+#themes > .wrap {
+  align-items: start;
+}
+.theme-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  max-width: 440px;
+}
+.theme-picker button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: left;
+  transition:
+    border-color 160ms var(--ease),
+    background-color 160ms var(--ease);
+}
+.theme-picker button[aria-pressed='true'] {
+  border-color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .theme-picker button:hover {
+    border-color: var(--ink);
+  }
+}
+.swatch {
+  display: flex;
+}
+.swatch i {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--paper);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--line);
+}
+.swatch i + i {
+  margin-left: -5px;
+}
+.swatch i:nth-child(1) {
+  background: var(--sidebar-bg);
+}
+.swatch i:nth-child(2) {
+  background: var(--accent);
+}
+.swatch i:nth-child(3) {
+  background: var(--panel-bg);
+}
+.theme-visual {
+  position: relative;
+  height: clamp(520px, calc(100svh - var(--padt) - var(--padb)), 700px);
+  margin-right: calc(-1 * var(--bleed));
+  overflow: hidden;
+}
+.theme-window {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: max(780px, 100%);
+  height: 820px;
+  border-radius: 10px 0 0 0;
+  box-shadow: var(--shot-shadow);
+}
+#themes .split-text {
+  padding-bottom: var(--padb);
+}
+#themes .theme-visual {
+  align-self: end;
+}
+
+/* Features: four independent tiles. Each one holds its title, its sentence and a live piece of
+   FriRSS in one of its themes, and takes that theme's colour as a flat ground. */
+.features-head {
+  display: grid;
+  gap: 16px;
+}
+.features-title {
+  max-width: 18em;
+}
+.feature-grid {
+  margin-top: 56px;
+  gap: 24px;
+}
+.feature {
+  grid-column: span 6;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 8px;
+  padding: 36px 36px 0;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: var(--tile);
+  color: var(--ink-2);
+}
+.feature--full {
+  --tile: #c8efdd;
+  --ink: #0b2a1e;
+  --ink-2: #1d3a2e;
+}
+.feature--picker {
+  --tile: #fbd3e8;
+  --ink: #2b1022;
+  --ink-2: #47273b;
+}
+.feature--palette {
+  --tile: #201f1b;
+  --ink: #f3f2ec;
+  --ink-2: #cfcdc3;
+  --shot-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.9);
+}
+.feature--ai {
+  --tile: #141a0f;
+  --ink: #f1f5e9;
+  --ink-2: #c9d1bb;
+  --shot-shadow: 0 30px 60px -30px rgb(0 0 0 / 0.9);
+}
+.feature > p {
+  max-width: 34em;
+}
+.feature-panel {
+  position: relative;
+  height: 310px;
+  margin-top: 24px;
+}
+.feature-panel > .frag {
+  /* A little taller than the panel, so the bottom edge of the tile cuts it cleanly. */
+  height: calc(100% + 30px);
+}
+/* A fragment never reaches past its own box, so nothing sits under the next block. */
+.feature-panel .frag-palette,
+.feature-panel .frag-picker {
+  max-height: 100%;
+  overflow: hidden;
+}
+.feature-panel > .frag > .fr-read,
+.feature-panel .frag-full,
+.feature-panel .frag-palette,
+.feature-panel .frag-picker {
+  box-shadow: var(--shot-shadow);
+}
+.feature-panel--ai .fr-article-title {
+  margin-bottom: 14px !important;
+  font-size: 20px;
+}
+.feature-panel--palette > .frag,
+.feature-panel--picker > .frag {
+  max-width: 440px;
+}
+.features-more {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 32px var(--gap);
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--line);
+}
+.features-more-head {
+  grid-column: 1 / span 3;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.features-more-head p {
+  color: var(--muted);
+  font-size: var(--t-small);
+}
+/* Four families side by side, each a short list under its name: read by family, not ticked off. */
+.features-more-groups {
+  grid-column: 4 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px var(--gap);
+}
+.features-more-groups summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.features-more-groups h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 700;
+}
+.features-more-groups ul {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  list-style: none;
+}
+.features-more-groups li {
+  color: var(--ink-2);
+  font-size: 16px;
+  line-height: 1.4;
+}
+.features-link {
+  margin-top: 32px;
+}
+@media (max-width: 1023px) {
+  .features-more-head,
+  .features-more-groups {
+    grid-column: 1 / -1;
+  }
+  .features-more-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 479px) {
+  .features-more-groups {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* FreshRSS: what it does, the three steps, then the comparison */
+.steps-title {
+  margin-top: 8px;
+  color: var(--ink);
+  font-weight: 700;
+}
+.steps {
+  display: grid;
+  gap: 12px;
+  margin-top: -8px;
+  list-style: none;
+  counter-reset: step;
+}
+.steps li {
+  display: flex;
+  gap: 14px;
+  counter-increment: step;
+}
+/* Numbered like the steps of the Installer page: 01, 02, 03 in the muted ink, no disc. */
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  flex: none;
+  color: var(--muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+/* The comparison: FreshRSS and FriRSS on the same articles, by situation (tabs). */
+.cmp-section {
+  overflow: clip;
+}
+.cmp-top {
+  align-items: start;
+}
+.cmp-text {
+  grid-column: 1 / span 6;
+  display: grid;
+  gap: 24px;
+}
+.cmp-steps {
+  grid-column: 8 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding-top: 6px;
+}
+.cmp-steps .steps-title {
+  margin-top: 0;
+}
+.cmp-bar {
+  display: flex;
+  margin-top: 56px;
+}
+.cmp-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+  padding-bottom: 12px;
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+.cmp-labels span:last-child {
+  color: var(--mint);
+  text-align: right;
+}
+/* The frame: FriRSS underneath, FreshRSS on top, cut at the divider. A pointer drags the divider
+   anywhere on the frame; the range input does the same from the keyboard. */
+.cmp {
+  --pos: 50%;
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.1),
+    var(--shot-shadow);
+  cursor: ew-resize;
+  touch-action: pan-y;
+  user-select: none;
+}
+.cmp-layer {
+  position: absolute;
+  inset: 0;
+}
+.cmp-layer > * {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.cmp-before {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+/* Two lists: each one starts at its own left edge, so both show their sidebar and the beginning
+   of their rows wherever the divider stands. (For reading, the plain wipe: the two articles sit
+   in the same place.) */
+.cmp--split .cmp-after {
+  left: var(--pos);
+  right: auto;
+  width: 100%;
+}
+.cmp-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.28);
+  pointer-events: none;
+}
+.cmp-handle i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.18),
+    0 8px 20px -6px rgb(0 0 0 / 0.5);
+}
+.cmp-handle i::before,
+.cmp-handle i::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border: solid #161a17;
+  border-width: 0 0 2px 2px;
+  transform: rotate(45deg);
+}
+.cmp-handle i::after {
+  transform: rotate(-135deg);
+}
+.cmp-range {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.cmp-range:focus-visible + .cmp-handle i {
+  outline: 3px solid var(--mint);
+  outline-offset: 3px;
+}
+/* On a phone, two phones side by side: a divider across 300 px would show neither. */
+.cmp-phones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 280px));
+  justify-content: center;
+  gap: 48px;
+  margin-top: 40px;
+}
+.cmp-phones figure {
+  display: grid;
+  gap: 20px;
+  margin: 0;
+}
+.cmp-phones figcaption {
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  font-weight: 600;
+  text-align: center;
+}
+.cmp-phones figcaption.is-fri {
+  color: var(--mint);
+}
+/* Who is who: a short line under the comparison. */
+.cmp-note {
+  max-width: 52em;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: var(--t-small);
+}
+/* The switch only exists under 640 px (see the phone rules below). */
+.cmp-switch {
+  display: none;
+}
+.cmp-switch button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* FAQ: every question and its answer visible at once, on two columns, each pair under a rule.
+   No panels to open, no "+" discs. */
+.faq-head {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  max-width: 40em;
+}
+.faq-head p {
+  color: var(--ink-2);
+}
+.faq {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 64px;
+  margin-top: 48px;
+}
+.faq-item {
+  padding: 24px 0 28px;
+  border-top: 1px solid var(--line);
+}
+/* The folds: a native <details>; its summary carries the heading and a chevron that only shows
+   under 640 px, where the folds actually fold (see fold.ts). No disc, no "+". */
+[data-fold] summary {
+  list-style: none;
+  cursor: default;
+}
+[data-fold] summary::-webkit-details-marker {
+  display: none;
+}
+[data-fold] summary::after {
+  content: '';
+  display: none;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  margin: 0 5px 5px 0;
+  border-right: 1.6px solid var(--muted);
+  border-bottom: 1.6px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform 200ms var(--ease);
+}
+.faq-q {
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+.faq-item p {
+  max-width: 40em;
+  margin-top: 8px;
+}
+
+/* 1024 to 1279: tighter frames */
+
+/* Tablet: splits stack, text first */
+@media (max-width: 1023px) {
+  .section {
+    min-height: auto;
+  }
+  .hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+  }
+  .hero > .wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .split-text,
+  .hero-text,
+  .hero-visual,
+  .phones,
+  .theme-visual,
+  .cmp-text,
+  .cmp-steps,
+  .section-head .h2,
+  .section-aside {
+    grid-column: 1 / -1;
+  }
+  .faq {
+    gap: 0 40px;
+  }
+  /* Stacked, the window of FriRSS starts high enough to be seen on the first screen. */
+  .hero > .wrap {
+    row-gap: 24px;
+  }
+  .hero-text {
+    align-self: stretch;
+    padding-block: 0;
+  }
+  .hero-visual {
+    flex: 1;
+    height: auto;
+    min-height: 360px;
+    max-height: none;
+  }
+  .section-head {
+    row-gap: 20px;
+  }
+  .app-stage {
+    height: 560px;
+  }
+  .split-text {
+    margin-bottom: 40px;
+  }
+  /* Stacked, the window follows the text closely, at the same distance as in the hero. */
+  #themes .split-text {
+    margin-bottom: calc(72px - var(--gap));
+    padding-bottom: 0;
+  }
+  .theme-visual {
+    height: 560px;
+  }
+  .cmp-top {
+    row-gap: 32px;
+  }
+  .cmp-bar {
+    margin-top: 48px;
+  }
+  .cmp {
+    height: 520px;
+  }
+  /* Stacked layouts: in "browse" the FriRSS half shows its list from the divider, without the
+     sidebar that would fill the half on its own. */
+  .cmp--split .fr--list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cmp--split .fr--list > .fr-side {
+    display: none;
+  }
+  .feature {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Phone */
+@media (max-width: 639px) {
+  .hero {
+    min-height: auto;
+    padding-top: calc(var(--nav) + 32px);
+  }
+  .hero .btn-row,
+  .hero .btn {
+    width: 100%;
+  }
+  .hero-visual {
+    flex: none;
+    min-height: 0;
+    height: 320px;
+  }
+  /* On a phone the window shows the article list alone: the sidebar would fill the frame. */
+  .hero-window.fr--side-list {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+  .hero-window.fr--side-list > .fr-side {
+    display: none;
+  }
+  .app-stage {
+    height: 520px;
+    margin-top: 32px;
+  }
+  .theme-picker {
+    max-width: none;
+  }
+  .theme-picker button {
+    gap: 8px;
+    padding: 0 10px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .theme-visual {
+    height: 460px;
+  }
+  .theme-window {
+    width: 560px;
+  }
+  .theme-window.fr--side-read {
+    width: calc(100% + var(--gut));
+  }
+  .feature {
+    padding: 24px 20px 0;
+  }
+  .feature-panel {
+    height: 290px;
+  }
+  .faq {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 32px;
+  }
+  .faq-q {
+    font-size: 18px;
+  }
+  /* Under 640 px the questions and the families of features fold: tap the line to open it. */
+  .faq-item {
+    padding: 0;
+  }
+  [data-fold] summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 56px;
+    cursor: pointer;
+  }
+  .faq-item > summary {
+    padding: 14px 0;
+  }
+  .features-more-groups summary {
+    padding: 12px 0;
+  }
+  [data-fold] summary::after {
+    display: block;
+  }
+  [data-fold] [open] summary::after {
+    margin: 5px 5px 0 0;
+    transform: rotate(225deg);
+  }
+  .faq-item > p {
+    margin-top: 0;
+    padding-bottom: 20px;
+  }
+  .features-more-groups {
+    gap: 0;
+  }
+  .features-more-groups ul {
+    margin-top: 4px;
+    padding-bottom: 16px;
+  }
+  /* The comparison on a phone: one interface at full width, swapped by the switch. (`data-side`
+     is set by the script; without it the divider stays, still, in the middle.) */
+  .cmp {
+    height: 520px;
+  }
+  .cmp-bar {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cmp-switch:not([hidden]) {
+    display: inline-flex;
+  }
+  .cmp-labels {
+    font-size: var(--t-label);
+  }
+  [data-side] .cmp-labels,
+  [data-side] .cmp-handle,
+  [data-side] .cmp-range,
+  [data-side] .cmp-phones figcaption {
+    display: none;
+  }
+  [data-side] .cmp {
+    margin-top: 24px;
+    cursor: default;
+  }
+  [data-side] .cmp-before {
+    clip-path: none;
+  }
+  [data-side] .cmp--split .cmp-after {
+    left: 0;
+  }
+  [data-side='fri'] .cmp-before,
+  [data-side='fresh'] .cmp-after,
+  [data-side='fri'] .cmp-phones figure:first-child,
+  [data-side='fresh'] .cmp-phones figure:last-child {
+    display: none;
+  }
+  .cmp-phones {
+    gap: 16px;
+    margin-top: 28px;
+  }
+  [data-side] .cmp-phones {
+    grid-template-columns: minmax(0, 300px);
+    margin-top: 24px;
+  }
+  .cmp-phones figure {
+    gap: 12px;
+  }
+  .cmp-phones figcaption {
+    font-size: var(--t-label);
+  }
+}
+/* Under 360 px two theme names no longer fit on one line beside their swatch. */
+@media (max-width: 359px) {
+  .theme-picker button {
+    white-space: normal;
+  }
+}

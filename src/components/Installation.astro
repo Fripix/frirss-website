@@ -1,0 +1,303 @@
+---
+import { type Dictionary } from '../i18n';
+import { site } from '../config/site';
+import { installation, compose } from '../config/installation';
+import CodeBlock from './CodeBlock.astro';
+import Icon from './Icon.astro';
+import ConnectForm from './reader/ConnectForm.astro';
+import '../styles/reader.css';
+import '../styles/install.css';
+import '../styles/motion.css';
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+const v = t.installation.vars;
+const steps = ['prerequisites', 'install', 'account', 'connect', 'hosting', 'privacy'];
+---
+
+<section class="section install-intro is-dark intro-dark" id="top">
+  <div class="wrap" data-reveal="text">
+    <h1 class="h1">
+      {t.installation.title.split('\n').map((line, i) => (
+        <>
+          {i > 0 && <br />}
+          {line}
+        </>
+      ))}
+    </h1>
+    <p class="lead">{t.installation.intro}</p>
+    <ul class="install-facts">
+      {t.installation.facts.map((fact) => (
+        <li>{fact}</li>
+      ))}
+    </ul>
+    <a class="link" href={site.links.docs}>
+      <span>{t.common.source}</span>
+      <Icon name="external" size={16} />
+    </a>
+  </div>
+</section>
+
+<div class="band-light">
+  <div class="wrap install-layout">
+    <aside class="install-aside">
+      <p class="label">{t.common.onThisPage}</p>
+      <nav aria-label={t.common.nav.getStarted} data-section-nav>
+        {steps.map((id, i) => (
+          <a href={`#${id}`}>
+            <span class="step-num">0{i}</span>
+            {t.installation.navLabels[i]}
+          </a>
+        ))}
+      </nav>
+    </aside>
+
+    <div class="install-content">
+      <section class="step" id="prerequisites">
+        <h2 class="step-title">
+          <span class="step-num">00</span>
+          {t.installation.prereqTitle}
+        </h2>
+        <p>{t.installation.prereqText}</p>
+        <ol class="checklist">
+          {t.installation.prerequisites.map((item) => (
+            <li>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
+          ))}
+        </ol>
+        <a class="link" href={site.links.freshrss}>
+          <span>{t.installation.prereqLink}</span>
+          <Icon name="external" size={16} />
+        </a>
+      </section>
+
+      <section class="step" id="install" data-tabs data-tabs-hash>
+        <h2 class="step-title">
+          <span class="step-num">01</span>
+          {t.installation.stepOne}
+        </h2>
+        <p>{t.installation.methodHint}</p>
+        <div class="segmented" data-tablist aria-label={t.installation.stepOne} hidden>
+          <button type="button" id="tab-docker" data-panel="docker">
+            {t.installation.dockerTitle}
+          </button>
+          <button type="button" id="tab-compose" data-panel="compose">
+            {t.installation.composeTitle}
+          </button>
+          <button type="button" id="tab-unraid" data-panel="unraid">
+            {t.installation.unraidTitle}
+          </button>
+        </div>
+        <div class="install-method" id="docker">
+          <h3 class="method-title">{t.installation.dockerTitle}</h3>
+          <p>{t.installation.dockerText}</p>
+          <CodeBlock code={installation.docker} label="Docker" t={t} />
+          <p class="note">
+            <a href={site.links.docker}>{t.installation.imageNote}</a>
+          </p>
+        </div>
+        <div class="install-method" id="compose">
+          <h3 class="method-title">{t.installation.composeTitle}</h3>
+          <p>{t.installation.composeText}</p>
+          <CodeBlock
+            code={compose(
+              v.note,
+              v.groups.map((g) => g.title),
+            )}
+            label="compose.yaml"
+            t={t}
+          />
+          <CodeBlock code={installation.composeStart} label="Docker Compose" t={t} />
+        </div>
+        <div class="install-method" id="unraid">
+          <h3 class="method-title">{t.installation.unraidTitle}</h3>
+          <p>{t.installation.unraidText}</p>
+          <a class="link" href={site.links.unraid}>
+            <span>{t.installation.unraidLink}</span>
+            <Icon name="external" size={16} />
+          </a>
+        </div>
+        <div class="install-vars" id="variables">
+          <h3>{v.title}</h3>
+          <p>{v.intro}</p>
+          <table class="vars">
+            <thead>
+              <tr>
+                <th scope="col">{v.columns.name}</th>
+                <th scope="col">{v.columns.role}</th>
+                <th scope="col">{v.columns.default}</th>
+              </tr>
+            </thead>
+            {v.groups.map((group) => (
+              <tbody>
+                <tr class="vars-group">
+                  <th scope="colgroup" colspan="3">
+                    {group.title}
+                  </th>
+                </tr>
+                {group.rows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      <code>{row.name}</code>
+                    </th>
+                    <td>{row.text}</td>
+                    <td class="vars-default" data-label={v.defaultLabel}>
+                      {row.default}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            ))}
+          </table>
+        </div>
+      </section>
+
+      <section class="step" id="account">
+        <h2 class="step-title">
+          <span class="step-num">02</span>
+          {t.installation.stepTwo}
+        </h2>
+        <p>{t.installation.accountText}</p>
+        <CodeBlock code="http://localhost:8080" label={t.installation.addressLabel} t={t} />
+      </section>
+
+      <section class="step" id="connect">
+        <h2 class="step-title">
+          <span class="step-num">03</span>
+          {t.installation.stepThree}
+        </h2>
+        <p>{t.installation.connectText}</p>
+        <div class="connect-pair">
+          <dl class="fields">
+            {t.installation.connectionFields.map((field) => (
+              <div>
+                <dt>{field.label}</dt>
+                <dd>{field.text}</dd>
+              </div>
+            ))}
+          </dl>
+          <ConnectForm t={t} label={t.installation.formLabel} />
+        </div>
+        <details class="network-help">
+          <summary>
+            <Icon name="servers" size={20} />
+            <span>{t.installation.privateTitle.replaceAll(' ?', ' ?')}</span>
+            <span class="chevron" aria-hidden="true">
+              <Icon name="arrow" size={18} />
+            </span>
+          </summary>
+          <div class="network-help-content">
+            <p>{t.installation.privateText}</p>
+            <CodeBlock code={installation.privateHost} label="PROXY_INTERNAL_HOSTS" t={t} />
+            <p class="note">{t.installation.privateUsage}</p>
+          </div>
+        </details>
+        <p class="ready">
+          <span class="ready-icon">
+            <Icon name="check" size={18} />
+          </span>
+          <span>
+            <strong>{t.installation.readyTitle}</strong>
+            {t.installation.readyText}
+          </span>
+        </p>
+      </section>
+
+      <section class="step" id="hosting">
+        <h2 class="step-title">
+          <span class="step-num">04</span>
+          {t.installation.hosting.title}
+        </h2>
+        <p>{t.installation.hosting.intro}</p>
+        <div class="options">
+          <div class="option">
+            <p class="option-head">
+              <strong>SQLite</strong>
+              <span class="badge badge--on">
+                <Icon name="check" size={14} />
+                {t.installation.hosting.baselineTitle}
+              </span>
+            </p>
+            <p>{t.installation.hosting.baselineText}</p>
+          </div>
+          <div class="hosting-options">
+            {t.installation.hosting.options.map((option) => (
+              <article class="option">
+                <p class="option-head">
+                  <strong>{option.name}</strong>
+                  <span class="badge">{option.status}</span>
+                  <span class="option-scope">{option.scope}</span>
+                </p>
+                <p>{option.text}</p>
+                <p>{option.advice}</p>
+                <p class="note">{option.setup}</p>
+                <a class="link" href={site.links.configuration}>
+                  <span>{option.linkLabel}</span>
+                  <Icon name="external" size={16} />
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="step" id="privacy">
+        <h2 class="step-title">
+          <span class="step-num">05</span>
+          {t.installation.privacy.title}
+        </h2>
+        <p>{t.installation.privacy.intro}</p>
+        <div class="options privacy">
+          {t.installation.privacy.groups.map((group) => (
+            <article class="option">
+              <h3>{group.title}</h3>
+              <ul>
+                {group.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+          <article class="option">
+            <p class="option-head">
+              <span class="badge badge--on">
+                <Icon name="shield" size={14} />
+                {t.installation.privacy.telemetryTitle}
+              </span>
+            </p>
+            <p>{t.installation.privacy.telemetryText}</p>
+          </article>
+        </div>
+        <p class="note">{t.installation.privacy.keyNote}</p>
+        <a class="link" href={site.links.security}>
+          <span>{t.installation.privacy.link}</span>
+          <Icon name="external" size={16} />
+        </a>
+      </section>
+
+      <section class="step step--last">
+        <h2 class="step-title">{t.installation.nextTitle}</h2>
+        <div class="notes">
+          {t.installation.notes.map((item) => (
+            <article>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+        <a class="link" href={site.links.docs}>
+          <span>{t.installation.reference}</span>
+          <Icon name="external" size={16} />
+        </a>
+        <p class="note">{t.installation.commandsNote}</p>
+      </section>
+    </div>
+  </div>
+</div>
+<script>
+  import '../scripts/tabs';
+  import '../scripts/motion';
+</script>

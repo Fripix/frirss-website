@@ -1,0 +1,139 @@
+/* Resources: a directory read at a glance, every link showing where it goes. */
+
+.res-intro {
+  min-height: auto;
+  padding-top: calc(var(--nav) + 72px);
+  padding-bottom: 72px;
+}
+.res-intro .wrap {
+  display: grid;
+  justify-items: start;
+  gap: 24px;
+}
+
+.res-directory {
+  padding-bottom: 96px;
+}
+.res-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px var(--gap);
+  padding-top: 64px;
+}
+.res-group-title {
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+.res-group-text {
+  min-height: 3.2em;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: var(--t-small);
+}
+.res-group ul {
+  margin-top: 24px;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.resource-card {
+  display: grid;
+  gap: 6px;
+  padding: 20px 4px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-2);
+  text-decoration: none;
+}
+.res-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.res-title svg {
+  flex: none;
+  color: var(--muted);
+  transition: transform 200ms var(--ease);
+}
+.res-text {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.res-dest {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+@media (hover: hover) and (pointer: fine) {
+  .resource-card:hover .res-title {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+  .resource-card:hover .res-title svg {
+    color: var(--ink);
+    transform: translate(2px, -2px);
+  }
+}
+
+.res-band {
+  padding: 56px 0;
+  border-top: 1px solid var(--line);
+}
+.res-band-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+.res-band-grid > :first-child {
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: 8px;
+}
+.res-band-text {
+  grid-column: 7 / -1;
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+}
+.res-band .h3 {
+  font-size: clamp(24px, 2.4vw, 30px);
+  letter-spacing: -0.02em;
+}
+.res-support {
+  padding-bottom: 96px;
+}
+.res-support .btn-row {
+  gap: 8px 24px;
+}
+
+@media (max-width: 1023px) {
+  .res-groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .res-group-text {
+    min-height: 0;
+  }
+  .res-band-grid > :first-child,
+  .res-band-text {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 639px) {
+  .res-intro {
+    padding-top: calc(var(--nav) + 40px);
+  }
+  .res-directory {
+    padding-bottom: 64px;
+  }
+}

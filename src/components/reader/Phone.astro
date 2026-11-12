@@ -1,0 +1,140 @@
+---
+// FriRSS installed as a PWA on a phone. The screen is laid out at an iPhone's real width
+// (390 points, as measured on the public demo) and scaled down to the frame, like a screenshot.
+import type { Dictionary } from '../../i18n';
+import { Image } from 'astro:assets';
+import UiIcon from './UiIcon.astro';
+import { articlePhotos } from './photos';
+interface Props {
+  t: Dictionary;
+  variant: 'list' | 'article';
+  label: string;
+  offline?: boolean;
+  theme?: string;
+}
+const { t, variant, label, offline = false, theme = 'default' } = Astro.props;
+const lead = t.reader.articles[0];
+const feeds = t.reader.categories.flatMap((c) => c.feeds);
+const favicon = (source: string) => feeds.findIndex((f) => f.name === source) % 6;
+---
+
+<div class={`phone phone--${variant}`} data-fr-theme={theme} role="img" aria-label={label}>
+  <div class="phone-screen" inert>
+    <div class="phone-ui">
+      <div class="phone-status">
+        <span>9:41</span>
+        <span class="phone-island"></span>
+        <span class="phone-signal">
+          <i></i>
+          <i></i>
+          <i></i>
+          <b>82</b>
+        </span>
+      </div>
+      {offline && (
+        <p class="fr-offline">
+          <span class="fr-offline-dot" />
+          {t.reader.offline.banner} · {t.reader.offline.pending}
+        </p>
+      )}
+      {variant === 'list' ? (
+        <div class="phone-body">
+          <div class="phone-list-head">
+            <UiIcon name="menu" size={20} />
+            <strong>{t.reader.nav.all}</strong>
+            <b class="fr-badge fr-count-head">48</b>
+            <span class="phone-list-tools">
+              <UiIcon name="search" size={19} />
+              <UiIcon name="mail" size={19} />
+              <UiIcon name="shuffle" size={19} />
+              <UiIcon name="star" size={19} />
+              <UiIcon name="checkCircle" size={19} />
+              <UiIcon name="sliders" size={19} />
+            </span>
+          </div>
+          <p class="fr-date">
+            {t.reader.today}
+            <span>9</span>
+          </p>
+          <ul class="fr-rows">
+            {t.reader.articles.slice(0, 6).map((a, i) => (
+              <li class="fr-row is-unread">
+                <Image class="fr-thumb" src={articlePhotos[i]} width={160} alt="" />
+                <div>
+                  <p class="fr-meta">
+                    <span class={`fr-favicon fr-fav-${favicon(a.source)}`}>
+                      {a.source.charAt(0)}
+                    </span>
+                    <span>{a.source}</span>
+                    {a.time}
+                  </p>
+                  <p class="fr-title">{a.title}</p>
+                  <p class="fr-summary">{a.summary}</p>
+                </div>
+                <span class="fr-row-actions">
+                  <UiIcon name="star" size={14} />
+                  <UiIcon name="clock" size={14} />
+                  <UiIcon name="external" size={14} />
+                  <span class="fr-done">
+                    <UiIcon name="check" size={14} />
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div class="phone-body">
+          <article class="phone-article">
+            <div class="phone-article-head">
+              <p>
+                <span>{lead.source}</span>
+                <small>{t.reader.article.meta}</small>
+              </p>
+              <em>
+                <UiIcon name="clock" size={12} />
+                {t.reader.article.read}
+              </em>
+            </div>
+            <p class="fr-article-title">{lead.title}</p>
+            <p class="fr-chips">
+              {t.reader.article.tags.map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </p>
+            <Image
+              class="fr-hero"
+              src={articlePhotos[0]}
+              widths={[280, 520]}
+              sizes="260px"
+              alt=""
+            />
+            {t.reader.article.paragraphs.map((p) => (
+              <p class="fr-p">{p}</p>
+            ))}
+          </article>
+          <div class="phone-bar">
+            <span class="is-back">
+              <UiIcon name="back" size={20} />
+            </span>
+            <span>
+              <UiIcon name="tag" size={20} />
+            </span>
+            <span>
+              <UiIcon name="star" size={20} />
+            </span>
+            <span>
+              <UiIcon name="clock" size={20} />
+            </span>
+            <span>
+              <UiIcon name="file" size={20} />
+            </span>
+            <span>
+              <UiIcon name="more" size={20} />
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</div>

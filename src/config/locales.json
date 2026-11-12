@@ -1,0 +1,23 @@
+{
+  "source": "en",
+  "languages": [
+    {
+      "code": "en",
+      "name": "English",
+      "nativeName": "English",
+      "dir": "ltr",
+      "active": true,
+      "ready": true,
+      "ogLocale": "en_US"
+    },
+    {
+      "code": "fr",
+      "name": "French",
+      "nativeName": "Français",
+      "dir": "ltr",
+      "active": true,
+      "ready": true,
+      "ogLocale": "fr_FR"
+    }
+  ]
+}

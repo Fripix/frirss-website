@@ -1,0 +1,25 @@
+---
+// Features has its own route so it loads only the new design system.
+import Layout from '../../layouts/Layout.astro';
+import Features from '../../components/Features.astro';
+import PageClose from '../../components/PageClose.astro';
+import { languages, dictionary } from '../../i18n';
+export function getStaticPaths() {
+  return languages.map((language) => ({
+    params: { lang: language.code, features: dictionary(language.code).seo.features.slug },
+  }));
+}
+const lang = Astro.params.lang!;
+const t = dictionary(lang);
+---
+
+<Layout lang={lang} page="features">
+  <Features t={t} lang={lang} />
+  <PageClose
+    slot="close"
+    t={t}
+    lang={lang}
+    title={t.common.nextStepTitle}
+    text={t.common.nextStepText}
+  />
+</Layout>

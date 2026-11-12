@@ -1,0 +1,96 @@
+---
+// "In your language": FriRSS's two language strengths on one mint band. On the left, the ten
+// interface languages: a radio per language rewrites the labels of a FriRSS window (elements
+// carrying `data-l`, see reader/Sidebar.astro, ArticleList.astro and ReadingPane.astro) with
+// FriRSS's own wording, copied in src/data/interface-languages.json. The feed content stays as it
+// is, as in FriRSS. On the right, the AI translation of a whole article: the reading pane holds a
+// German article and its translation into the page's language; two radios show one or the other
+// in CSS alone (`:has`). Without JavaScript the language radios stay hidden and the window keeps
+// the page's language; the translation switch still works.
+import type { Dictionary } from '../i18n';
+import Window from './reader/Window.astro';
+import data from '../data/interface-languages.json';
+import '../styles/reader.css';
+import '../styles/languages.css';
+interface Props {
+  t: Dictionary;
+  lang: string;
+}
+const { t, lang } = Astro.props;
+const c = t.home.languages;
+// The German source of the page's sample article (reader.json, `article`), for the translation demo.
+const german = {
+  lang: 'de',
+  source: 'Himmelsblick',
+  author: 'Lena Maier',
+  title: 'Die Leoniden, vom Balkon mitten in der Stadt',
+  paragraphs: [
+    'Die Leoniden erreichen Mitte November ihren Höhepunkt. In der Stadt verschwinden die meisten schwachen Sternschnuppen im Schein der Straßenbeleuchtung, doch die hellsten ziehen weiterhin über den Himmel.',
+    'Schalten Sie das Licht im Raum hinter sich aus und lassen Sie Ihren Augen zwanzig Minuten Zeit, sich an die Dunkelheit zu gewöhnen. Meiden Sie in dieser Zeit den Handybildschirm.',
+    'Schauen Sie nach Mitternacht nach Osten, etwas über die Dächer hinweg. Ein Liegestuhl und eine warme Decke bringen mehr als ein Teleskop.',
+  ],
+};
+---
+
+<section class="section band-mint langs" id="languages">
+  <div class="wrap">
+    <div class="grid section-head" data-reveal="text">
+      <h2 class="h2">{c.title}</h2>
+      <div class="section-aside">
+        <p>{c.text}</p>
+      </div>
+    </div>
+    <div class="langs-grid">
+      <div class="langs-ui" data-langs>
+        <fieldset class="langs-pick" hidden>
+          <legend>{c.pick}</legend>
+          <div class="langs-chips">
+            {data.languages.map((l) => (
+              <label lang={l.code}>
+                <input
+                  type="radio"
+                  name="ui-lang"
+                  value={l.code}
+                  checked={l.code === lang}
+                  data-labels={JSON.stringify(l.labels)}
+                />
+                <span>{l.name}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <div class="langs-frame" data-reveal="lift">
+          <Window t={t} layout="side-list" rows={4} label={c.uiAlt} class="langs-window" />
+        </div>
+      </div>
+      <div class="langs-tr">
+        <fieldset class="langs-switch">
+          <legend>{c.articleLabel}</legend>
+          <div class="langs-seg">
+            <label>
+              <input type="radio" name="tr-state" value="source" checked />
+              <span>{c.source}</span>
+            </label>
+            <label>
+              <input type="radio" name="tr-state" value="done" />
+              <span>{c.translated}</span>
+            </label>
+          </div>
+        </fieldset>
+        <div class="langs-frame" data-reveal="lift">
+          <Window
+            t={t}
+            layout="read"
+            label={c.trAlt}
+            translation={german}
+            class="langs-window langs-read"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/languages';
+</script>

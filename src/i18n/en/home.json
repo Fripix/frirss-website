@@ -1,0 +1,173 @@
+{
+  "title": "A modern interface\nfor your FreshRSS",
+  "lead": "FriRSS connects to your FreshRSS server and reshapes how you read: three layouts, six themes, ten languages, and your articles offline on your phone.",
+  "install": "Install FriRSS",
+  "heroLabel": "FriRSS with its sidebar of feeds, folders and tags beside the list of today’s articles.",
+  "layouts": {
+    "title": "Three layouts, plus full screen",
+    "text": "Read next to the list in three columns, sort quickly in two, leaf through pictures in the grid, or give one article the whole screen. Each feed keeps its own layout.",
+    "label": "Choose a layout",
+    "columns": "3 columns",
+    "list": "2 columns",
+    "grid": "Grid",
+    "focus": "Full screen",
+    "alt": {
+      "columns": "FriRSS in three columns: feeds, list of articles and the open article side by side.",
+      "list": "FriRSS in two columns: feeds and a wide list of articles with their summaries.",
+      "grid": "FriRSS in a grid: articles as cards under the feeds sidebar.",
+      "focus": "FriRSS in focus mode: one article across the whole window."
+    }
+  },
+  "mobile": {
+    "title": "Your articles, even without a network",
+    "text": "Install FriRSS on your home screen like an app. Move between articles with a swipe, and prepare the last 30 days for offline reading, images included.",
+    "facts": [
+      "Installs from the browser",
+      "Swipe to move and refresh",
+      "30 days of articles offline"
+    ],
+    "link": "See the mobile features",
+    "listAlt": "FriRSS on a phone: today’s list of articles.",
+    "articleAlt": "FriRSS on a phone: an open article with its reading toolbar."
+  },
+  "themes": {
+    "title": "Six themes, 38 colours to adjust",
+    "text": "Start from a built-in theme, then tune colours, text sizes and spacing. Save the result, export it and share it.",
+    "label": "Try a theme",
+    "link": "See the customisation options",
+    "alt": "FriRSS with the selected theme applied to the sidebar and the open article."
+  },
+  "features": {
+    "title": "What FriRSS adds to FreshRSS.",
+    "subtitle": "Read, sort and find things faster.",
+    "items": [
+      {
+        "title": "Fetches the full article",
+        "text": "When a feed only sends an excerpt, Readability retrieves the whole text. You set it per feed."
+      },
+      {
+        "title": "Runs from the keyboard",
+        "text": "⌘K or Ctrl+K opens feeds, tags and actions. Every shortcut can be changed."
+      },
+      {
+        "title": "Files with a long press",
+        "text": "Put an article in Favorites or Read later, inside the sub-folders you create."
+      },
+      {
+        "title": "Summarises and translates, if you enable it",
+        "text": "AI stays off until an administrator sets it up. A local model with Ollama or LM Studio works too."
+      }
+    ],
+    "more": {
+      "title": "And everything else",
+      "note": "The four cards above show a few of them in detail.",
+      "groups": [
+        {
+          "title": "Reading",
+          "items": [
+            "Three columns, two columns or grid",
+            "Preview, standard or compact density",
+            "Full articles with Readability",
+            "YouTube videos on click",
+            "Random reading order"
+          ]
+        },
+        {
+          "title": "Organising",
+          "items": [
+            "Favorites and read later",
+            "Nested colored tags",
+            "⌘K command palette",
+            "Customisable keyboard shortcuts"
+          ]
+        },
+        {
+          "title": "Mobile and personalisation",
+          "items": [
+            "Installable PWA, swipe navigation",
+            "30 days of articles offline",
+            "Six themes, 38 colours, seven text sizes",
+            "Interface in ten languages",
+            "AI summaries and translation, 28 languages"
+          ]
+        },
+        {
+          "title": "Hosting",
+          "items": [
+            "Several FreshRSS servers",
+            "Several accounts, OIDC sign-in",
+            "Built-in SQLite, optional Redis"
+          ]
+        }
+      ]
+    },
+    "link": "The essential features"
+  },
+  "freshrss": {
+    "title": "Works with your FreshRSS server",
+    "text": "FreshRSS fetches and stores your feeds. FriRSS connects through its Google Reader API and takes care of reading, on every screen.",
+    "stepsTitle": "Installed in three steps",
+    "steps": [
+      "Start the container with Docker, Compose or Unraid.",
+      "Create your FriRSS account.",
+      "Connect your FreshRSS server with its API password."
+    ],
+    "link": "Follow the installation guide"
+  },
+  "faqTitle": "Common questions",
+  "faqOther": "Another question? Ask it in the GitHub discussions.",
+  "close": {
+    "title": "Your FriRSS, your rules.",
+    "text": "Try the online demo, then install FriRSS at home. Free, open source, no subscription."
+  },
+  "compare": {
+    "label": "Choose a situation",
+    "browse": "Browse",
+    "read": "Read",
+    "phone": "On a phone",
+    "before": "FreshRSS, the original interface",
+    "after": "With FriRSS",
+    "slider": "Compare FreshRSS and FriRSS: move the divider",
+    "show": "Interface shown",
+    "alt": {
+      "browse": "FreshRSS, normal view: the day’s articles as lines of text, without pictures.",
+      "read": "FreshRSS: an article opened in the list, under its row.",
+      "phone": "FreshRSS on a phone: the list of articles, one line of text per article."
+    },
+    "note": "FriRSS is an independent project with no official tie to FreshRSS. FreshRSS and its interface belong to their authors; it is reproduced here for comparison."
+  },
+  "custom": {
+    "title": "Tune the interface,\ndown to each button",
+    "text": "Change the list density, what each row shows, the buttons of the reading pane and of the bars. A hidden button stays in the command palette. Try it here.",
+    "label": "Tune FriRSS",
+    "tabsLabel": "Settings to try",
+    "tabs": {
+      "list": "List",
+      "read": "Reading",
+      "bars": "Bars"
+    },
+    "alt": "FriRSS in three columns with the shortcut bar; the window follows the settings.",
+    "moreTitle": "Elsewhere in Preferences",
+    "more": [
+      "Article order, newest or oldest first, feed by feed",
+      "A layout of its own for each feed",
+      "The view at launch: last view, All feeds or Unread",
+      "Mark as read on scroll",
+      "Size and format of grid cards",
+      "Your instance’s name and logo",
+      "Customisable keyboard shortcuts",
+      "The interface in ten languages",
+      "Counters for Favorites, Read later and labels: total, unread or both"
+    ]
+  },
+  "languages": {
+    "title": "In your language, articles included",
+    "text": "The interface comes in ten languages and follows your browser’s. With AI turned on, FriRSS also translates the whole article, title and body, into any of 28 languages: on demand, or as soon as it opens for the feeds you pick. The source text is one click away.",
+    "pick": "Interface language",
+    "uiAlt": "FriRSS with its sidebar and article list; the labels follow the chosen language, the articles stay as the feeds wrote them.",
+    "articleLabel": "Article from a German feed",
+    "source": "Source text",
+    "translated": "Translated into English",
+    "trAlt": "FriRSS’s reading pane with an article from a German feed, shown as source text or translated into English."
+  }
+}

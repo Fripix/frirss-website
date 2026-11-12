@@ -1,0 +1,243 @@
+{
+  "title": "Installer FriRSS\nsur votre serveur",
+  "intro": "Préparez FreshRSS, installez FriRSS, puis reliez les deux. Ce guide vous accompagne jusqu’à votre première lecture.",
+  "facts": ["Docker, Compose ou Unraid", "amd64 et arm64", "Gratuit et open source"],
+  "prereqTitle": "Il vous faut d’abord FreshRSS.",
+  "prereqText": "FriRSS affiche les articles de votre instance FreshRSS. Avant de commencer, préparez ces trois éléments.",
+  "prereqLink": "Découvrir FreshRSS",
+  "stepOne": "Choisissez votre installation",
+  "dockerTitle": "Docker",
+  "dockerText": "Lancez l’image officielle. Le port 8080 de l’hôte correspond au port 80 du conteneur ; /app/data conserve la base de données et les clés de chiffrement.",
+  "composeTitle": "Docker Compose",
+  "composeText": "Enregistrez ce contenu dans compose.yaml, dans un dossier vide, puis lancez les commandes ci-dessous. Conservez le dossier frirss-data : il contient les données de votre instance.",
+  "unraidTitle": "Unraid",
+  "unraidText": "Ouvrez l’onglet Apps d’Unraid Community Applications, recherchez FriRSS et installez son modèle. Vérifiez le port de l’hôte et le volume persistant /app/data avant le démarrage.",
+  "unraidLink": "Ouvrir Community Applications",
+  "imageNote": "Également disponible sur Docker Hub : fripix/frirss. Les images officielles prennent en charge amd64 et arm64.",
+  "stepTwo": "Créez votre compte FriRSS",
+  "accountText": "Une fois le conteneur démarré, ouvrez cette adresse sur l’hôte Docker, ou utilisez l’adresse de cet hôte depuis un autre appareil. Créez immédiatement le premier compte FriRSS : il devient administrateur. Les inscriptions se ferment ensuite et se réactivent dans Préférences → Administration.",
+  "stepThree": "Reliez FreshRSS à FriRSS",
+  "connectText": "Cette fois, utilisez les identifiants de FreshRSS. Ils sont distincts du compte FriRSS que vous venez de créer.",
+  "privateTitle": "FreshRSS sur un réseau privé ?",
+  "privateText": "Le proxy bloque les adresses privées par défaut. Autorisez explicitement le nom d’hôte ou l’IP de FreshRSS avec PROXY_INTERNAL_HOSTS. Remplacez l’adresse de l’exemple par la vôtre, sans désactiver globalement cette protection.",
+  "privateUsage": "Docker : ajoutez -e PROXY_INTERNAL_HOSTS=192.168.1.20 avant le nom de l’image. Compose : retirez le # devant la ligne PROXY_INTERNAL_HOSTS et remplacez l’adresse par celle de votre FreshRSS. Recréez le conteneur après modification.",
+  "nextTitle": "Pour une installation durable",
+  "notes": [
+    {
+      "title": "Gardez vos données",
+      "text": "Sauvegardez /app/data avec la procédure officielle d’instantané SQLite ou l’export chiffré. Copier uniquement un fichier frirss.db en cours d’utilisation n’est pas une sauvegarde fiable."
+    },
+    {
+      "title": "Passez en HTTPS",
+      "text": "Pour l’accès distant, passez par un reverse proxy HTTPS ; n’exposez pas directement le port du conteneur à Internet. Pour les traductions IA, prévoyez des délais de lecture et d’envoi d’au moins 120 secondes."
+    },
+    {
+      "title": "Mettez à jour avec méthode",
+      "text": "Lisez les notes de version, sauvegardez les données, puis récupérez la nouvelle image et recréez le conteneur. Le README officiel reste la référence pour les évolutions de configuration."
+    }
+  ],
+  "reference": "Guide complet d’installation et de configuration",
+  "commandsNote": "Le README officiel reste la référence si une option ou une commande évolue.",
+  "methodHint": "Choisissez votre méthode. Les étapes de création du compte et de connexion à FreshRSS sont les mêmes ensuite.",
+  "prerequisites": [
+    {
+      "title": "Une instance FreshRSS accessible",
+      "text": "Gardez son adresse et votre nom d’utilisateur à portée de main."
+    },
+    {
+      "title": "L’accès API activé",
+      "text": "Dans FreshRSS : Configuration → Authentification → Autoriser l’accès par API."
+    },
+    {
+      "title": "Un mot de passe API",
+      "text": "Définissez-le dans FreshRSS : Configuration → Profil. Il servira à connecter FriRSS."
+    }
+  ],
+  "navLabels": [
+    "Préparer FreshRSS",
+    "Installer FriRSS",
+    "Créer le compte",
+    "Relier FreshRSS",
+    "Hébergement",
+    "Vie privée"
+  ],
+  "addressLabel": "Adresse locale après démarrage",
+  "connectionFields": [
+    {
+      "label": "Adresse de FreshRSS",
+      "text": "L’URL de votre instance, par exemple https://rss.example.com."
+    },
+    {
+      "label": "Utilisateur FreshRSS",
+      "text": "Le nom du compte dont vous souhaitez retrouver les abonnements."
+    },
+    {
+      "label": "Mot de passe API",
+      "text": "Celui défini dans le profil FreshRSS à l’étape de préparation."
+    }
+  ],
+  "readyTitle": "Vos flux sont prêts à lire.",
+  "readyText": "Choisissez votre disposition, votre thème et votre premier article. Vous pourrez ensuite ajuster le reste à votre rythme.",
+  "hosting": {
+    "title": "Faites évoluer votre installation",
+    "intro": "FriRSS fonctionne avec sa base SQLite intégrée. Redis est un complément facultatif pour accélérer les lectures et partager le cache entre vos appareils.",
+    "baselineTitle": "SQLite est déjà dans FriRSS",
+    "baselineText": "Comptes, préférences et configuration sont conservés dans la base intégrée. Sauvegardez les données de FriRSS : aucun service de base de données supplémentaire n’est nécessaire.",
+    "options": [
+      {
+        "name": "Redis",
+        "scope": "Côté FriRSS",
+        "status": "Recommandé, facultatif",
+        "text": "Un cache partagé pour les listes, les articles extraits et les résultats IA. Il évite de refaire le même travail pour chaque appareil ou utilisateur.",
+        "advice": "Un complément utile pour rendre les consultations répétées plus rapides. FriRSS fonctionne aussi sans Redis.",
+        "setup": "Reliez votre service Redis avec REDIS_URL. Le préchargement en arrière-plan s’active séparément avec CACHE_SYNC_INTERVAL, qui nécessite Redis.",
+        "linkLabel": "Configurer Redis"
+      }
+    ]
+  },
+  "formLabel": "Le formulaire FriRSS d’ajout d’un serveur FreshRSS, avec l’URL du serveur, l’utilisateur FreshRSS et le mot de passe API.",
+  "privacy": {
+    "title": "Vie privée et sécurité",
+    "intro": "FriRSS tourne sur votre serveur et ne garde que le nécessaire. Voici ce qu’il stocke, où, et ce qui sort de votre installation.",
+    "groups": [
+      {
+        "title": "Sur votre serveur",
+        "items": [
+          "Une seule base SQLite, dans /app/data : comptes, préférences synchronisées et réglages de l’instance.",
+          "Les mots de passe sont hachés avec bcrypt.",
+          "Le mot de passe API de FreshRSS n’est jamais enregistré : FriRSS garde seulement le jeton de connexion, chiffré en AES-256-GCM, et ne l’envoie jamais au navigateur.",
+          "Vos articles restent dans FreshRSS. Sans Redis, le texte des articles extraits n’est pas conservé."
+        ]
+      },
+      {
+        "title": "Dans votre navigateur",
+        "items": [
+          "La session, les préférences propres à cet écran et les icônes des flux.",
+          "Les articles et les images préparés pour la lecture hors ligne, que vous pouvez vider à tout moment."
+        ]
+      },
+      {
+        "title": "Ce qui sort de votre installation",
+        "items": [
+          "Vers votre serveur FreshRSS : toujours, c’est le rôle de FriRSS.",
+          "Vers les sites des articles : seulement si l’article complet est activé. Il est désactivé par défaut.",
+          "Vers un fournisseur d’IA : seulement si l’administrateur l’active. Le titre et le texte de l’article lui sont envoyés.",
+          "Vers votre fournisseur de connexion unique (SSO) : seulement si l’administrateur l’active.",
+          "Les images des articles sont chargées par le navigateur depuis leur site, comme dans tout lecteur RSS."
+        ]
+      }
+    ],
+    "telemetryTitle": "Aucune télémétrie",
+    "telemetryText": "FriRSS ne contient ni mesure d’audience, ni rapport d’erreurs, ni vérification de mise à jour : il ne contacte aucun serveur de son auteur.",
+    "keyNote": "La clé qui chiffre les jetons est rangée dans la même base. Protégez et sauvegardez le dossier /app/data comme un mot de passe.",
+    "link": "Lire la politique de sécurité"
+  },
+  "vars": {
+    "title": "Variables d’environnement",
+    "intro": "Toutes sont facultatives, sauf TZ, déjà réglée. Dans compose.yaml, retirez le # devant une ligne pour l’activer ; avec docker run, ajoutez ‑e NOM=valeur avant le nom de l’image. Recréez ensuite le conteneur.",
+    "note": "Facultatif : retirez le # devant une ligne pour l’activer (voir le tableau).",
+    "columns": {
+      "name": "Variable",
+      "role": "À quoi elle sert",
+      "default": "Par défaut"
+    },
+    "groups": [
+      {
+        "title": "Démarrage",
+        "rows": [
+          {
+            "name": "TZ",
+            "text": "Fuseau horaire du conteneur, pour les dates et les journaux. Exemple : Europe/Paris.",
+            "default": "—"
+          },
+          {
+            "name": "PUID, PGID",
+            "text": "Utilisateur et groupe qui font tourner FriRSS. Le dossier de données est repris à leur nom au démarrage.",
+            "default": "1000"
+          }
+        ]
+      },
+      {
+        "title": "Réseau",
+        "rows": [
+          {
+            "name": "FRIRSS_BASE_URL",
+            "text": "Adresse publique de FriRSS. Recommandée derrière un proxy inverse ; corrige aussi les adresses de retour de la connexion unique (OIDC).",
+            "default": "Déduite de la requête"
+          },
+          {
+            "name": "PROXY_INTERNAL_HOSTS",
+            "text": "Hôtes privés que FriRSS a le droit de joindre, séparés par des virgules. Nécessaire quand FreshRSS est sur votre réseau local ou un réseau Docker.",
+            "default": "Aucun"
+          },
+          {
+            "name": "PROXY_REWRITES",
+            "text": "Joindre FreshRSS par le réseau interne plutôt que par son adresse publique : adresse publique=adresse interne, séparées par des virgules.",
+            "default": "Aucune"
+          },
+          {
+            "name": "CORS_ORIGIN",
+            "text": "Origines autorisées, seulement si l’interface et le serveur sont servis séparément.",
+            "default": "Aucune"
+          }
+        ]
+      },
+      {
+        "title": "Cache Redis, fortement recommandé",
+        "rows": [
+          {
+            "name": "REDIS_URL",
+            "text": "Active le cache : listes affichées tout de suite, préchargement en arrière-plan, articles extraits et résultats IA partagés par toute l’instance.",
+            "default": "Désactivé"
+          },
+          {
+            "name": "CACHE_ARTICLES_PER_FEED",
+            "text": "Articles gardés en cache par flux.",
+            "default": "50"
+          },
+          {
+            "name": "CACHE_TTL",
+            "text": "Durée de vie d’une entrée du cache, en secondes.",
+            "default": "86400 (un jour)"
+          },
+          {
+            "name": "CACHE_SYNC_INTERVAL",
+            "text": "Préchargement en arrière-plan, toutes les N minutes. 0 le coupe ; demande REDIS_URL.",
+            "default": "0"
+          },
+          {
+            "name": "CACHE_SYNC_ACTIVE_DAYS",
+            "text": "Ne précharge que pour les comptes vus ces N derniers jours.",
+            "default": "7"
+          },
+          {
+            "name": "CACHE_SYNC_PARALLEL_USERS",
+            "text": "Comptes préchargés en même temps.",
+            "default": "3"
+          }
+        ]
+      },
+      {
+        "title": "Limites et stockage",
+        "rows": [
+          {
+            "name": "FRIRSS_REFRESH_MAX_FEEDS",
+            "text": "Flux actualisés à chaque clic sur Actualiser.",
+            "default": "1000"
+          },
+          {
+            "name": "FRIRSS_PROXY_RATE_LIMIT",
+            "text": "Requêtes par compte et par minute, un seul budget pour le proxy, l’extraction d’articles et l’IA. 0 retire la limite.",
+            "default": "600"
+          },
+          {
+            "name": "FRIRSS_DATA_DIR",
+            "text": "Dossier de la base SQLite, dans le conteneur.",
+            "default": "/app/data"
+          }
+        ]
+      }
+    ],
+    "defaultLabel": "Par défaut : "
+  }
+}

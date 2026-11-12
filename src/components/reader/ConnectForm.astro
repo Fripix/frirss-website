@@ -1,0 +1,45 @@
+---
+// The FriRSS "Add a FreshRSS server" form, in HTML, with the app's own labels. Not a working form.
+import { Image } from 'astro:assets';
+import type { Dictionary } from '../../i18n';
+import logo from '../../assets/logo.png';
+interface Props {
+  t: Dictionary;
+  label: string;
+}
+const { t, label } = Astro.props;
+const c = t.reader.connect;
+---
+
+<div class="connect" data-fr-theme="default" role="img" aria-label={label}>
+  <div class="connect-head" inert>
+    <span class="fr-logo">
+      <Image src={logo} width={64} height={64} alt="" format="webp" />
+    </span>
+    <strong>{c.title}</strong>
+    <span>{c.hint}</span>
+  </div>
+  <div class="connect-body" inert>
+    <p class="connect-field">
+      <span>{c.url}</span>
+      <i class="is-focus">
+        {c.placeholder}
+        <b></b>
+      </i>
+    </p>
+    <p class="connect-field">
+      <span>{c.user}</span>
+      <i>{t.reader.users.names[0]}</i>
+    </p>
+    <p class="connect-field">
+      <span>{c.password}</span>
+      <i class="is-secret">••••••••••••</i>
+      <small>{c.passwordHint}</small>
+    </p>
+    <p class="connect-field">
+      <span>{c.name}</span>
+      <i>{t.reader.servers.items[0]}</i>
+    </p>
+    <p class="connect-submit">{c.submit}</p>
+  </div>
+</div>

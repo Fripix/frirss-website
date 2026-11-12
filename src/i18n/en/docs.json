@@ -1,0 +1,75 @@
+{
+  "title": "Documentation\nand help",
+  "intro": "Install your reader, understand how it works, grow your setup or find help. Explore the guides and conversations for each step.",
+  "resources": [
+    {
+      "link": "docs",
+      "title": "Official README",
+      "text": "Installation, prerequisites, backups and a complete project overview."
+    },
+    {
+      "link": "configuration",
+      "title": "Configuration",
+      "text": "Environment variables, private networks, Redis and reverse proxies."
+    },
+    {
+      "link": "authentication",
+      "title": "Accounts & authentication",
+      "text": "Local accounts, OIDC single sign-on and multiple FreshRSS servers."
+    },
+    {
+      "link": "features",
+      "title": "Feature reference",
+      "text": "Detailed implementation and behavior notes, maintained in French."
+    },
+    {
+      "link": "releases",
+      "title": "Release notes",
+      "text": "Changes, fixes and upgrade notes for each release."
+    },
+    {
+      "link": "issues",
+      "title": "Report an issue",
+      "text": "Share a reproducible bug or suggest an improvement."
+    },
+    {
+      "link": "discussions",
+      "title": "Ask the community",
+      "text": "Questions, experiences and ideas belong in GitHub Discussions."
+    },
+    {
+      "link": "contributing",
+      "title": "Contribute",
+      "text": "Help with code, translations, documentation or thoughtful feedback."
+    },
+    {
+      "link": "security",
+      "title": "Security",
+      "text": "Read the security policy and report vulnerabilities responsibly."
+    }
+  ],
+  "supportTitle": "Help an independent project grow.",
+  "supportText": "FriRSS is free software. If it has found a place in your day, you can support its development or simply share what works for you.",
+  "groups": [
+    {
+      "title": "Install and configure",
+      "text": "The essentials for making FriRSS at home on your server."
+    },
+    {
+      "title": "Understand and stay current",
+      "text": "Product details, new releases and security guidance."
+    },
+    {
+      "title": "Connect and contribute",
+      "text": "Questions, ideas and helping hands all make the project better."
+    }
+  ],
+  "hostingTitle": "A setup that suits you.",
+  "hostingText": "SQLite comes with FriRSS. Redis can speed up repeat visits and share cached content. Learn what it does and how to configure it for your setup.",
+  "hostingLink": "Choose your hosting options",
+  "about": {
+    "title": "Who makes FriRSS",
+    "text": "FriRSS is designed and maintained by Fripix. Questions, ideas and contributions go through GitHub.",
+    "link": "Fripix on GitHub"
+  }
+}

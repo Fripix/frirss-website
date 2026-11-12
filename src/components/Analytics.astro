@@ -1,0 +1,44 @@
+---
+import { analyticsConfig } from '../config/analytics';
+const config = analyticsConfig(import.meta.env);
+if (config && Astro.csp) {
+  const origin = new URL(config.url).origin;
+  Astro.csp.insertScriptResource(origin);
+  Astro.csp.insertDirective(`connect-src 'self' ${origin}`);
+  Astro.csp.insertDirective(`img-src 'self' data: ${origin}`);
+}
+---
+
+{config && <div hidden data-analytics-url={config.url} data-analytics-site={config.siteId}></div>}
+<script>
+  // No element, no tracker, no requests. See docs/PRIVACY.md before enabling.
+  const config = document.querySelector<HTMLElement>('[data-analytics-url]');
+  if (
+    config &&
+    navigator.doNotTrack !== '1' &&
+    !(navigator as Navigator & { globalPrivacyControl?: boolean }).globalPrivacyControl
+  ) {
+    const start = () => {
+      const url = config.dataset.analyticsUrl!;
+      const target = window as Window & { _paq?: unknown[][] };
+      target._paq = [
+        ['disableCookies'],
+        ['disableBrowserFeatureDetection'],
+        ['setDoNotTrack', true],
+        ['setTrackerUrl', `${url}matomo.php`],
+        ['setSiteId', config.dataset.analyticsSite],
+        ['setCustomUrl', `${location.origin}${location.pathname}`],
+        ['setReferrerUrl', ''],
+        ['setDocumentTitle', document.documentElement.lang + ':' + document.body.dataset.page],
+        ['trackPageView'],
+      ];
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `${url}matomo.js`;
+      script.referrerPolicy = 'no-referrer';
+      document.head.append(script);
+    };
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start, { once: true });
+  }
+</script>

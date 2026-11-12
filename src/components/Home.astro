@@ -1,0 +1,249 @@
+---
+import type { Dictionary } from '../i18n';
+import { route } from '../i18n';
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import Compare from './compare/Compare.astro';
+import Customize from './Customize.astro';
+import Languages from './Languages.astro';
+import Window from './reader/Window.astro';
+import Phone from './reader/Phone.astro';
+import UiFragment from './reader/UiFragment.astro';
+import UiIcon from './reader/UiIcon.astro';
+import '../styles/reader.css';
+import '../styles/home.css';
+import '../styles/motion.css';
+interface Props {
+  t: Dictionary;
+  lang: string;
+}
+const { t, lang } = Astro.props;
+const layouts = ['columns', 'list', 'grid', 'focus'] as const;
+const themes = [
+  { id: 'default', name: 'Default' },
+  { id: 'riso', name: 'Riso' },
+  { id: 'paper', name: 'Paper' },
+  { id: 'contrast', name: 'High Contrast' },
+  { id: 'night', name: 'Night' },
+  { id: 'desk', name: 'Desk' },
+];
+const fragments = ['full', 'palette', 'picker', 'ai'] as const;
+const fragmentThemes = ['default', 'night', 'riso', 'desk'];
+---
+
+<section class="section hero is-dark" id="top">
+  <div class="wrap grid">
+    <div class="hero-text">
+      <h1 class="h1">
+        {t.home.title.split('\n').map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {i > 0 ? <span class="accent">{line}</span> : line}
+          </>
+        ))}
+      </h1>
+      <p class="lead">{t.home.lead}</p>
+      <div class="btn-row">
+        <a
+          class="btn btn--primary btn--demo"
+          href={site.links.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.common.nav.demo}
+          <Icon name="arrow" size={16} />
+          <span class="sr-only">{t.common.newTab}</span>
+        </a>
+        <a class="btn btn--secondary" href={route(lang, 'getStarted')}>
+          {t.home.install}
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <Window t={t} layout="side-list" label={t.home.heroLabel} class="hero-window" live />
+    </div>
+  </div>
+</section>
+
+<section class="section band-light" id="layouts" data-tabs>
+  <div class="wrap">
+    <div class="grid section-head" data-reveal="text">
+      <h2 class="h2">{t.home.layouts.title}</h2>
+      <div class="section-aside">
+        <p>{t.home.layouts.text}</p>
+        <div class="segmented" data-tablist aria-label={t.home.layouts.label} hidden>
+          {layouts.map((id) => (
+            <button type="button" id={`tab-layout-${id}`} data-panel={`layout-${id}`}>
+              <UiIcon name={id} size={16} />
+              {t.home.layouts[id]}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+    <div class="app-stage" data-reveal="lift">
+      {layouts.map((id, i) => (
+        <div class="app-view" id={`layout-${id}`} hidden={i !== 0}>
+          <Window t={t} layout={id} label={t.home.layouts.alt[id]} shortcuts={id === 'columns'} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section band-dark" id="mobile">
+  <div class="wrap grid">
+    <div class="split-text" data-reveal="text">
+      <h2 class="h2">{t.home.mobile.title}</h2>
+      <p class="lead">{t.home.mobile.text}</p>
+      <ul class="facts">
+        {t.home.mobile.facts.map((fact) => (
+          <li>{fact}</li>
+        ))}
+      </ul>
+      <a class="link" href={`${route(lang, 'features')}#group-2`}>
+        <span>{t.home.mobile.link}</span>
+        <Icon name="arrow" size={18} />
+      </a>
+    </div>
+    <div class="phones" data-reveal="lift">
+      <Phone t={t} variant="list" label={t.home.mobile.listAlt} />
+      <Phone t={t} variant="article" theme="paper" label={t.home.mobile.articleAlt} />
+    </div>
+  </div>
+</section>
+
+<section class="section" id="themes" data-theme-demo data-ground="default">
+  <div class="wrap grid">
+    <div class="split-text" data-reveal="text">
+      <h2 class="h2">{t.home.themes.title}</h2>
+      <p class="lead">{t.home.themes.text}</p>
+      <div class="theme-picker" role="group" aria-label={t.home.themes.label} hidden>
+        {themes.map((theme, i) => (
+          <button
+            type="button"
+            data-theme-choice={theme.id}
+            aria-pressed={i === 0 ? 'true' : 'false'}
+          >
+            <span class="swatch" data-fr-theme={theme.id} aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            {theme.name}
+          </button>
+        ))}
+      </div>
+      <a class="link" href={`${route(lang, 'features')}#group-3`}>
+        <span>{t.home.themes.link}</span>
+        <Icon name="arrow" size={18} />
+      </a>
+    </div>
+    <div class="theme-visual" data-reveal="visual">
+      <Window t={t} layout="side-read" ai label={t.home.themes.alt} class="theme-window" />
+    </div>
+  </div>
+</section>
+
+<Customize t={t} />
+
+<section class="section band-light" id="features">
+  <div class="wrap">
+    <div class="features-head" data-reveal="text">
+      <h2 class="h2 features-title">{t.home.features.title}</h2>
+      <p class="lead">{t.home.features.subtitle}</p>
+    </div>
+    <div class="grid feature-grid">
+      {t.home.features.items.map((item, i) => (
+        <article class={`feature feature--${fragments[i]}`} data-reveal="text" data-loop>
+          <h3 class="h3">{item.title}</h3>
+          <p>{item.text}</p>
+          <div class={`feature-panel feature-panel--${fragments[i]}`}>
+            <UiFragment t={t} kind={fragments[i]} theme={fragmentThemes[i]} />
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="features-more" data-reveal="text">
+      <div class="features-more-head">
+        <h3 class="h3">{t.home.features.more.title}</h3>
+        <p>{t.home.features.more.note}</p>
+      </div>
+      <div class="features-more-groups" data-fold>
+        {t.home.features.more.groups.map((group) => (
+          <details open>
+            <summary>
+              <h4>{group.title}</h4>
+            </summary>
+            <ul>
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
+    </div>
+    <a class="link features-link" href={route(lang, 'features')}>
+      <span>{t.home.features.link}</span>
+      <Icon name="arrow" size={18} />
+    </a>
+  </div>
+</section>
+
+<Languages t={t} lang={lang} />
+
+<section class="section band-dark cmp-section" id="freshrss" data-tabs>
+  <div class="wrap">
+    <div class="grid cmp-top">
+      <div class="cmp-text" data-reveal="text">
+        <h2 class="h2">{t.home.freshrss.title}</h2>
+        <p class="lead">{t.home.freshrss.text}</p>
+      </div>
+      <div class="cmp-steps" data-reveal="text">
+        <p class="steps-title">{t.home.freshrss.stepsTitle}</p>
+        <ol class="steps">
+          {t.home.freshrss.steps.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ol>
+        <a class="link" href={route(lang, 'getStarted')}>
+          <span>{t.home.freshrss.link}</span>
+          <Icon name="arrow" size={18} />
+        </a>
+      </div>
+    </div>
+    <Compare t={t} />
+  </div>
+</section>
+
+<section class="section band-light" id="faq">
+  <div class="wrap">
+    <div class="faq-head" data-reveal="text">
+      <h2 class="h2">{t.home.faqTitle}</h2>
+      <p>{t.home.faqOther}</p>
+      <a class="link" href={site.links.discussions}>
+        <span>{t.common.community}</span>
+        <Icon name="external" size={16} />
+      </a>
+    </div>
+    <div class="faq" data-reveal="text" data-fold>
+      {t.faq.items.map((item) => (
+        <details class="faq-item" open>
+          <summary>
+            <h3 class="faq-q">{item.q}</h3>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/tabs';
+  import '../scripts/compare';
+  import '../scripts/discovery';
+  import '../scripts/fold';
+  import '../scripts/motion';
+</script>

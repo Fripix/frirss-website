@@ -1,0 +1,158 @@
+/* "In your language" (components/Languages.astro): a mint band, the usual section head, then two
+   columns that line up: the interface languages over a FriRSS window (seven columns), and the
+   translation switch over a reading pane (five). Each choice sits right above what it changes. */
+.langs-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  gap: 20px var(--gap);
+  margin-top: 56px;
+}
+.langs-ui,
+.langs-tr {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 20px;
+  align-items: end;
+}
+.langs-ui {
+  grid-column: 1 / span 7;
+}
+.langs-tr {
+  grid-column: 8 / -1;
+}
+.langs fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.langs legend {
+  margin-bottom: 10px;
+  padding: 0;
+  color: var(--ink);
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+
+/* Ten languages: radios drawn as pills, the chosen one dark on the mint ground. */
+.langs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.langs-chips label,
+.langs-seg label {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--r-btn);
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms var(--ease);
+}
+.langs-chips label {
+  border: 1px solid var(--line);
+}
+.langs input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.langs-chips label:has(:checked),
+.langs-seg label:has(:checked) {
+  border-color: #06231a;
+  background: #06231a;
+  color: #e9faf3;
+}
+.langs-chips label:has(:focus-visible),
+.langs-seg label:has(:focus-visible) {
+  outline: 3px solid #06231a;
+  outline-offset: 2px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .langs-chips label:not(:has(:checked)):hover,
+  .langs-seg label:not(:has(:checked)):hover {
+    background: var(--sage-1);
+  }
+}
+.langs-seg {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-btn);
+}
+
+/* The renderings: one height, side by side; the window is cut by its frame like the others. */
+.langs-frame {
+  position: relative;
+  height: 560px;
+}
+.langs-window {
+  height: 100%;
+  box-shadow: var(--shot-shadow);
+}
+
+/* Without its photo, the pane shows the text that gets translated. */
+.langs-read .fr-hero {
+  display: none;
+}
+/* The reading pane keeps the buttons that fit beside Translate, as FriRSS's own bar settings
+   allow; the source text or its translation, never both. */
+.langs-read [data-tb='labels'],
+.langs-read [data-tb='full'],
+.langs-read [data-tb='share'],
+.langs-read [data-tb='fontSize'] {
+  display: none;
+}
+.langs:has([name='tr-state'][value='source']:checked) [data-tr='done'],
+.langs:has([name='tr-state'][value='done']:checked) [data-tr='source'] {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .langs-ui,
+  .langs-tr {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    grid-template-rows: auto auto;
+  }
+  .langs-grid {
+    grid-template-rows: none;
+    row-gap: 48px;
+  }
+  .langs-frame {
+    height: 520px;
+  }
+}
+@media (max-width: 639px) {
+  .langs-grid {
+    margin-top: 32px;
+  }
+  .langs-chips label {
+    padding: 0 12px;
+  }
+  .langs-seg {
+    display: flex;
+  }
+  .langs-seg label {
+    flex: 1;
+    padding: 0 10px;
+  }
+  .langs-frame {
+    height: 460px;
+  }
+  /* As in the hero and in FriRSS on a phone: the list alone, its sidebar is a drawer. */
+  .langs-ui .fr--side-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .langs-ui .fr--side-list > .fr-side {
+    display: none;
+  }
+}

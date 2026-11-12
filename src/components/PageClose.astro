@@ -1,0 +1,43 @@
+---
+import type { Dictionary } from '../i18n';
+import { route } from '../i18n';
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import StarButton from './StarButton.astro';
+interface Props {
+  t: Dictionary;
+  lang: string;
+  title: string;
+  text: string;
+}
+const { t, lang, title, text } = Astro.props;
+---
+
+<section class="section close-band band-mint">
+  <div class="wrap close-row">
+    <div class="close-main">
+      <h2 class="h2">{title}</h2>
+      <p>{text}</p>
+      <div class="btn-row">
+        <a
+          class="btn btn--primary btn--xl btn--demo"
+          href={site.links.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.common.nav.demo}
+          <Icon name="arrow" size={16} />
+          <span class="sr-only">{t.common.newTab}</span>
+        </a>
+        <a class="btn btn--secondary btn--xl" href={route(lang, 'getStarted')}>
+          {t.home.install}
+        </a>
+      </div>
+    </div>
+    <div class="close-support band-dark" data-loop>
+      <h2 class="h2">{t.common.starQuestion}</h2>
+      <p>{t.common.starInvite}</p>
+      <StarButton t={t} size="hero" />
+    </div>
+  </div>
+</section>

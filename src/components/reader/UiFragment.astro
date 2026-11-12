@@ -1,0 +1,217 @@
+---
+// Small, real pieces of the FriRSS interface for the feature cards.
+// Without a label it is decorative: the surrounding title and text already say what it shows.
+import type { Dictionary } from '../../i18n';
+import { Image } from 'astro:assets';
+import UiIcon from './UiIcon.astro';
+import { articlePhotos } from './photos';
+import ReadingPane from './ReadingPane.astro';
+interface Props {
+  t: Dictionary;
+  kind: 'full' | 'palette' | 'picker' | 'ai' | 'translate' | 'hosting';
+  label?: string;
+  theme?: string;
+}
+const { t, kind, label, theme = 'default' } = Astro.props;
+const lead = t.reader.articles[0];
+const feeds = t.reader.categories.flatMap((c) => c.feeds);
+---
+
+<div
+  class={`frag frag--${kind}`}
+  data-fr-theme={theme}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+>
+  {kind === 'full' && (
+    <div class="fr-read frag-full" inert>
+      <div class="fr-read-bar">
+        <span class="fr-btn frag-rss">
+          <UiIcon name="rss" size={16} />
+          {t.reader.actions.rss}
+        </span>
+        <span class="fr-btn frag-full-btn">
+          <UiIcon name="file" size={16} />
+          <span class="frag-label-full">{t.reader.actions.full}</span>
+          <span class="frag-label-extracting">{t.reader.actions.extracting}</span>
+        </span>
+        <span class="fr-btn">
+          <UiIcon name="external" size={16} />
+          {t.reader.actions.original}
+        </span>
+      </div>
+      <article class="fr-article">
+        <p class="fr-article-meta">
+          <span>{lead.source}</span>
+          <i>·</i>
+          {t.reader.article.meta}
+        </p>
+        <p class="fr-article-title">{lead.title}</p>
+        <p class="fr-p frag-excerpt">{lead.summary} […]</p>
+        <div class="frag-fullbody">
+          <Image
+            class="fr-hero"
+            src={articlePhotos[0]}
+            widths={[480, 640, 960]}
+            sizes="(max-width: 639px) 88vw, 470px"
+            alt=""
+          />
+          {t.reader.article.paragraphs.map((p) => (
+            <p class="fr-p">{p}</p>
+          ))}
+        </div>
+      </article>
+    </div>
+  )}
+  {kind === 'ai' && (
+    <div class="frag-ai" inert>
+      <ReadingPane t={t} ai translate bare />
+    </div>
+  )}
+  {kind === 'palette' && (
+    <div class="frag-palette" inert>
+      <p class="frag-input">
+        <UiIcon name="search" size={15} />
+        <span class="frag-placeholder">{t.reader.palette.placeholder}</span>
+        <span class="frag-query">{t.reader.palette.query}</span>
+        <kbd>esc</kbd>
+      </p>
+      <p class="frag-group frag-filtered">{t.reader.palette.views}</p>
+      <p class="frag-item is-on frag-filtered frag-first">
+        <UiIcon name="eye" size={14} />
+        {t.reader.palette.items[0]}
+        <kbd>↵</kbd>
+      </p>
+      <p class="frag-item frag-filtered">
+        <UiIcon name="clock" size={14} />
+        {t.reader.palette.items[1]}
+      </p>
+      <p class="frag-group">{t.reader.palette.feeds}</p>
+      <p class="frag-item frag-match">
+        <span class="fr-favicon fr-fav-0">{feeds[0].name.charAt(0)}</span>
+        {t.reader.palette.items[2]}
+      </p>
+      <p class="frag-item frag-filtered">
+        <span class="fr-favicon fr-fav-1">{feeds[1].name.charAt(0)}</span>
+        {t.reader.palette.items[3]}
+      </p>
+      <p class="frag-group frag-filtered">{t.reader.palette.actions}</p>
+      <p class="frag-item frag-filtered">
+        <UiIcon name="checkCircle" size={14} />
+        {t.reader.palette.items[4]}
+      </p>
+      <p class="frag-item frag-filtered">
+        <UiIcon name="collapse" size={14} />
+        {t.reader.palette.items[5]}
+      </p>
+      <p class="frag-hint">{t.reader.palette.hint}</p>
+    </div>
+  )}
+  {kind === 'picker' && (
+    <div class="frag-picker" inert>
+      {[2, 3, 4].map((n) => (
+        <div class:list={['fr-row', { 'is-pressed': n === 3 }]}>
+          <Image class="fr-thumb" src={articlePhotos[n]} width={160} alt="" />
+          <div>
+            <p class="fr-meta">
+              <span>{t.reader.articles[n].source}</span>
+              {t.reader.articles[n].time}
+            </p>
+            <p class="fr-title">{t.reader.articles[n].title}</p>
+          </div>
+        </div>
+      ))}
+      <div class="frag-menu">
+        <p class="frag-menu-title">{t.reader.picker.title}</p>
+        <p class="frag-item">
+          <UiIcon name="star" size={14} />
+          {t.reader.nav.starred}
+        </p>
+        {t.reader.folders.starred.map((name) => (
+          <p class="frag-item frag-sub">
+            <UiIcon name="folder" size={13} />
+            {name}
+          </p>
+        ))}
+        <p class="frag-item">
+          <UiIcon name="clock" size={14} />
+          {t.reader.nav.later}
+        </p>
+        {t.reader.folders.later.map((name, i) => (
+          <p class:list={['frag-item frag-sub', { 'is-on': i === 0 }]}>
+            <UiIcon name="folder" size={13} />
+            {name}
+            {i === 0 && <UiIcon name="check" size={13} />}
+          </p>
+        ))}
+      </div>
+    </div>
+  )}
+  {kind === 'translate' && (
+    <div class="frag-translate" inert>
+      <ReadingPane t={t} ai bare />
+      <div class="frag-menu frag-langs">
+        <p class="frag-menu-title">{t.reader.translate.language}</p>
+        <p class="frag-input frag-input--small">
+          <UiIcon name="search" size={13} />
+          {t.reader.translate.filter}
+        </p>
+        {t.reader.translate.languages.map((name, i) => (
+          <p class:list={['frag-item', { 'is-on': i === 0 }]}>
+            {name}
+            {i === 0 && <UiIcon name="check" size={13} />}
+          </p>
+        ))}
+      </div>
+    </div>
+  )}
+  {kind === 'hosting' && (
+    <div class="frag-hosting" inert>
+      <div class="frag-servers">
+        <span class="frag-servers-label">{t.reader.servers.label}</span>
+        {t.reader.servers.items.map((name, i) => (
+          <span class:list={['frag-server', { 'is-on': i === 0 }]}>
+            <span class="frag-server-dot" />
+            {name}
+            {i === 0 && <em>{t.reader.servers.default}</em>}
+          </span>
+        ))}
+        <span class="frag-server frag-server--add">
+          <UiIcon name="plus" size={13} />
+        </span>
+      </div>
+      <div class="frag-panes">
+        <div class="frag-users frag-server-list">
+          <p class="frag-users-title">{t.reader.servers.manage}</p>
+          {t.reader.servers.items.map((name, i) => (
+            <p class="frag-user">
+              <span class="frag-avatar frag-avatar--server">
+                <UiIcon name="refresh" size={14} />
+              </span>
+              <span class="frag-server-name">
+                <strong>{name}</strong>
+                {t.reader.servers.addresses[i]}
+              </span>
+              {i === 0 && <span class="frag-role is-admin">{t.reader.servers.default}</span>}
+              <span class="frag-state">{t.reader.servers.active}</span>
+            </p>
+          ))}
+        </div>
+        <div class="frag-users">
+          <p class="frag-users-title">{t.reader.users.title}</p>
+          {t.reader.users.names.map((name, i) => (
+            <p class="frag-user">
+              <span class="frag-avatar">{name.charAt(0).toUpperCase()}</span>
+              <strong>{name}</strong>
+              <span class:list={['frag-role', { 'is-admin': i === 0 }]}>
+                {i === 0 ? t.reader.users.admin : t.reader.users.user}
+              </span>
+              <span class="frag-state">{t.reader.users.active}</span>
+            </p>
+          ))}
+        </div>
+      </div>
+    </div>
+  )}
+</div>

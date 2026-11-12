@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "q": "Does FriRSS replace FreshRSS?",
+      "a": "It replaces the reading interface, not the feed engine. FreshRSS continues to fetch and store your subscriptions and articles. FriRSS connects through its Google Reader API."
+    },
+    {
+      "q": "Do I need a FreshRSS instance?",
+      "a": "Yes. You need a working FreshRSS instance with API access enabled and an API password set for your FreshRSS account."
+    },
+    {
+      "q": "Is FriRSS free?",
+      "a": "FriRSS is free and open source under the MIT license. You provide the hosting. Optional AI providers may charge for their services."
+    },
+    {
+      "q": "Can I host it myself?",
+      "a": "Yes. Official Docker images support amd64 and arm64. Docker Compose and Unraid Community Applications are available too."
+    },
+    {
+      "q": "Does it work on my phone?",
+      "a": "Yes. The responsive interface works in a mobile browser, and its PWA can be installed on your home screen. Prepare articles while connected to read them offline. HTTPS is needed for PWA features outside localhost."
+    },
+    {
+      "q": "Do I have to use AI?",
+      "a": "No. AI is optional and disabled until an administrator enables it. Reading, organizing and personalizing your feeds work without it."
+    },
+    {
+      "q": "Can I choose my AI provider?",
+      "a": "Yes. FriRSS supports Anthropic and OpenAI-compatible providers, including OpenAI, OpenRouter, Ollama and LM Studio. Provider and model availability depends on your configuration."
+    },
+    {
+      "q": "Where can I get help?",
+      "a": "Start with the official README. Use GitHub Discussions for questions and GitHub Issues for reproducible bugs or feature ideas. See the Resources page for direct links."
+    }
+  ]
+}

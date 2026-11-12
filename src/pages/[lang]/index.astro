@@ -1,0 +1,18 @@
+---
+// The home page has its own route so it loads only the new design system,
+// not the styles of the pages that still use the previous one.
+import Layout from '../../layouts/Layout.astro';
+import Home from '../../components/Home.astro';
+import PageClose from '../../components/PageClose.astro';
+import { languages, dictionary } from '../../i18n';
+export function getStaticPaths() {
+  return languages.map((language) => ({ params: { lang: language.code } }));
+}
+const lang = Astro.params.lang!;
+const t = dictionary(lang);
+---
+
+<Layout lang={lang} page="home">
+  <Home t={t} lang={lang} />
+  <PageClose slot="close" t={t} lang={lang} title={t.home.close.title} text={t.home.close.text} />
+</Layout>

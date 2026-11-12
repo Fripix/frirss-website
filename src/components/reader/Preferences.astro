@@ -1,0 +1,90 @@
+---
+// FriRSS preferences, Appearance > Theme, in HTML. Each preset thumbnail takes its theme's real colours.
+import type { Dictionary } from '../../i18n';
+import UiIcon from './UiIcon.astro';
+interface Props {
+  t: Dictionary;
+  label: string;
+  theme?: string;
+}
+const { t, label, theme = 'default' } = Astro.props;
+const presets = [
+  { id: 'default', name: 'Default' },
+  { id: 'riso', name: 'Riso' },
+  { id: 'paper', name: 'Paper' },
+  { id: 'contrast', name: 'High Contrast' },
+  { id: 'night', name: 'Night' },
+  { id: 'desk', name: 'Desk' },
+];
+const current = presets.find((preset) => preset.id === theme) ?? presets[0];
+const isDark = current.id === 'night' || current.id === 'desk';
+---
+
+<div class="prefs" data-fr-theme={current.id} role="img" aria-label={label}>
+  <div class="prefs-head" inert>
+    <strong>{t.reader.prefs.title}</strong>
+    <span class="prefs-select">
+      FriRSS {current.name} <UiIcon name="chevron" size={13} />
+    </span>
+    <span class="prefs-close">
+      <UiIcon name="plus" size={16} />
+    </span>
+  </div>
+  <div class="prefs-body" inert>
+    <ul class="prefs-nav">
+      {t.reader.prefs.sections.map((name, i) => (
+        <li class:list={[{ 'is-on': i === 1 }]}>{name}</li>
+      ))}
+    </ul>
+    <div class="prefs-main">
+      <p class="prefs-tabs">
+        {t.reader.prefs.tabs.map((name, i) => (
+          <span class:list={[{ 'is-on': i === 0 }]}>{name}</span>
+        ))}
+      </p>
+      <p class="prefs-title">{t.reader.prefs.presets}</p>
+      <p class="prefs-hint">{t.reader.prefs.presetsHint}</p>
+      <div class="prefs-presets">
+        {presets.map((preset) => (
+          <div
+            class:list={['prefs-preset', { 'is-on': preset.id === current.id }]}
+            data-fr-theme={preset.id}
+          >
+            <span class="prefs-thumb">
+              <i />
+              <b />
+              <b />
+            </span>
+            <span class="prefs-name">{preset.name}</span>
+          </div>
+        ))}
+      </div>
+      <div class="prefs-row">
+        <span>
+          <strong>{t.reader.prefs.followSystem}</strong>
+          {t.reader.prefs.followHint}
+        </span>
+        <span class="prefs-toggle"></span>
+      </div>
+      <p class="prefs-pair">
+        <span>
+          {t.reader.prefs.light} <em>{isDark ? 'Paper' : current.name}</em>
+        </span>
+        <span>
+          {t.reader.prefs.dark} <em>{isDark ? current.name : 'Night'}</em>
+        </span>
+      </p>
+      <p class="prefs-title">{t.reader.prefs.save}</p>
+      <p class="prefs-actions">
+        <span>
+          <UiIcon name="external" size={13} />
+          {t.reader.prefs.export}
+        </span>
+        <span>
+          <UiIcon name="plus" size={13} />
+          {t.reader.prefs.import}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,147 @@
+---
+import { route, type Dictionary } from '../i18n';
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import Window from './reader/Window.astro';
+import Phone from './reader/Phone.astro';
+import Preferences from './reader/Preferences.astro';
+import UiFragment from './reader/UiFragment.astro';
+import ProductFilm from './ProductFilm.astro';
+import '../styles/reader.css';
+import '../styles/features.css';
+import '../styles/motion.css';
+interface Props {
+  t: Dictionary;
+  lang: string;
+}
+const { t, lang } = Astro.props;
+const groups = t.features.groups;
+// Chapters alternate light, dark and mint bands, like the home page.
+const bands = ['band-light', 'band-dark', 'band-light', 'band-mint', 'band-light'];
+---
+
+<section class="section feat-intro is-dark intro-dark" id="top">
+  <div class="wrap grid">
+    <div class="feat-intro-text" data-reveal="text">
+      <h1 class="h1">
+        {t.features.title.split('\n').map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </h1>
+      <p class="lead">{t.features.intro}</p>
+      <div class="btn-row">
+        <a
+          class="btn btn--primary btn--demo"
+          href={site.links.demo}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.common.nav.demo}
+          <Icon name="arrow" size={16} />
+          <span class="sr-only">{t.common.newTab}</span>
+        </a>
+        <a class="btn btn--secondary" href={route(lang, 'getStarted')}>
+          {t.home.install}
+        </a>
+      </div>
+    </div>
+    <nav class="feat-index" data-reveal="text" aria-label={t.common.onThisPage} data-section-nav>
+      <ol>
+        {groups.map((group, i) => (
+          <li>
+            <a href={`#group-${i + 1}`}>
+              <span class="feat-index-num">0{i + 1}</span>
+              <span class="feat-index-text">
+                <strong>{group.label}</strong>
+                {group.intro}
+              </span>
+              <Icon name="arrow" size={18} />
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </div>
+  <div class="wrap feat-film">
+    <ProductFilm t={t} lang={lang} />
+  </div>
+</section>
+
+{groups.map((group, i) => (
+  <section class:list={['section chapter', `chapter--${i + 1}`, bands[i]]} id={`group-${i + 1}`}>
+    <div class="wrap">
+      <div class="grid chapter-head" data-reveal="text">
+        <div class="chapter-title">
+          <h2 class="h2">{group.title}</h2>
+        </div>
+        <p class="lead chapter-intro">{group.intro}</p>
+      </div>
+      <div
+        class:list={['chapter-visual', `chapter-visual--${i + 1}`]}
+        data-reveal={i === 1 ? 'lift' : 'visual'}
+      >
+        {i === 0 && (
+          <>
+            <Window
+              t={t}
+              layout="columns"
+              shortcuts
+              label={t.features.views.reading}
+              class="cv-window"
+            />
+            <div class="cv-over">
+              <UiFragment t={t} kind="palette" />
+            </div>
+          </>
+        )}
+        {i === 1 && (
+          <div class="phones">
+            <Phone t={t} variant="list" offline label={t.features.views.mobileList} />
+            <Phone t={t} variant="article" theme="paper" label={t.features.views.mobileArticle} />
+          </div>
+        )}
+        {i === 2 && (
+          <div class="cv-panel">
+            <Preferences t={t} theme="riso" label={t.features.views.custom} />
+          </div>
+        )}
+        {i === 3 && (
+          <div class="cv-panel">
+            <UiFragment t={t} kind="translate" theme="desk" label={t.features.views.ai} />
+          </div>
+        )}
+        {i === 4 && (
+          <div class="cv-panel">
+            <UiFragment t={t} kind="hosting" theme="paper" label={t.features.views.hosting} />
+          </div>
+        )}
+      </div>
+      <div class="chapter-items" data-reveal="text">
+        {group.items.map((item, j) => (
+          <article>
+            <h3 class="h3">{item.title}</h3>
+            <p>{item.text}</p>
+            {i === 4 && j === 2 && (
+              <a class="link" href={`${route(lang, 'getStarted')}#hosting`}>
+                <span>{t.common.hostingAdvice}</span>
+                <Icon name="arrow" size={18} />
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+      {i === groups.length - 1 && (
+        <p class="verified">
+          {t.features.verified} <a href={site.links.features}>{t.features.reference}</a>
+        </p>
+      )}
+    </div>
+  </section>
+))}
+
+<script>
+  import '../scripts/motion';
+</script>

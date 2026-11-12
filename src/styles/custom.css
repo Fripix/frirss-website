@@ -1,0 +1,335 @@
+/* "Tune the interface" (Customize.astro): FriRSS settings in three tabs, beside a FriRSS window
+   that follows them, the way FriRSS's Preferences do. CSS alone (`:has`). */
+
+/* What each switch hides when it is off. */
+.custom:has([data-cz='search']:not(:checked)) [data-tb='search'],
+.custom:has([data-cz='unread']:not(:checked)) [data-tb='unread'],
+.custom:has([data-cz='random']:not(:checked)) [data-tb='random'],
+.custom:has([data-cz='starred']:not(:checked)) [data-tb='starred'],
+.custom:has([data-cz='allRead']:not(:checked)) [data-tb='allRead'],
+.custom:has([data-cz='read']:not(:checked)) [data-tb='read'],
+.custom:has([data-cz='star']:not(:checked)) [data-tb='star'],
+.custom:has([data-cz='later']:not(:checked)) [data-tb='later'],
+.custom:has([data-cz='labels']:not(:checked)) [data-tb='labels'],
+.custom:has([data-cz='full']:not(:checked)) [data-tb='full'],
+.custom:has([data-cz='shortcutBar']:not(:checked)) [data-tb='shortcutBar'],
+.custom:has([data-cz='optSource']:not(:checked)) .fr-meta > span:not(.fr-favicon),
+.custom:has([data-cz='optFavicons']:not(:checked)) .fr-meta > .fr-favicon,
+.custom:has([data-cz='optDates']:not(:checked)) .fr-date,
+.custom:has([data-cz='rowStar']:not(:checked)) .fr-row-actions > :nth-child(1),
+.custom:has([data-cz='rowLater']:not(:checked)) .fr-row-actions > :nth-child(2),
+.custom:has([data-cz='rowSource']:not(:checked)) .fr-row-actions > :nth-child(3),
+.custom:has([data-cz='rowDone']:not(:checked)) .fr-row-actions > :nth-child(4) {
+  display: none;
+}
+/* A list option that is off also turns off its button in the list header. */
+.custom:has([data-cz='optSource']:not(:checked)) [data-tb='optSource'],
+.custom:has([data-cz='optFavicons']:not(:checked)) [data-tb='optFavicons'],
+.custom:has([data-cz='optDates']:not(:checked)) [data-tb='optDates'] {
+  background: none;
+  box-shadow: none;
+}
+
+/* Density, as FriRSS draws it. Standard: no thumbnail. Compact: one line per article, a dot for
+   unread, the feed, the title cut to its room, the time, then the action icons in a row. */
+.custom:has([value='standard']:checked) .fr-thumb,
+.custom:has([value='compact']:checked) .fr-thumb,
+.custom:has([value='compact']:checked) .fr-summary {
+  display: none;
+}
+.custom:has([value='compact']:checked) .fr-row {
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  box-shadow: none;
+}
+.custom:has([value='compact']:checked) .fr-row::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.custom:has([value='compact']:checked) .fr-row > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.custom:has([value='compact']:checked) .fr-meta {
+  display: contents;
+}
+.custom:has([value='compact']:checked) .fr-meta > span:not(.fr-favicon) {
+  flex: 1 1 0;
+  max-width: max-content;
+  min-width: 0;
+}
+.custom:has([value='compact']:checked) .fr-title {
+  flex: 2 1 0;
+  min-width: 0;
+  margin: 0 !important;
+  overflow: hidden;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.custom:has([value='compact']:checked) .fr-time {
+  order: 3;
+  flex: none;
+}
+.custom:has([value='compact']:checked) .fr-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+}
+
+/* The band: text, then the panel, on four columns; the window from the fifth column to the edge
+   of the screen, cut there like the hero's; the other settings below, across the width. */
+.custom {
+  overflow: clip;
+}
+.custom-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: auto auto 1fr auto;
+  gap: 32px var(--gap);
+  align-items: start;
+}
+/* The title has a row of its own, as wide as the site's other section titles, so it holds on two
+   lines (broken after the comma). Its size never lets the second line wrap, even on a small phone
+   ("jusqu’au moindre bouton" is 11.3 em wide). */
+.custom-head {
+  grid-column: 1 / span 6;
+  container-type: inline-size;
+}
+.custom-head .h2 {
+  font-size: min(var(--t-h2), 8.7cqi);
+  white-space: nowrap;
+}
+.custom-text,
+.custom-panel {
+  grid-column: 1 / span 4;
+}
+.custom-text {
+  grid-row: 2;
+}
+.custom-panel {
+  grid-row: 3;
+  display: grid;
+  gap: 20px;
+}
+.custom-visual {
+  --bleed: max(var(--gut), (100vw - 1280px) / 2);
+  position: relative;
+  grid-column: 5 / -1;
+  grid-row: 2 / span 2;
+  /* A fixed height: the window does not jump when another tab is chosen. */
+  height: 820px;
+  margin-right: calc(-1 * var(--bleed));
+  overflow: hidden;
+}
+.custom-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max(1120px, 100%);
+  height: 100%;
+  border-radius: 10px 0 0 10px;
+}
+.custom-more {
+  grid-column: 1 / -1;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-dark, var(--line));
+}
+.custom-more-title {
+  color: var(--on-dark, var(--ink));
+  font-family: var(--font-body);
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+.custom-more ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px var(--gap);
+  margin-top: 12px;
+  padding: 0;
+  list-style: none;
+  color: var(--on-dark-2, var(--ink-2));
+  font-size: var(--t-small);
+}
+
+/* The panel. Once the tabs work, the three panes share one cell, the hidden ones kept invisible,
+   so the panel is as tall as its tallest pane and nothing below moves when a tab changes. */
+.custom-panel[data-enhanced] {
+  grid-template-areas: 'tabs' 'pane' 'reset';
+}
+.custom-panel[data-enhanced] .custom-tabs {
+  grid-area: tabs;
+}
+.custom-panel[data-enhanced] .custom-pane {
+  grid-area: pane;
+}
+.custom-panel[data-enhanced] .custom-pane.is-off {
+  visibility: hidden;
+}
+.custom-panel[data-enhanced] .custom-reset {
+  grid-area: reset;
+}
+.custom-tabs {
+  justify-self: start;
+}
+.custom-pane {
+  display: grid;
+  gap: 20px;
+}
+.custom-panel fieldset {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.custom-panel legend {
+  margin-bottom: 4px;
+  padding: 0;
+  color: var(--on-dark, var(--ink));
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+.custom-seg {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 6px;
+  padding: 4px;
+  border: 1px solid var(--line-dark, var(--line));
+  border-radius: var(--r-btn);
+}
+.custom-seg label {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 40px;
+  border-radius: var(--r-btn);
+  color: var(--on-dark-2, var(--ink-2));
+  font-size: var(--t-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms var(--ease);
+}
+.custom-seg input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.custom-seg label:has(:checked) {
+  background: var(--mint);
+  color: #0c2a1e;
+}
+.custom-seg label:has(:focus-visible) {
+  outline: 2px solid var(--mint);
+  outline-offset: 2px;
+}
+
+/* The switches: a real checkbox drawn as a switch; the whole line is the target. */
+.switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 44px;
+  border-bottom: 1px solid var(--line-dark, var(--line));
+  color: var(--on-dark-2, var(--ink-2));
+  font-size: var(--t-small);
+  cursor: pointer;
+}
+.switch input {
+  appearance: none;
+  flex: none;
+  position: relative;
+  order: 2;
+  width: 40px;
+  height: 24px;
+  margin: 0;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.18);
+  cursor: pointer;
+  transition: background-color 160ms var(--ease);
+}
+.switch input::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f4f6f3;
+  transition: transform 160ms var(--ease);
+}
+.switch input:checked {
+  background: var(--mint);
+}
+.switch input:checked::after {
+  transform: translateX(16px);
+}
+.switch input:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+.custom-reset {
+  justify-self: start;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--on-dark, var(--ink));
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 1023px) {
+  .custom-head,
+  .custom-text,
+  .custom-panel,
+  .custom-visual {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+  .custom-panel .is-desktop {
+    display: none !important;
+  }
+  .custom .custom-visual {
+    height: auto;
+    margin-right: 0;
+  }
+  /* The window keeps only its list, full width, as FriRSS's own list; five or six rows. */
+  .custom .custom-window {
+    position: static;
+    width: 100%;
+    height: 600px;
+    grid-template-columns: minmax(0, 1fr);
+    border-radius: 10px;
+  }
+  .custom .custom-window > .fr-side,
+  .custom .custom-window > .fr-read,
+  .custom .custom-window > .fr-keys {
+    display: none;
+  }
+  .custom .custom-window > .fr-list {
+    display: flex;
+    grid-row: 1;
+  }
+  .custom-more ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 639px) {
+  .custom-more ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

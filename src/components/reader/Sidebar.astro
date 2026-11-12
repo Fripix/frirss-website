@@ -1,0 +1,146 @@
+---
+// The FriRSS sidebar, row for row as the app draws it (measured on the public demo).
+import { Image } from 'astro:assets';
+import type { Dictionary } from '../../i18n';
+import logo from '../../assets/logo.png';
+import UiIcon from './UiIcon.astro';
+interface Props {
+  t: Dictionary;
+}
+const { t } = Astro.props;
+let feedIndex = 0;
+---
+
+<div class="fr-side" inert>
+  <div class="fr-side-head">
+    <span class="fr-logo">
+      <Image src={logo} width={64} height={64} alt="" format="webp" />
+    </span>
+    <span class="fr-side-name">
+      <strong>FriRSS</strong>
+      <small>{t.reader.server}</small>
+    </span>
+    <span class="fr-side-head-btn">
+      <UiIcon name="refresh" size={16} />
+    </span>
+    <span class="fr-side-head-btn">
+      <UiIcon name="collapse" size={16} />
+    </span>
+  </div>
+  <div class="fr-side-tools">
+    <UiIcon name="eye" size={14} />
+    <span class="is-on">
+      <UiIcon name="image" size={14} />
+    </span>
+    <UiIcon name="lines" size={14} />
+    <span class="fr-aa">
+      <small>A</small>A
+    </span>
+    <span class="fr-side-add">
+      <UiIcon name="plus" size={14} />
+    </span>
+  </div>
+  <div class="fr-side-scroll">
+    <ul class="fr-side-nav">
+      <li class="is-active">
+        <UiIcon name="inbox" size={16} />
+        <span data-l="sidebar.allFeeds">{t.reader.nav.all}</span>
+        <b class="fr-badge" data-unread>
+          48
+        </b>
+      </li>
+      <li>
+        <UiIcon name="eye" size={16} />
+        <span data-l="sidebar.unread">{t.reader.nav.unread}</span>
+        <b class="fr-badge" data-unread>
+          48
+        </b>
+      </li>
+      <li class="has-folders">
+        <i class="fr-fold">
+          <UiIcon name="chevronRight" size={10} />
+        </i>
+        <UiIcon name="starNav" size={16} />
+        <span data-l="sidebar.starred">{t.reader.nav.starred}</span>
+        <b class="fr-badge-box fr-badge-star">6</b>
+      </li>
+      {t.reader.folders.starred.map((name) => (
+        <li class="fr-sub">
+          <UiIcon name="folder" size={14} />
+          <span>{name}</span>
+        </li>
+      ))}
+      <li class="fr-sub fr-new">
+        <UiIcon name="plus" size={14} />
+        <span data-l="saved.newCategory">{t.reader.newCategory}</span>
+      </li>
+      <li class="has-folders">
+        <i class="fr-fold">
+          <UiIcon name="chevronRight" size={10} />
+        </i>
+        <UiIcon name="clock" size={16} />
+        <span data-l="sidebar.readLater">{t.reader.nav.later}</span>
+        <b class="fr-badge-box fr-badge-later">11</b>
+      </li>
+      {t.reader.folders.later.map((name) => (
+        <li class="fr-sub">
+          <UiIcon name="folder" size={14} />
+          <span>{name}</span>
+        </li>
+      ))}
+    </ul>
+    <hr class="fr-side-rule" />
+    <p class="fr-side-title">
+      <UiIcon name="chevron" size={12} />
+      <span data-l="sidebar.labels">{t.reader.tagsTitle}</span>
+      <i class="fr-side-cog">
+        <UiIcon name="cog" size={12} />
+      </i>
+    </p>
+    <ul class="fr-side-nav fr-side-feeds">
+      {t.reader.tags.map((tag, i) => (
+        <li>
+          <span class={`fr-tag-icon fr-tag-${i}`}>
+            <UiIcon name="tag" size={14} />
+          </span>
+          <span>{tag}</span>
+          <small>{i + 2}</small>
+        </li>
+      ))}
+    </ul>
+    {t.reader.categories.map((category) => (
+      <>
+        <hr class="fr-side-rule" />
+        <p class="fr-side-title">
+          <UiIcon name="chevron" size={12} />
+          <span>{category.name}</span>
+          <small>{category.feeds.reduce((sum, feed) => sum + Number(feed.count), 0)}</small>
+        </p>
+        <ul class="fr-side-nav fr-side-feeds">
+          {category.feeds.map((feed) => {
+            const fav = feedIndex++ % 6;
+            return (
+              <li>
+                <span class={`fr-favicon fr-fav-${fav}`}>{feed.name.charAt(0)}</span>
+                <span>{feed.name}</span>
+                <b class="fr-badge">{feed.count}</b>
+              </li>
+            );
+          })}
+        </ul>
+      </>
+    ))}
+  </div>
+  <div class="fr-side-foot">
+    <span data-l="sidebar.disconnect">{t.reader.disconnect}</span>
+    <i>
+      <UiIcon name="github" size={15} />
+    </i>
+    <i>
+      <UiIcon name="coffee" size={15} />
+    </i>
+    <span class="fr-side-gear">
+      <UiIcon name="settings" size={18} />
+    </span>
+  </div>
+</div>

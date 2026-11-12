@@ -1,0 +1,143 @@
+{
+  "title": "Les fonctionnalités\nessentielles",
+  "intro": "Organisez vos lectures, adaptez votre interface et retrouvez vos flux sur tous vos écrans. FriRSS donne une nouvelle forme à votre installation FreshRSS.",
+  "groups": [
+    {
+      "title": "Installez-vous pour lire",
+      "intro": "Offrez à chaque flux l’espace dont il a besoin.",
+      "items": [
+        {
+          "title": "Une disposition pour chaque flux",
+          "text": "Trois colonnes, deux colonnes ou grille visuelle. Choisissez la densité aperçu, standard ou compacte, redimensionnez les colonnes et ajustez les espacements."
+        },
+        {
+          "title": "Toute l’histoire",
+          "text": "Récupérez l’article complet avec Readability lorsqu’un flux ne fournit qu’un extrait, images et vidéos comprises. Définissez le comportement globalement ou par flux. L’extraction dépend du site source."
+        },
+        {
+          "title": "Gardez ce qui compte",
+          "text": "Favoris, lecture différée, catégories et étiquettes colorées imbriquées organisent vos lectures. Leurs compteurs montrent le total, les non-lus ou les deux ; les non-lus des étiquettes demandent FreshRSS 1.26 ou plus. La recherche porte sur la vue en cours, articles lus compris."
+        },
+        {
+          "title": "Gardez les mains au clavier",
+          "text": "Ouvrez la palette de commandes avec ⌘K ou Ctrl+K. Parcourez vos flux et actions avec des raccourcis personnalisables et un focus clavier visible."
+        },
+        {
+          "title": "La vidéo, au clic",
+          "text": "Les vidéos YouTube prises en charge s’ouvrent à la demande depuis une vignette. Elles nécessitent une connexion et chargent du contenu tiers."
+        },
+        {
+          "title": "Avancez à votre rythme",
+          "text": "Du plus récent au plus ancien, ou au hasard : redécouvrez les articles de la vue en cours. Réglez le nombre et l’ancienneté des articles du tirage, puis relancez-le quand vous le souhaitez."
+        }
+      ],
+      "label": "Lecture"
+    },
+    {
+      "title": "Emportez votre lecteur partout",
+      "intro": "Du grand écran au train sans réseau.",
+      "items": [
+        {
+          "title": "Une PWA sur mobile",
+          "text": "Installez l’application depuis un navigateur compatible. Passez d’un article à l’autre par gestes et tirez pour actualiser. Hors localhost, l’installation PWA nécessite HTTPS."
+        },
+        {
+          "title": "Lisez hors ligne",
+          "text": "Préparez les articles des 30 derniers jours pour les lire sans réseau, images comprises. Pendant la préparation, FriRSS estime le temps restant, et vous pouvez l’annuler. Vos actions en attente et vos réglages hors ligne sont conservés jusqu’à la reconnexion. Le stockage de l’appareil reste limité."
+        },
+        {
+          "title": "Reprenez le fil",
+          "text": "Retrouvez votre dernier flux et ses filtres. Sur un appareil partagé, chaque compte et chaque serveur conservent leurs propres données ; les préférences se synchronisent entre vos appareils."
+        }
+      ],
+      "label": "En déplacement"
+    },
+    {
+      "title": "Créez votre espace",
+      "intro": "La personnalisation va au-delà du mode clair ou sombre.",
+      "items": [
+        {
+          "title": "Six points de départ",
+          "text": "Default, Riso, Paper et High Contrast en clair ; Night et Desk en sombre. Suivez l’apparence de votre système avec la paire de votre choix."
+        },
+        {
+          "title": "Votre propre thème",
+          "text": "Réglez 38 couleurs et sept tailles de texte. Enregistrez, importez, exportez et partagez vos thèmes. Personnalisez aussi le nom et le logo de votre instance."
+        },
+        {
+          "title": "Une grille à votre mesure",
+          "text": "Réglez la largeur des cartes de 160 à 480 px, remplissez les rangées ou gardez une largeur fixe. Choisissez des images en 16:9, 4:3, 3:4 ou carré. Sur smartphone, la grille occupe toujours la largeur disponible."
+        },
+        {
+          "title": "Des barres à votre goût",
+          "text": "Sur ordinateur, masquez un à un les boutons de la barre de la liste et du volet de lecture, ou une barre entière. Un bouton masqué reste dans la palette de commandes."
+        },
+        {
+          "title": "Une liste à votre façon",
+          "text": "Affichez ou non le nom des flux, leurs icônes et les séparateurs de date. Choisissez les icônes d’action de chaque ligne : favori, à lire plus tard, ouvrir à la source, marquer comme lu."
+        },
+        {
+          "title": "Ouvrez sur la bonne vue",
+          "text": "Au lancement, FriRSS reprend la dernière vue, ou ouvre toujours Tous les flux ou les Non lus. La barre des serveurs se masque elle aussi."
+        },
+        {
+          "title": "Dix langues",
+          "text": "FriRSS existe en français, anglais, allemand, espagnol, italien, néerlandais, polonais, portugais, ukrainien et chinois. Au premier lancement, il suit la langue du navigateur ; changez-la dans Préférences › Général."
+        }
+      ],
+      "label": "Personnalisation"
+    },
+    {
+      "title": "L’IA, selon vos choix",
+      "intro": "Facultative, désactivée par défaut et configurée par un administrateur.",
+      "items": [
+        {
+          "title": "Résumés et traductions",
+          "text": "Affichez un résumé au-dessus d’un article, ajustez sa longueur ou traduisez le titre et le contenu dans l’une des 28 langues proposées. Retrouvez l’original à tout moment."
+        },
+        {
+          "title": "Choisissez le fournisseur",
+          "text": "Utilisez Anthropic ou une API compatible OpenAI, dont OpenAI, OpenRouter, Ollama et LM Studio. Choisissez les modèles et le comportement par flux ou catégorie."
+        },
+        {
+          "title": "Sachez ce qui quitte votre serveur",
+          "text": "Le texte des articles est envoyé au fournisseur choisi. Les clés API sont chiffrées au repos et ne parviennent pas au navigateur. L’administrateur gère le partage et les plafonds quotidiens. Le fournisseur peut facturer l’usage."
+        }
+      ],
+      "label": "IA facultative"
+    },
+    {
+      "title": "Vos serveurs. Vos utilisateurs.",
+      "intro": "Une installation FriRSS peut accueillir plusieurs comptes et se connecter à plusieurs instances FreshRSS.",
+      "items": [
+        {
+          "title": "Comptes et connexion unique",
+          "text": "Des rôles administrateur et utilisateur distincts. Changez votre mot de passe local dans les préférences : les autres sessions sont fermées. Le SSO OIDC est facultatif ; l’association d’un compte existant se confirme avec son mot de passe."
+        },
+        {
+          "title": "Plusieurs serveurs FreshRSS",
+          "text": "Passez d’une instance FreshRSS à l’autre depuis la barre supérieure ou la palette. Chaque serveur garde ses réglages de lecture. Changez son mot de passe API sans le supprimer : FreshRSS le vérifie avant l’enregistrement."
+        },
+        {
+          "title": "Docker, et de quoi évoluer",
+          "text": "Images officielles amd64 et arm64, stockage SQLite persistant et sauvegardes chiffrées. Redis est facultatif et fortement recommandé pour le cache partagé et le préchargement."
+        }
+      ],
+      "label": "Hébergement"
+    }
+  ],
+  "verified": "Cette page présente l’essentiel de FriRSS. Chaque fonctionnalité est décrite en détail dans la référence complète, sur GitHub.",
+  "reference": "Référence complète",
+  "views": {
+    "reading": "FriRSS en trois colonnes avec la barre des raccourcis clavier et la palette de commandes ouverte.",
+    "mobileList": "FriRSS sur téléphone hors ligne : la liste des articles avec le bandeau hors ligne et les actions en attente.",
+    "mobileArticle": "FriRSS sur téléphone : un article ouvert avec sa barre de lecture.",
+    "custom": "Préférences de FriRSS, onglet Apparence : les six thèmes prédéfinis et l’option qui suit le thème du système.",
+    "ai": "Un article dans FriRSS avec son résumé IA et le menu de traduction ouvert sur la liste des langues.",
+    "hosting": "Barre des serveurs de FriRSS avec deux serveurs FreshRSS, et liste des comptes avec leur rôle."
+  },
+  "film": {
+    "caption": "FriRSS sur ordinateur, en trois colonnes : les flux, la liste des articles et l’article ouvert.",
+    "alt": "FriRSS sur ordinateur en trois colonnes : la barre latérale des flux, la liste des articles et un article ouvert avec sa photo."
+  }
+}

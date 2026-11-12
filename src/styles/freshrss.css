@@ -1,0 +1,482 @@
+/*
+  The original FreshRSS interface, theme Origine (light), in HTML, for the comparison with FriRSS.
+  Every size and colour below was measured on a live instance (11 November 2026): see
+  FreshRss.astro. Like the FriRSS renderings, it is a picture of an application, with that
+  application's own colours and its own font, Open Sans, served from this site.
+*/
+@font-face {
+  font-family: 'Open Sans Variable';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('@fontsource-variable/open-sans/files/open-sans-latin-wght-normal.woff2')
+    format('woff2-variations');
+}
+.frss {
+  --frss-blue: #0062be;
+  --frss-line: #ddd;
+  display: grid;
+  grid-template: 56px minmax(0, 1fr) / 300px minmax(0, 1fr);
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+  color: #111;
+  font-family: 'Open Sans Variable', Cantarell, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: start;
+  user-select: none;
+  container: frss / inline-size;
+}
+.frss p,
+.frss ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.frss svg {
+  flex: none;
+}
+
+/* Header: logo, search, settings */
+.frss-header {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr) auto;
+  align-items: center;
+  padding-right: 32px;
+  background: #f0f0f0;
+}
+.frss-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 70px;
+  color: var(--frss-blue);
+  font-size: 25px;
+  letter-spacing: 0.01em;
+}
+.frss-search {
+  display: flex;
+  justify-self: center;
+  width: 378px;
+  max-width: 100%;
+  height: 36px;
+  color: #666;
+  font-size: 12.8px;
+}
+.frss-search span {
+  flex: 1;
+  overflow: hidden;
+  padding: 0 8px;
+  border: 1px solid var(--frss-line);
+  border-right: 0;
+  border-radius: 3px 0 0 3px;
+  background: #fff;
+  line-height: 34px;
+  white-space: nowrap;
+}
+.frss-search b {
+  display: grid;
+  place-items: center;
+  width: 33px;
+  border: 1px solid #ccc;
+  border-top-color: var(--frss-line);
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(#fff, #eee);
+}
+.frss-btn {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #ccc;
+  border-top-color: var(--frss-line);
+  border-left-color: var(--frss-line);
+  border-radius: 3px;
+  background: linear-gradient(#fff, #eee);
+  color: #666;
+  font-size: 14.4px;
+}
+.frss-btn.is-on {
+  background: #e4e4e4;
+  box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.18);
+}
+.frss-btn--text {
+  width: auto;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+.frss-unread {
+  color: #ff5300;
+}
+.frss-gold {
+  color: #f0b400;
+}
+.frss-gold svg {
+  fill: currentColor;
+}
+
+/* Sidebar */
+.frss-aside {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 8px 0;
+  border-right: 1px solid var(--frss-line);
+}
+.frss-manage {
+  display: flex;
+  align-self: flex-start;
+  margin: 0 36px 10px;
+  color: #fff;
+  font-size: 14.4px;
+}
+.frss-manage b {
+  padding: 5px 8px 6px;
+  border: 1px solid #0062b7;
+  background: linear-gradient(#0c6fd0, #0057a8);
+  font-weight: 400;
+  white-space: nowrap;
+}
+.frss-manage b:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.frss-manage b:last-child {
+  width: 33px;
+  border-left-color: #2c85d8;
+  border-radius: 0 3px 3px 0;
+  text-align: center;
+  font-weight: 700;
+}
+.frss-tree {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  height: 42px;
+  padding: 8px 12px 8px 14px;
+  color: var(--frss-blue);
+  white-space: nowrap;
+}
+.frss-tree > svg,
+.frss-tree > .frss-gold {
+  display: inline-flex;
+  color: #555;
+}
+.frss-tree > .frss-gold {
+  color: #f0b400;
+}
+.frss-tree.is-active {
+  background: #f0f0f0;
+  font-weight: 700;
+}
+.frss-tree b {
+  margin-left: auto;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: #f6f6f6;
+  color: #666;
+  font-size: 14.4px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Main column: toolbar, day line, rows */
+.frss-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+.frss-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex: none;
+  height: 62px;
+  padding: 8px;
+  border-bottom: 1px solid var(--frss-line);
+  background: #f6f6f6;
+}
+.frss-first {
+  margin-right: auto;
+  margin-left: 10px;
+}
+.frss-menu > .frss-btn:last-child {
+  margin-right: auto;
+}
+.frss-stick {
+  display: flex;
+}
+.frss-stick .frss-btn {
+  border-radius: 0;
+}
+.frss-stick .frss-btn + .frss-btn {
+  border-left: 0;
+}
+.frss-stick .frss-btn:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.frss-stick .frss-btn:last-child {
+  border-radius: 0 3px 3px 0;
+}
+.frss-day {
+  flex: none;
+  height: 48px;
+  padding: 0 10px !important;
+  font-weight: 700;
+  line-height: 48px;
+  white-space: nowrap;
+}
+.frss-rows li,
+.frss-open-head {
+  display: grid;
+  grid-template-columns: 40px 40px 200px minmax(0, 1fr) auto 40px;
+  align-items: center;
+  height: 41px;
+  border-top: 1px solid var(--frss-line);
+  border-left: 2px solid transparent;
+  font-size: 14.4px;
+}
+.frss-rows li.is-unread {
+  border-left-color: #ff5300;
+  background: #fff3ed;
+}
+.frss-cell {
+  display: grid;
+  place-items: center;
+  color: #666;
+}
+.frss-rows li.is-unread .frss-state {
+  color: #ff5300;
+}
+.frss-site {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 0 12px;
+  color: var(--frss-blue);
+  white-space: nowrap;
+}
+.frss-site span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.frss-fav {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+}
+.frss-fav-0 {
+  background: #2f6fed;
+}
+.frss-fav-1 {
+  background: #2e9e5b;
+}
+.frss-fav-2 {
+  background: #8a5a2b;
+}
+.frss-fav-3 {
+  background: #0f8a7e;
+}
+.frss-fav-4 {
+  background: #d1432b;
+}
+.frss-fav-5 {
+  background: #c2791b;
+}
+.frss-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.frss-rows li.is-unread .frss-title {
+  font-weight: 700;
+}
+.frss-date {
+  padding: 0 8px;
+  color: #666;
+  font-size: 11.2px;
+  white-space: nowrap;
+}
+
+/* An opened article, in the list */
+.frss-open {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-left: 5px solid var(--frss-blue);
+}
+.frss-open-head {
+  border-left: 0;
+  margin-left: -3px;
+  background: #f9f9f9;
+}
+.frss-content {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 16px 48px 0;
+}
+.frss-content p {
+  margin: 16px 0 8px;
+}
+.frss-content .frss-h1 {
+  margin: 8px 0;
+  font-size: 25.6px;
+  font-weight: 700;
+  line-height: 38.4px;
+}
+.frss-content .frss-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin: 0 0 16px;
+  color: #aaa;
+  font-size: 14.4px;
+  line-height: 21.6px;
+}
+.frss-meta span {
+  color: var(--frss-blue);
+}
+.frss-content img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Under 840 px FreshRSS switches to its phone layout: no sidebar, no search, no feed name, no date,
+   a toolbar on two rows and a bar at the bottom. The same rules serve the phone view. */
+.frss-bottom {
+  display: none;
+}
+@container frss (max-width: 840px) {
+  .frss-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding-right: 16px;
+  }
+  .frss-logo {
+    padding-left: 32px;
+    font-size: 21px;
+  }
+  .frss-search,
+  .frss-aside,
+  .frss-site span,
+  .frss-date,
+  .frss-btn--text,
+  .frss-stick:has(.frss-btn--text) {
+    display: none;
+  }
+  .frss-main {
+    grid-column: 1 / -1;
+  }
+  .frss-menu {
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    height: auto;
+    padding: 12px 40px;
+  }
+  .frss-menu .frss-btn {
+    width: 27px;
+    height: 32px;
+  }
+  .frss-first,
+  .frss-menu > .frss-btn:last-child {
+    margin-inline: 0;
+  }
+  .frss-rows li,
+  .frss-open-head {
+    grid-template-columns: 32px 32px 40px minmax(0, 1fr) 0 32px;
+    height: 40px;
+  }
+  .frss-site {
+    justify-content: center;
+    padding: 0;
+  }
+  .frss-rows li .frss-title {
+    font-weight: 700;
+  }
+  .frss-content {
+    padding: 8px 20px 0;
+  }
+  .frss-content .frss-h1 {
+    font-size: 21px;
+    line-height: 30px;
+  }
+}
+
+/* The phone view sits in the site's phone frame (laid out at 390 points, then scaled). */
+.frss--phone {
+  display: flex;
+  flex-direction: column;
+  grid-template: none;
+}
+.frss--phone .phone-status {
+  background: #f0f0f0;
+  color: #111;
+}
+.frss--phone .frss-header {
+  display: flex;
+  justify-content: space-between;
+  flex: none;
+  height: 56px;
+  padding: 0 16px 0 32px;
+}
+.frss--phone .frss-logo {
+  padding-left: 0;
+  font-size: 21px;
+}
+.frss--phone .frss-menu {
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  height: 102px;
+  padding: 12px 40px;
+}
+.frss--phone .frss-menu .frss-btn {
+  width: 27px;
+  height: 32px;
+}
+.frss--phone .frss-rows {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.frss--phone .frss-rows li {
+  grid-template-columns: 32px 32px 40px minmax(0, 1fr) 32px;
+  height: 40px;
+}
+.frss--phone .frss-rows li .frss-title {
+  font-weight: 700;
+}
+.frss--phone .frss-site {
+  justify-content: center;
+  padding: 0;
+}
+.frss--phone .frss-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: none;
+  height: 49px;
+  padding-bottom: 14px;
+  border-top: 1px solid var(--frss-line);
+  background: #fff;
+  color: #555;
+}
+.frss--phone .frss-bottom svg:nth-child(2) {
+  transform: rotate(180deg);
+}

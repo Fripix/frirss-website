@@ -1,0 +1,57 @@
+/* Code block with its Copy button. Loaded by CodeBlock.astro, so it follows the component
+   wherever it is used (Installer, home hero). */
+.code-block {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--r-md);
+  background: var(--dark);
+  color: var(--on-dark);
+}
+.code-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px 6px 16px;
+  border-bottom: 1px solid var(--line-dark);
+  color: var(--on-dark-2);
+  font-size: var(--t-label);
+  font-weight: 600;
+}
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: var(--r-btn);
+  background: transparent;
+  color: var(--on-dark);
+  font-size: var(--t-small);
+  font-weight: 600;
+  transition: background-color 160ms var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .copy-button:hover {
+    background: rgb(255 255 255 / 0.08);
+  }
+}
+.copy-button:focus-visible,
+.code-block pre:focus-visible {
+  outline-color: var(--mint);
+}
+.code-block pre {
+  margin: 0;
+  padding: 18px 20px 20px;
+  overflow-x: auto;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  tab-size: 2;
+}
+@media (max-width: 639px) {
+  .code-block pre {
+    font-size: 13px;
+  }
+}

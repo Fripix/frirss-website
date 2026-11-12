@@ -1,0 +1,75 @@
+{
+  "title": "Documentation\net entraide",
+  "intro": "Installer, comprendre, faire évoluer votre lecteur ou trouver de l’aide. Retrouvez les guides et les échanges utiles pour chaque étape.",
+  "resources": [
+    {
+      "link": "docs",
+      "title": "README officiel",
+      "text": "Installation, prérequis, sauvegardes et présentation complète du projet."
+    },
+    {
+      "link": "configuration",
+      "title": "Configuration",
+      "text": "Variables d’environnement, réseaux privés, Redis et reverse proxies."
+    },
+    {
+      "link": "authentication",
+      "title": "Comptes et authentification",
+      "text": "Comptes locaux, connexion unique OIDC et serveurs FreshRSS multiples."
+    },
+    {
+      "link": "features",
+      "title": "Référence des fonctionnalités",
+      "text": "Notes détaillées sur le fonctionnement et l’implémentation, maintenues en français."
+    },
+    {
+      "link": "releases",
+      "title": "Notes de version",
+      "text": "Évolutions, corrections et indications de mise à jour pour chaque version."
+    },
+    {
+      "link": "issues",
+      "title": "Signaler un problème",
+      "text": "Décrivez un bug reproductible ou proposez une amélioration."
+    },
+    {
+      "link": "discussions",
+      "title": "Échanger avec la communauté",
+      "text": "Questions, expériences et idées se retrouvent dans GitHub Discussions."
+    },
+    {
+      "link": "contributing",
+      "title": "Contribuer",
+      "text": "Aidez avec le code, les traductions, la documentation ou des retours utiles."
+    },
+    {
+      "link": "security",
+      "title": "Sécurité",
+      "text": "Consultez la politique de sécurité et signalez les vulnérabilités de manière responsable."
+    }
+  ],
+  "supportTitle": "Aidez un projet indépendant à grandir.",
+  "supportText": "FriRSS est un logiciel libre. S’il a trouvé sa place dans votre quotidien, vous pouvez soutenir son développement ou simplement partager votre expérience.",
+  "groups": [
+    {
+      "title": "Installer et configurer",
+      "text": "Les bases pour accueillir FriRSS chez vous."
+    },
+    {
+      "title": "Comprendre et suivre",
+      "text": "Les détails du produit, ses évolutions et sa sécurité."
+    },
+    {
+      "title": "Échanger et participer",
+      "text": "Une question, une idée ou un coup de main : le projet se construit aussi avec vous."
+    }
+  ],
+  "hostingTitle": "Une installation à votre mesure.",
+  "hostingText": "SQLite est intégré à FriRSS. Redis peut accélérer les consultations et partager le cache. Découvrez son rôle et les réglages utiles pour votre installation.",
+  "hostingLink": "Choisir les bonnes options",
+  "about": {
+    "title": "Qui fait FriRSS",
+    "text": "FriRSS est conçu et maintenu par Fripix. Questions, idées et contributions passent par GitHub.",
+    "link": "Le profil GitHub de Fripix"
+  }
+}

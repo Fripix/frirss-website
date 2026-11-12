@@ -1,0 +1,136 @@
+---
+// The FriRSS article list: its two-row header (title, option tracks, filters) and its rows,
+// measured on the public demo. Each tool carries `data-tb`, the id of its switch in FriRSS's
+// Preferences › Layout, so the home page can hide it the way FriRSS does (see Customize.astro).
+import type { Dictionary } from '../../i18n';
+import { Image } from 'astro:assets';
+import UiIcon from './UiIcon.astro';
+import { articlePhotos } from './photos';
+interface Props {
+  t: Dictionary;
+  mode?: 'columns' | 'list' | 'grid';
+  count?: number;
+}
+const { t, mode = 'columns', count = 8 } = Astro.props;
+const articles = t.reader.articles.slice(0, count);
+const favicon = (source: string) =>
+  t.reader.categories.flatMap((c) => c.feeds).findIndex((f) => f.name === source) % 6;
+---
+
+<div class={`fr-list fr-list--${mode}`} inert>
+  <div class="fr-list-head">
+    <div class="fr-list-top">
+      <strong data-l="articleList.allFeeds">{t.reader.nav.all}</strong>
+      <b class="fr-badge fr-count-head" data-unread>
+        48
+      </b>
+      <span class="fr-list-tools" aria-hidden="true">
+        <span class="fr-track">
+          <span class="is-on" data-tb="optSource">
+            <UiIcon name="tag" size={16} />
+          </span>
+          <span class="is-on" data-tb="optFavicons">
+            <UiIcon name="feedIcons" size={16} />
+          </span>
+          <span class="is-on" data-tb="optDates">
+            <UiIcon name="calendar" size={16} />
+          </span>
+          <span>
+            <UiIcon name="serverBar" size={16} />
+          </span>
+        </span>
+        <span class="fr-track fr-seg">
+          <span class="is-on">
+            <UiIcon name="image" size={16} />
+          </span>
+          <span>
+            <UiIcon name="standard" size={16} />
+          </span>
+          <span>
+            <UiIcon name="compact" size={16} />
+          </span>
+        </span>
+        <span class="fr-track fr-seg">
+          <span class:list={[{ 'is-on': mode === 'list' }]}>
+            <UiIcon name="list" size={16} />
+          </span>
+          <span class:list={[{ 'is-on': mode === 'columns' }]}>
+            <UiIcon name="columns" size={16} />
+          </span>
+          <span class:list={[{ 'is-on': mode === 'grid' }]}>
+            <UiIcon name="grid" size={16} />
+          </span>
+        </span>
+      </span>
+    </div>
+    <div class="fr-filters">
+      <span class="fr-filter-icon" data-tb="search">
+        <UiIcon name="search" size={14} />
+      </span>
+      <i data-tb="search"></i>
+      <span data-tb="unread" data-l="articleList.unread">
+        <UiIcon name="mail" size={14} />
+        {t.reader.toolbar.unread}
+      </span>
+      <span class="fr-filter-icon" data-tb="random">
+        <UiIcon name="shuffle" size={14} />
+      </span>
+      <span data-tb="starred" data-l="articleList.starred">
+        <UiIcon name="star" size={14} />
+        {t.reader.toolbar.starred}
+      </span>
+      <i data-tb="allRead"></i>
+      <span data-tb="allRead" data-l="articleList.markAllRead">
+        <UiIcon name="checkCircle" size={14} />
+        {t.reader.toolbar.allRead}
+      </span>
+    </div>
+  </div>
+  <p class="fr-date" data-l="dates.today">
+    {t.reader.today}
+    <span>9</span>
+  </p>
+  {mode === 'grid' ? (
+    <div class="fr-cards">
+      {articles.map((a, i) => (
+        <div class="fr-card">
+          <Image class="fr-tile" src={articlePhotos[i]} width={360} alt="" />
+          <div class="fr-card-body">
+            <p class="fr-meta">
+              <span class={`fr-favicon fr-fav-${favicon(a.source)}`}>{a.source.charAt(0)}</span>
+              <span>{a.source}</span>
+              {a.time}
+            </p>
+            <p class="fr-title">{a.title}</p>
+            <p class="fr-summary">{a.summary}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <ul class="fr-rows">
+      {articles.map((a, i) => (
+        <li class:list={['fr-row', 'is-unread', { 'is-selected': mode === 'columns' && i === 0 }]}>
+          <Image class="fr-thumb" src={articlePhotos[i]} width={160} alt="" />
+          <div>
+            <p class="fr-meta">
+              <span class={`fr-favicon fr-fav-${favicon(a.source)}`}>{a.source.charAt(0)}</span>
+              <span>{a.source}</span>
+              <small class="fr-time">{a.time}</small>
+            </p>
+            <p class="fr-title">{a.title}</p>
+            <p class="fr-summary">{a.summary}</p>
+          </div>
+          <span class="fr-row-actions">
+            <UiIcon name="star" size={14} />
+            <UiIcon name="clock" size={14} />
+            <UiIcon name="external" size={14} />
+            <span class="fr-done">
+              <UiIcon name="check" size={14} />
+            </span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>

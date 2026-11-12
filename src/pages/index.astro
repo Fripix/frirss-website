@@ -1,0 +1,22 @@
+---
+import { route } from '../i18n';
+const target = route('en');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <title>FriRSS</title>
+    <link rel="canonical" href={new URL(target, Astro.site)} />
+  </head>
+  <body>
+    <a href={target}>English</a> ·{' '}
+    <a lang="fr" href={route('fr')}>
+      Français
+    </a>
+  </body>
+</html>

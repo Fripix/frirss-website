@@ -1,0 +1,164 @@
+---
+import type { Dictionary } from '../../i18n';
+import { Image } from 'astro:assets';
+import UiIcon from './UiIcon.astro';
+import { articlePhotos } from './photos';
+// An article from a foreign feed, for the translation demo: the pane holds the source text and the
+// translation (the page's own sample article) side by side, and the page shows one or the other
+// (`data-tr="source"` / `data-tr="done"`), the way FriRSS's Translate / Source text button does.
+export type Translation = {
+  lang: string;
+  source: string;
+  author: string;
+  title: string;
+  paragraphs: string[];
+};
+interface Props {
+  t: Dictionary;
+  translation?: Translation;
+  ai?: boolean;
+  fullOn?: boolean;
+  translate?: boolean;
+  bare?: boolean;
+  focus?: boolean;
+}
+const {
+  t,
+  ai = false,
+  fullOn = false,
+  translate = false,
+  bare = false,
+  focus = false,
+  translation,
+} = Astro.props;
+const lead = t.reader.articles[0];
+const tr = translation;
+const meta = tr ? t.reader.article.meta.replace(/L[ée]a Martin/, tr.author) : t.reader.article.meta;
+---
+
+<div class:list={['fr-read', { 'fr-read--focus': focus }]} inert>
+  {!bare && (
+    <div class="fr-read-bar">
+      {focus && (
+        <span class="fr-btn is-on fr-focus-chip">
+          <UiIcon name="focus" size={16} />
+          {t.reader.focus.exit}
+        </span>
+      )}
+      <span class="fr-btn" data-tb="read" data-l="readingPane.markUnread">
+        <UiIcon name="mail" size={16} />
+        {t.reader.actions.unread}
+      </span>
+      <span class="fr-btn is-star" data-tb="star" data-l="readingPane.star">
+        <UiIcon name="star" size={16} />
+        {t.reader.actions.star}
+      </span>
+      <span class="fr-btn is-later" data-tb="later" data-l="readingPane.readLater">
+        <UiIcon name="clock" size={16} />
+        {t.reader.actions.later}
+      </span>
+      <i class="fr-sep"></i>
+      <span class="fr-btn fr-btn--icon" data-tb="labels">
+        <UiIcon name="tag" size={16} />
+      </span>
+      <i class="fr-sep" data-tb="labels"></i>
+      <span
+        class:list={['fr-btn', { 'is-on': fullOn }]}
+        data-tb="full"
+        data-l="readingPane.fullContent"
+      >
+        <UiIcon name="file" size={16} />
+        {t.reader.actions.full}
+      </span>
+      {tr && (
+        <span class="fr-btn" data-tr="source" data-l="ai.translateArticle">
+          <UiIcon name="translate" size={16} />
+          {t.reader.ai.translate}
+        </span>
+      )}
+      {tr && (
+        <span class="fr-btn is-on" data-tr="done" data-l="ai.showSource">
+          <UiIcon name="translate" size={16} />
+          {t.reader.ai.showSource}
+        </span>
+      )}
+      <span class="fr-btn fr-btn--icon">
+        <UiIcon name="external" size={16} />
+      </span>
+      <span class="fr-btn fr-btn--icon" data-tb="share">
+        <UiIcon name="share" size={16} />
+      </span>
+      <span class="fr-size" data-tb="fontSize">
+        {!focus && (
+          <span class="fr-size-focus">
+            <UiIcon name="focus" size={16} />
+          </span>
+        )}
+        <UiIcon name="minus" size={16} />
+        <small>14</small>
+        <UiIcon name="plus" size={16} />
+      </span>
+    </div>
+  )}
+  <article class="fr-article">
+    <p class="fr-article-meta">
+      <span>{tr ? tr.source : lead.source}</span>
+      <i>·</i>
+      {meta}
+      <em>
+        <UiIcon name="clock" size={12} />
+        {t.reader.article.read}
+      </em>
+    </p>
+    {tr && (
+      <p class="fr-article-title" data-tr="source" lang={tr.lang}>
+        {tr.title}
+      </p>
+    )}
+    <p class="fr-article-title" data-tr={tr ? 'done' : undefined}>
+      {lead.title}
+    </p>
+    {!bare && (
+      <p class="fr-chips">
+        {t.reader.article.tags.map((tag) => (
+          <span>{tag}</span>
+        ))}
+      </p>
+    )}
+    {!bare && (
+      <Image
+        class="fr-hero"
+        src={articlePhotos[0]}
+        widths={[400, 480, 640, 960]}
+        sizes="(max-width: 639px) 88vw, 470px"
+        alt=""
+      />
+    )}
+    {ai && (
+      <div class="fr-ai">
+        <p class="fr-ai-head">
+          <UiIcon name="spark" size={14} />
+          <span>{t.reader.ai.by}</span>
+          {translate && (
+            <span class="fr-ai-btn">
+              <UiIcon name="translate" size={13} />
+              {t.reader.ai.translate}
+            </span>
+          )}
+        </p>
+        <p>{t.reader.ai.text}</p>
+      </div>
+    )}
+    {tr &&
+      tr.paragraphs.map((p) => (
+        <p class="fr-p" data-tr="source" lang={tr.lang}>
+          {p}
+        </p>
+      ))}
+    {t.reader.article.paragraphs.map((p) => (
+      <p class="fr-p" data-tr={tr ? 'done' : undefined}>
+        {p}
+      </p>
+    ))}
+  </article>
+</div>

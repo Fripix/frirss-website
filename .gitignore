@@ -1,0 +1,18 @@
+node_modules/
+dist/
+.astro/
+.research/
+.cache/
+.env
+.env.*
+!.env.example
+test-results/
+playwright-report/
+.DS_Store
+.impeccable/
+# Public repository: local-only material (working notes, captures, infrastructure).
+reports/
+CLAUDE.md
+.claude/
+deploy/
+docs/demo-prefill/

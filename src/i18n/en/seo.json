@@ -1,0 +1,22 @@
+{
+  "home": {
+    "slug": "",
+    "title": "FriRSS — a modern frontend for FreshRSS",
+    "description": "A modern, self-hosted FreshRSS frontend. Read on desktop or mobile, customize your themes and explore optional AI summaries. Your FriRSS, your rules."
+  },
+  "features": {
+    "slug": "features",
+    "title": "Features | FriRSS",
+    "description": "Explore FriRSS: grid and three-pane reading, an offline RSS reader PWA, custom themes, optional AI translation, OIDC and multiple FreshRSS servers."
+  },
+  "getStarted": {
+    "slug": "get-started",
+    "title": "Installation with Docker | FriRSS",
+    "description": "Install FriRSS with Docker, Docker Compose or Unraid. Verified commands, FreshRSS API prerequisites and practical setup guidance."
+  },
+  "docs": {
+    "slug": "resources",
+    "title": "Resources — Guides and community | FriRSS",
+    "description": "Find official FriRSS documentation, configuration, authentication guidance, releases, support and contribution resources."
+  }
+}
