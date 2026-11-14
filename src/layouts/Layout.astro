@@ -59,6 +59,7 @@ const structured = {
       name="robots"
       content={publicReady && !notFound ? 'index, follow' : 'noindex, nofollow'}
     />
+    <link rel="icon" href={asset('favicon.ico')} sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
     {!notFound && (
       <>
