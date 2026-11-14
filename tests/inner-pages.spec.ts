@@ -68,7 +68,7 @@ test('resources lead to hosting advice for the correct application', async ({ pa
     await expect(hosting).not.toContainText('PostgreSQL');
     await expect(hosting.locator('a').last()).toHaveAttribute(
       'href',
-      'https://github.com/Fripix/Frirss#configuration',
+      'https://github.com/Fripix/Frirss/blob/main/docs/CONFIGURATION.md',
     );
   }
 });

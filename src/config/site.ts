@@ -11,8 +11,9 @@ export const site = {
     releases: 'https://github.com/Fripix/Frirss/releases',
     docs: 'https://github.com/Fripix/Frirss/blob/main/README.md',
     features: 'https://github.com/Fripix/Frirss/blob/main/docs/FEATURES.md',
-    configuration: 'https://github.com/Fripix/Frirss#configuration',
-    authentication: 'https://github.com/Fripix/Frirss#accounts-sso--multi-server',
+    configuration: 'https://github.com/Fripix/Frirss/blob/main/docs/CONFIGURATION.md',
+    authentication:
+      'https://github.com/Fripix/Frirss/blob/main/docs/FEATURES.md#authentification-et-comptes',
     issues: 'https://github.com/Fripix/Frirss/issues',
     discussions: 'https://github.com/Fripix/Frirss/discussions',
     contributing: 'https://github.com/Fripix/Frirss#feedback--contributing',

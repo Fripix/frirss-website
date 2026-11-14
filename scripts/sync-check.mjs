@@ -108,11 +108,20 @@ if (languageLines.length && writeLanguages) {
   );
 section('Langues de l’interface (bande « Dans votre langue »)', languageLines);
 
-// 2. Environment variables: README › Configuration against src/config/installation.ts.
+// 2. Environment variables: docs/CONFIGURATION.md (since FriRSS moved the table out of its README,
+// 2026-11-14) against src/config/installation.ts. An older FriRSS still has the table in its README.
 const readme = source('README.md');
-const config = readme.split(/^## Configuration\s*$/m)[1]?.split(/^## /m)[0] ?? '';
+const configDoc = (() => {
+  try {
+    return source('docs/CONFIGURATION.md');
+  } catch {
+    return '';
+  }
+})();
+const config = configDoc || (readme.split(/^## Configuration\s*$/m)[1]?.split(/^## /m)[0] ?? '');
 const documented = [...config.matchAll(/^\|\s*`([A-Z0-9_]+)`\s*\|/gm)].map((m) => m[1]);
-if (!documented.length) fail('tableau « Configuration » introuvable dans README.md.');
+if (!documented.length)
+  fail('tableau des variables introuvable (docs/CONFIGURATION.md ou README.md › Configuration).');
 // TZ is set in the commands themselves (docker run and the compose file), not listed as an optional
 // variable: it counts as shown as long as the docker command sets it.
 const shown = [

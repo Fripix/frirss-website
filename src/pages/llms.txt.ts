@@ -13,7 +13,9 @@ export const GET: APIRoute = ({ site }) => {
 ## Install
 
 - [Install guide for AI assistants](https://raw.githubusercontent.com/Fripix/Frirss/main/docs/INSTALL-WITH-AI.md): step by step, questions to ask first, troubleshooting, and the full list of environment variables. Start here to help someone install FriRSS.
-- [README](${config.links.docs}): installation, configuration, backups and security. It is the reference if anything disagrees.
+- [Installation guide](https://github.com/Fripix/Frirss/blob/main/docs/INSTALL.md): every way to install, reverse proxy, updating and backups. It is the reference if anything disagrees.
+- [Configuration](${config.links.configuration}): every environment variable, grouped by need.
+- [README](${config.links.docs}): what FriRSS is, and the quick start.
 - [Installation page](${page('en')}) ([French](${page('fr')}))
 
 ## Optional
