@@ -1,7 +1,7 @@
 {
   "note": "FriRSS state the site was last reviewed against. Written by scripts/sync-check.mjs --accept; do not edit by hand.",
   "version": "1.9.1",
-  "ref": "v1.9.1",
+  "ref": "main",
   "sections": {
     "docs/FEATURES.md": {
       "Architecture en bref": "db7327cd57cb",
@@ -69,22 +69,14 @@
       "Comment mettre ce fichier à jour": "3c0e417db33d"
     },
     "README.md": {
-      "Preview": "5fd65d266862",
-      "Live demo": "6008cfe13764",
+      "Preview": "264f3f9005cd",
+      "Website": "8b8040c9018d",
+      "Live demo": "34435bd218ec",
       "About": "3ebcf00c84a5",
-      "Features": "e3b0c44298fc",
-      "Features › Reading": "d70b421629d9",
-      "Features › AI summaries and translations (optional)": "06b88a4d5249",
-      "Features › Keyboard and reach": "3be353155701",
-      "Features › Make it yours": "eeb4c32c7768",
-      "Features › Accounts, SSO & multi-server": "5062121b3dca",
-      "Features › Self-hosting": "5c84716dd05d",
-      "Installation": "6335464db09e",
-      "Configuration": "c3d6232433e6",
-      "Backups": "89c9dd3680ba",
-      "Backups › The encrypted export": "b8d8df728cbe",
-      "Backups › The data directory": "c1fa39f13eb9",
-      "Security": "bf3f5bee6f4e",
+      "Features": "31c88336f6c9",
+      "Installation": "3b9f3806b8be",
+      "Configuration": "2e6fd1d890cd",
+      "Security": "e7ab1b2948fc",
       "Feedback & Contributing": "d616811334ac",
       "License": "919882cb74aa"
     }
