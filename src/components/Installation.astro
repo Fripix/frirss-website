@@ -72,6 +72,11 @@ const steps = ['prerequisites', 'install', 'account', 'connect', 'hosting', 'pri
           <span>{t.installation.prereqLink}</span>
           <Icon name="external" size={16} />
         </a>
+        <div class="ai-help">
+          <h3>{t.installation.aiTitle}</h3>
+          <p>{t.installation.aiText}</p>
+          <CodeBlock code={t.installation.aiPrompt} label={t.installation.aiLabel} t={t} />
+        </div>
       </section>
 
       <section class="step" id="install" data-tabs data-tabs-hash>

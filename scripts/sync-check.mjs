@@ -19,7 +19,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { site } from '../src/config/site.ts';
-import { variables } from '../src/config/installation.ts';
+import { installation, variables } from '../src/config/installation.ts';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -113,7 +113,12 @@ const readme = source('README.md');
 const config = readme.split(/^## Configuration\s*$/m)[1]?.split(/^## /m)[0] ?? '';
 const documented = [...config.matchAll(/^\|\s*`([A-Z0-9_]+)`\s*\|/gm)].map((m) => m[1]);
 if (!documented.length) fail('tableau « Configuration » introuvable dans README.md.');
-const shown = variables.flat().map((v) => v.name);
+// TZ is set in the commands themselves (docker run and the compose file), not listed as an optional
+// variable: it counts as shown as long as the docker command sets it.
+const shown = [
+  ...variables.flat().map((v) => v.name),
+  ...(installation.docker.includes('-e TZ=') ? ['TZ'] : []),
+];
 const variableLines = [
   ...documented.filter((n) => !shown.includes(n)).map((n) => `nouvelle variable : ${n}`),
   ...shown.filter((n) => !documented.includes(n)).map((n) => `variable retirée : ${n}`),

@@ -125,10 +125,17 @@ test('copy commands and FAQ', async ({ page, browserName, context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   await page.goto('/en/get-started/');
   await page.getByRole('button', { name: 'Copy — Docker', exact: true }).click();
-  await expect(page.locator('.copy-status').first()).toHaveText('Copied!');
+  await expect(page.locator('#docker .copy-status')).toHaveText('Copied!');
   if (browserName === 'chromium')
     expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
       'ghcr.io/fripix/frirss:latest',
+    );
+  // The sentence for an AI assistant points at the guide served raw from FriRSS's main branch.
+  await page.getByRole('button', { name: 'Copy — Sentence to copy', exact: true }).click();
+  await expect(page.locator('.ai-help .copy-status')).toHaveText('Copied!');
+  if (browserName === 'chromium')
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(
+      'Read https://raw.githubusercontent.com/Fripix/Frirss/main/docs/INSTALL-WITH-AI.md and help me install FriRSS step by step.',
     );
   // The home hero carries no command any more: installing is the Installer page's job.
   await page.goto('/fr/');
@@ -147,7 +154,8 @@ test('reduced motion and content without JavaScript', async ({ browser }) => {
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4322/fr/installation/');
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  await expect(page.locator('pre').first()).toContainText('docker run');
+  await expect(page.locator('#docker pre')).toContainText('docker run');
+  await expect(page.locator('.ai-help pre')).toContainText('INSTALL-WITH-AI.md');
   await expect(page.locator('#compose')).toBeVisible();
   await expect(page.locator('#unraid')).toBeVisible();
   await page.goto('http://127.0.0.1:4322/fr/');
@@ -158,4 +166,15 @@ test('reduced motion and content without JavaScript', async ({ browser }) => {
     page.locator('#faq .faq-item').filter({ hasText: 'Faut-il une instance FreshRSS ?' }),
   ).toContainText('API');
   await context.close();
+});
+test('llms.txt points AI assistants at the install guide', async ({ request }) => {
+  const response = await request.get('/llms.txt');
+  expect(response.ok()).toBe(true);
+  const body = await response.text();
+  expect(body).toMatch(/^# FriRSS\n/);
+  expect(body).toContain(
+    'https://raw.githubusercontent.com/Fripix/Frirss/main/docs/INSTALL-WITH-AI.md',
+  );
+  expect(body).toContain('/en/get-started/');
+  expect(body).toContain('/fr/installation/');
 });

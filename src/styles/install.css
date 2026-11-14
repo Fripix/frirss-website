@@ -161,6 +161,21 @@
 }
 
 /* Environment variables: one table for every installation method, grouped as in compose.yaml. */
+/* Install with an AI assistant: a sentence to copy, under the prerequisites. Same rhythm as the variables. */
+.ai-help {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  margin-top: 24px;
+}
+.ai-help > p {
+  max-width: 40em;
+}
+/* A sentence, not a command: it wraps instead of scrolling sideways. */
+.ai-help pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 .install-vars {
   display: grid;
   gap: 16px;
