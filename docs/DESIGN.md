@@ -1,6 +1,6 @@
 # Charte de design — site vitrine FriRSS
 
-Référence unique pour toute création ou retouche. Elle décrit le site tel qu’il est au 11 novembre 2026 (jalon `v1.1`) et fixe les règles à suivre. L’historique des passes est dans [DESIGN-LOG.md](DESIGN-LOG.md). Les points encore ouverts (contradictions, animations à arbitrer) sont dans [DESIGN-A-TRANCHER.md](DESIGN-A-TRANCHER.md).
+Référence unique pour toute création ou retouche. Elle décrit le site tel qu’il est au 11 novembre 2026 (jalon `v1.1`) et fixe les règles à suivre. L’historique des passes et les points encore ouverts (contradictions, animations à arbitrer) sont suivis hors du dépôt.
 
 Toute valeur citée ici vient de `src/styles/system.css`. En cas d’écart, le code fait foi et la charte est corrigée.
 
@@ -146,4 +146,4 @@ Tics « fait par une IA » à ne pas introduire :
 - illustrations génériques, icônes dans des carrés arrondis à la place du produit ;
 - hero centré suivi de trois cartes ; même structure répétée à chaque section.
 
-Ces tics ont été retirés du site en novembre 2026. La règle vaut pour tout nouvel élément. Ce qui reste discuté (la structure répétée de l’accueil, notamment) est recensé dans [DESIGN-A-TRANCHER.md](DESIGN-A-TRANCHER.md).
+Ces tics ont été retirés du site en novembre 2026. La règle vaut pour tout nouvel élément. Ce qui reste discuté (la structure répétée de l’accueil, notamment) est suivi hors du dépôt.

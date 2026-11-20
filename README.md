@@ -34,7 +34,7 @@ npm run test:performance      # Lighthouse ; preview sur 4322 déjà lancé
 npm run social:images         # cartes de partage depuis le hero ; preview sur 4322 déjà lancé
 ```
 
-`npm run format` applique le formatage. Playwright produit `playwright-report/`, les diagnostics d’échec dans `test-results/`, les captures dans `reports/`. Lighthouse écrit les rapports HTML/JSON et `reports/performance-summary.json`. Les fichiers de diagnostic volumineux sont ignorés par Git. Voir [le rapport QA](docs/QA.md) pour les résultats réellement obtenus et leurs limites.
+`npm run format` applique le formatage. Playwright produit `playwright-report/`, les diagnostics d’échec dans `test-results/`, les captures dans `reports/`. Lighthouse écrit les rapports HTML/JSON et `reports/performance-summary.json`. Les fichiers de diagnostic volumineux sont ignorés par Git.
 
 ## Architecture
 
