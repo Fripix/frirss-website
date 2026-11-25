@@ -69,6 +69,14 @@
           "text": "Set card width from 160 to 480 px, fill each row or keep a fixed width. Choose 16:9, 4:3, 3:4 or square images. On phones, the grid always fills the available width."
         },
         {
+          "title": "Thumbnails your size",
+          "text": "With the preview density, set the width of list thumbnails from 56 to 160 px. In a narrow list, they always leave room for the title. Each device keeps its own size."
+        },
+        {
+          "title": "A column for reading",
+          "text": "On a large screen, center the article in a column from 480 to 1200 px; its images and videos follow. Off by default, it is set in Preferences › Layout, device by device."
+        },
+        {
           "title": "Toolbars your way",
           "text": "On computers, hide the buttons of the list bar and the reading pane one by one, or a whole bar. A hidden button stays in the command palette."
         },

@@ -69,6 +69,14 @@
           "text": "Réglez la largeur des cartes de 160 à 480 px, remplissez les rangées ou gardez une largeur fixe. Choisissez des images en 16:9, 4:3, 3:4 ou carré. Sur smartphone, la grille occupe toujours la largeur disponible."
         },
         {
+          "title": "Des vignettes à votre taille",
+          "text": "En densité aperçu, réglez la largeur des vignettes de la liste de 56 à 160 px. Dans une liste étroite, elles laissent toujours la place au titre. Chaque appareil garde sa propre taille."
+        },
+        {
+          "title": "Une colonne pour lire",
+          "text": "Sur un grand écran, centrez l’article dans une colonne de 480 à 1200 px ; ses images et ses vidéos suivent. Désactivée par défaut, elle se règle dans Préférences › Mise en page, appareil par appareil."
+        },
+        {
           "title": "Des barres à votre goût",
           "text": "Sur ordinateur, masquez un à un les boutons de la barre de la liste et du volet de lecture, ou une barre entière. Un bouton masqué reste dans la palette de commandes."
         },

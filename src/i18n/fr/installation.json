@@ -183,6 +183,11 @@
             "name": "CORS_ORIGIN",
             "text": "Origines autorisées, seulement si l’interface et le serveur sont servis séparément.",
             "default": "Aucune"
+          },
+          {
+            "name": "FRIRSS_PORT",
+            "text": "Port d’écoute de FriRSS dans le conteneur, de 1 à 65535 sauf 3001. Seulement sans correspondance de ports : réseau host, ou IP propre (br0, macvlan) ; avec -p, changez plutôt le port côté hôte. Une valeur invalide arrête le conteneur. En réseau host, le port 3001 de la machine doit rester libre.",
+            "default": "80"
           }
         ]
       },

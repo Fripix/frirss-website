@@ -189,7 +189,7 @@ test('the Installer variables table and the compose file list the same variables
   const names = (await page.locator('.vars tbody th[scope=row] code').allTextContents()).flatMap(
     (n) => n.split(', '),
   );
-  expect(names).toHaveLength(16);
+  expect(names).toHaveLength(17);
   const compose = (await page.locator('#compose pre').first().textContent()) ?? '';
   for (const name of names.filter((n) => n !== 'TZ'))
     expect(compose, name).toContain(`# ${name}: `);

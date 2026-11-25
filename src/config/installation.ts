@@ -25,6 +25,7 @@ export const variables: { name: string; value: string }[][] = [
     { name: 'PROXY_INTERNAL_HOSTS', value: '192.168.1.20' },
     { name: 'PROXY_REWRITES', value: 'https://rss.example.com=http://freshrss:80' },
     { name: 'CORS_ORIGIN', value: 'https://frirss.example.com' },
+    { name: 'FRIRSS_PORT', value: '"80"' },
   ],
   [
     { name: 'REDIS_URL', value: 'redis://redis:6379' },

@@ -183,6 +183,11 @@
             "name": "CORS_ORIGIN",
             "text": "Allowed origins, only when the interface and the server are served separately.",
             "default": "None"
+          },
+          {
+            "name": "FRIRSS_PORT",
+            "text": "Port FriRSS listens on inside the container, from 1 to 65535 except 3001. Only without a port mapping: host network, or its own IP (br0, macvlan); with -p, change the host side instead. An invalid value stops the container. With host networking, port 3001 on the machine must stay free.",
+            "default": "80"
           }
         ]
       },

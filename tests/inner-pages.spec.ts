@@ -109,7 +109,7 @@ test('features index leads to each chapter with the real interface', async ({ pa
     await page.goto(path);
     await expect(page.locator('.feat-index a')).toHaveCount(5);
     await expect(page.locator('.chapter')).toHaveCount(5);
-    await expect(page.locator('.chapter-items article')).toHaveCount(22);
+    await expect(page.locator('.chapter-items article')).toHaveCount(24);
     await page.locator('.feat-index a', { hasText: label }).click();
     await expect(page).toHaveURL(/#group-3$/);
     const header = (await page.locator('header.nav').boundingBox())!;
