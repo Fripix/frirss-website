@@ -1,7 +1,7 @@
 {
   "note": "FriRSS state the site was last reviewed against. Written by scripts/sync-check.mjs --accept; do not edit by hand.",
   "version": "1.10.0",
-  "ref": "working tree",
+  "ref": "v1.10.0",
   "sections": {
     "docs/FEATURES.md": {
       "Architecture en bref": "db7327cd57cb",
