@@ -153,6 +153,7 @@
       "A layout of its own for each feed",
       "The view at launch: last view, All feeds or Unread",
       "Mark as read on scroll",
+      "After “Mark all as read”, move on to the next feed with unread articles",
       "Size and format of grid cards",
       "Size of list thumbnails and width of the reading column",
       "Your instance’s name and logo",

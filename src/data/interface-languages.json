@@ -1,5 +1,5 @@
 {
-  "source": "Copied from FriRSS src/locales/*.json (language names from Preferences/GeneralTab.tsx). Do not edit by hand: re-copy when FriRSS changes its wording.",
+  "source": "Copied from FriRSS src/locales/*.json (language names from Preferences/AccountTab.tsx). Do not edit by hand: re-copy when FriRSS changes its wording.",
   "languages": [
     {
       "code": "fr",

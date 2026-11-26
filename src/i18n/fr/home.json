@@ -153,6 +153,7 @@
       "Une disposition propre à chaque flux",
       "La vue à l’ouverture : dernière vue, Tous les flux ou Non lus",
       "Marquer comme lu au défilement",
+      "Après « Tout marquer comme lu », passer au flux suivant qui a des non-lus",
       "La taille et le format des cartes de la grille",
       "La taille des vignettes de la liste et la largeur de la colonne de lecture",
       "Le nom et le logo de votre instance",

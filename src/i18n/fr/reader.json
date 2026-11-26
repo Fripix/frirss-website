@@ -159,16 +159,18 @@
   "prefs": {
     "title": "Préférences",
     "sections": [
-      "Général",
+      "Lecture",
       "Apparence",
       "Mise en page",
-      "Étiquettes",
+      "Clavier",
       "Flux",
-      "Hors-ligne",
+      "Étiquettes",
+      "Hors ligne",
       "IA",
+      "Compte",
       "Administration"
     ],
-    "tabs": ["Thème", "Couleurs", "Tailles", "Identité"],
+    "subsections": ["Identité", "Thème", "Couleurs", "Tailles"],
     "presets": "Préréglages",
     "presetsHint": "Un thème complet en un clic. Le charger remplace les 38 couleurs ; tout reste modifiable ensuite.",
     "followSystem": "Suivre le thème du système",

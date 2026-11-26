@@ -1,8 +1,8 @@
 export const site = {
   name: 'FriRSS',
   slogan: 'Your FriRSS, your rules.',
-  verifiedVersion: '1.10.0',
-  verifiedOn: '2026-11-25',
+  verifiedVersion: '1.11.0',
+  verifiedOn: '2026-11-26',
   links: {
     github: 'https://github.com/Fripix/Frirss',
     demo: 'https://frirss.fripix.ch/',

@@ -20,7 +20,7 @@
         },
         {
           "title": "Gardez les mains au clavier",
-          "text": "Ouvrez la palette de commandes avec ⌘K ou Ctrl+K. Parcourez vos flux et actions avec des raccourcis personnalisables et un focus clavier visible."
+          "text": "Ouvrez la palette de commandes avec ⌘K ou Ctrl+K. Parcourez vos flux et actions avec des raccourcis personnalisables et un focus clavier visible. La touche n passe au flux suivant qui a encore des non-lus."
         },
         {
           "title": "La vidéo, au clic",
@@ -90,7 +90,7 @@
         },
         {
           "title": "Dix langues",
-          "text": "FriRSS existe en français, anglais, allemand, espagnol, italien, néerlandais, polonais, portugais, ukrainien et chinois. Au premier lancement, il suit la langue du navigateur ; changez-la dans Préférences › Général."
+          "text": "FriRSS existe en français, anglais, allemand, espagnol, italien, néerlandais, polonais, portugais, ukrainien et chinois. Au premier lancement, il suit la langue du navigateur ; changez-la dans Préférences › Compte."
         }
       ],
       "label": "Personnalisation"
@@ -140,7 +140,7 @@
     "reading": "FriRSS en trois colonnes avec la barre des raccourcis clavier et la palette de commandes ouverte.",
     "mobileList": "FriRSS sur téléphone hors ligne : la liste des articles avec le bandeau hors ligne et les actions en attente.",
     "mobileArticle": "FriRSS sur téléphone : un article ouvert avec sa barre de lecture.",
-    "custom": "Préférences de FriRSS, onglet Apparence : les six thèmes prédéfinis et l’option qui suit le thème du système.",
+    "custom": "Préférences de FriRSS, Apparence › Thème : les six thèmes prédéfinis et l’option qui suit le thème du système.",
     "ai": "Un article dans FriRSS avec son résumé IA et le menu de traduction ouvert sur la liste des langues.",
     "hosting": "Barre des serveurs de FriRSS avec deux serveurs FreshRSS, et liste des comptes avec leur rôle."
   },

@@ -53,6 +53,19 @@ const source = (path) => {
     return fail(`${path} illisible dans FriRSS${ref ? ` (${ref})` : ''}.`);
   }
 };
+const sourceIfPresent = (path) => {
+  try {
+    return ref
+      ? execFileSync('git', ['-C', frirss, 'show', `${ref}:${path}`], {
+          encoding: 'utf8',
+          stdio: ['ignore', 'pipe', 'pipe'],
+          maxBuffer: 64 * 1024 * 1024,
+        })
+      : readFileSync(join(frirss, path), 'utf8');
+  } catch {
+    return null;
+  }
+};
 const local = (path) => readFileSync(join(root, path), 'utf8');
 const hash = (text) =>
   createHash('sha256').update(text.replace(/\s+/g, ' ').trim()).digest('hex').slice(0, 12);
@@ -67,12 +80,20 @@ const section = (title, lines) => lines.length && report.push({ title, lines });
 const languagesPath = 'src/data/interface-languages.json';
 const current = JSON.parse(local(languagesPath));
 const keys = Object.keys(current.languages[0].labels);
-const picker = [
-  ...source('src/components/Preferences/GeneralTab.tsx').matchAll(
-    /\{\s*code:\s*'([a-z-]+)',\s*flag:\s*'[^']*',\s*name:\s*'([^']+)'\s*\}/g,
-  ),
+// The picker moved from GeneralTab.tsx to AccountTab.tsx in FriRSS 1.11.0; older refs still have the first one.
+const pickerFiles = [
+  'src/components/Preferences/AccountTab.tsx',
+  'src/components/Preferences/GeneralTab.tsx',
 ];
-if (!picker.length) fail('liste des langues introuvable dans GeneralTab.tsx.');
+const pickerSource = pickerFiles.map(sourceIfPresent).find((text) => text?.includes("flag: '"));
+const picker = pickerSource
+  ? [
+      ...pickerSource.matchAll(
+        /\{\s*code:\s*'([a-z-]+)',\s*flag:\s*'[^']*',\s*name:\s*'([^']+)'\s*\}/g,
+      ),
+    ]
+  : [];
+if (!picker.length) fail(`liste des langues introuvable (${pickerFiles.join(', ')}).`);
 const lookup = (obj, key) => key.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
 const expected = {
   source: current.source,

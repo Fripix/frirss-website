@@ -20,7 +20,7 @@
         },
         {
           "title": "Stay on the keyboard",
-          "text": "Open the command palette with ⌘K or Ctrl+K. Navigate feeds and actions with reassignable shortcuts and visible keyboard focus."
+          "text": "Open the command palette with ⌘K or Ctrl+K. Navigate feeds and actions with reassignable shortcuts and visible keyboard focus. Press n to jump to the next feed that still has unread articles."
         },
         {
           "title": "Video, when you press play",
@@ -90,7 +90,7 @@
         },
         {
           "title": "Ten languages",
-          "text": "FriRSS speaks English, French, German, Spanish, Italian, Dutch, Polish, Portuguese, Ukrainian and Chinese. On first run it follows the browser’s language; change it in Preferences › General."
+          "text": "FriRSS speaks English, French, German, Spanish, Italian, Dutch, Polish, Portuguese, Ukrainian and Chinese. On first run it follows the browser’s language; change it in Preferences › Account."
         }
       ],
       "label": "Personalization"
@@ -140,7 +140,7 @@
     "reading": "FriRSS in three columns with the keyboard shortcut bar and the command palette open.",
     "mobileList": "FriRSS on a phone while offline: the list of articles with the offline banner and pending actions.",
     "mobileArticle": "FriRSS on a phone: an open article with its reading toolbar.",
-    "custom": "FriRSS preferences, Appearance tab: the six theme presets and the follow-system option.",
+    "custom": "FriRSS preferences, Appearance › Theme: the six theme presets and the follow-system option.",
     "ai": "An article in FriRSS with its AI summary and the translation menu open on the list of languages.",
     "hosting": "FriRSS server bar with two FreshRSS servers, and the list of accounts with their roles."
   },

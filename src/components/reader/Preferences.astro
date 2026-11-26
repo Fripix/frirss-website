@@ -1,5 +1,5 @@
 ---
-// FriRSS preferences, Appearance > Theme, in HTML. Each preset thumbnail takes its theme's real colours.
+// FriRSS preferences (1.11 navigation: Appearance unfolded, Theme picked), in HTML. Each preset thumbnail takes its theme's real colours.
 import type { Dictionary } from '../../i18n';
 import UiIcon from './UiIcon.astro';
 interface Props {
@@ -33,15 +33,22 @@ const isDark = current.id === 'night' || current.id === 'desk';
   <div class="prefs-body" inert>
     <ul class="prefs-nav">
       {t.reader.prefs.sections.map((name, i) => (
-        <li class:list={[{ 'is-on': i === 1 }]}>{name}</li>
+        <li
+          class:list={[{ 'is-on': i === 1, 'is-admin': i === t.reader.prefs.sections.length - 1 }]}
+        >
+          {name}
+          {i === 1 && (
+            <ul class="prefs-subnav">
+              {t.reader.prefs.subsections.map((sub, j) => (
+                <li class:list={[{ 'is-on': j === 1 }]}>{sub}</li>
+              ))}
+            </ul>
+          )}
+        </li>
       ))}
     </ul>
     <div class="prefs-main">
-      <p class="prefs-tabs">
-        {t.reader.prefs.tabs.map((name, i) => (
-          <span class:list={[{ 'is-on': i === 0 }]}>{name}</span>
-        ))}
-      </p>
+      <p class="prefs-band">{t.reader.prefs.subsections[1]}</p>
       <p class="prefs-title">{t.reader.prefs.presets}</p>
       <p class="prefs-hint">{t.reader.prefs.presetsHint}</p>
       <div class="prefs-presets">
